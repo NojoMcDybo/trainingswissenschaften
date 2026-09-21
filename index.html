@@ -1554,7 +1554,16 @@ function bind(){
   $$("[data-az]").forEach(a=>a.onclick=ev=>{ ev.preventDefault();
     const z=document.getElementById("gl-"+a.dataset.az);
     if(z) z.scrollIntoView({behavior:"smooth",block:"start"}); });
-  $$("details.rv").forEach(d=>d.addEventListener("toggle",()=>{ if(d.open&&d.dataset.fid) markGelesen(d.dataset.fid); }));
+  $$("details.rv").forEach(d=>{
+    d.addEventListener("toggle",()=>{ if(d.open&&d.dataset.fid) markGelesen(d.dataset.fid); });
+    const s=d.querySelector("summary");
+    if(s) s.onclick=e=>{
+      if(d.dataset.fid && matchMedia("(max-width:759px)").matches){
+        e.preventDefault();
+        karteOeffnen(d.dataset.fid, s);
+      }
+    };
+  });
 }
 function toggleAlle(){
   const ds=$$("details.rv"), auf=ds.some(d=>!d.open);
@@ -2277,6 +2286,72 @@ function detailSchliessen(){
 }
 
 /* ==========================================================================
+   5c · EINZELKARTEN — mobiles Overlay statt Inline-Aufklappen in die
+   Zusammenfassung (<760px); ≥760px bleibt natives <details> wie bisher.
+   ========================================================================== */
+function karteGeschwister(f){
+  const m=MODULE.find(x=>x.id===f.modul);
+  const sk=m && (m.sektionen||[]).find(s=>s.id===f.sekt);
+  const liste = sk ? sk.facts.map(id=>FACTS.find(x=>x.id===id)).filter(Boolean)
+                    : FACTS.filter(x=>x.modul===f.modul);
+  return {m,sk,liste};
+}
+function karteOeffnen(fid,originEl){
+  const f=FACTS.find(x=>x.id===fid); if(!f) return;
+  markGelesen(fid);
+  const {m,sk,liste}=karteGeschwister(f);
+  if(!matchMedia("(max-width:759px)").matches){
+    const el=document.getElementById(fid);
+    if(el){ let p=el; while(p){ if(p.tagName==="DETAILS") p.open=true; p=p.parentElement; }
+      el.scrollIntoView({behavior:"smooth",block:"center"}); }
+    return;
+  }
+  const idx=liste.findIndex(x=>x.id===fid);
+  const vorDa=idx>0, nachDa=idx>=0&&idx<liste.length-1;
+  const vorF=()=>vorDa&&karteOeffnen(liste[idx-1].id);
+  const nachF=()=>nachDa&&karteOeffnen(liste[idx+1].id);
+  const idxSekt=sk?m.sektionen.findIndex(x=>x.id===sk.id):-1;
+  const ober = m ? `Modul ${MODULE.findIndex(x=>x.id===m.id)+1}${sk?` · Abschnitt ${idxSekt+1} · ${esc(sk.titel)}`:""}` : "";
+  const L=m&&LEHR[m.id];
+  const hatAbschnitt = !!(sk && L && (L.abschnitte||[]).some(x=>x.sekt===sk.id));
+  const origin = originEl || document.getElementById(fid);
+  Layer.open(origin,{
+    panel:`<div class="dk"><span class="dnr">${idx>=0?String(idx+1).padStart(2,"0"):""}</span>
+        <span class="dt"><span>${ober}${f.wichtig?' <span class="tag w">prüfungsrelevant</span>':""}</span>
+        <b>${esc(f.frage)}</b></span></div>
+      <div class="di"><div class="erk">${md(f.antwort)}</div><p class="beleg">${esc(f.beleg)}</p></div>
+      <div class="nav">
+        <button class="btn sm" id="ly-vor">← Karte</button>
+        ${hatAbschnitt?`<button class="btn sm" id="ly-abschnitt">Zum Abschnitt</button>`:""}
+        <button class="btn sm" id="ly-nach">Karte →</button>
+      </div>`,
+    topRight: Object.assign(document.createElement("button"),
+      {className:"zu",innerHTML:"✕",title:"Schließen · Esc",ariaLabel:"Schließen"}),
+    onClose:()=>{}
+  });
+  document.getElementById("ly-tr").firstChild.onclick=Layer.close;
+  const p=document.getElementById("ly-panel");
+  const lv=p.querySelector("#ly-vor"), ln=p.querySelector("#ly-nach"), la=p.querySelector("#ly-abschnitt");
+  lv.disabled=!vorDa; lv.style.opacity=vorDa?1:.35; lv.onclick=vorF;
+  ln.disabled=!nachDa; ln.style.opacity=nachDa?1:.35; ln.onclick=nachF;
+  if(la) la.onclick=()=>{ Layer.close(); detailOeffnen(sk.id,-1); };
+}
+/* Von Glossar/Prüfungsfrage-Auflösung in die richtige Karte springen — öffnet
+   erst vorsorglich die umschließenden <details> (Kartenblock je Abschnitt),
+   damit die Karte sichtbar/messbar ist, dann karteOeffnen() (Overlay mobil,
+   Inline-Scroll sonst). Landet dadurch zuverlässig im richtigen Kapitel. */
+function springeZuKarte(fid,mid){
+  schritt[mid]="info"; save("tw-schritt",schritt);
+  filter="alle"; save("tw-filter",filter);
+  go(mid);
+  setTimeout(()=>{
+    const el=document.getElementById(fid);
+    if(el){ let p=el.parentElement; while(p){ if(p.tagName==="DETAILS") p.open=true; p=p.parentElement; } }
+    karteOeffnen(fid, el||undefined);
+  },90);
+}
+
+/* ==========================================================================
    6 · TRAINER
    ========================================================================== */
 function trainerHTML(){
@@ -2459,11 +2534,7 @@ function zeigeVerdict(q,j,konf,ok,autoWeiter){
   $("#next").focus({preventScroll:true});
   if(karte) $("#zurkarte").onclick=()=>{
     if(Layer.isOpen()) Layer.close();
-    schritt[q.modul]="info"; save("tw-schritt",schritt);
-    filter="alle"; save("tw-filter",filter);
-    go(q.modul);
-    setTimeout(()=>{ const el=document.getElementById(karte.id);
-      if(el){ el.open=true; markGelesen(karte.id); el.scrollIntoView({behavior:"smooth",block:"center"}); } },90);
+    springeZuKarte(karte.id, q.modul);
   };
 }
 
@@ -2637,13 +2708,7 @@ function sortSchluessel(t){
   return u || "#";
 }
 /* Vom Glossar in die zugehörige Lernkarte springen */
-function zurKarte(fid,mid){
-  schritt[mid]="info"; save("tw-schritt",schritt);
-  filter="alle"; save("tw-filter",filter);
-  go(mid);
-  setTimeout(()=>{ const el=document.getElementById(fid);
-    if(el){ el.open=true; markGelesen(fid); el.scrollIntoView({behavior:"smooth",block:"center"}); } },90);
-}
+function zurKarte(fid,mid){ springeZuKarte(fid,mid); }
 
 $("#suche").addEventListener("input",()=>{
   const t=$("#suche").value.trim().toLowerCase();
