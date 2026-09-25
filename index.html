@@ -2,7 +2,12 @@
 <html lang="de" data-theme="court">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="TrainWiss">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="format-detection" content="telephone=no">
 <title>Trainingswissenschaften — Klausur-Trainer</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="icons/favicon.ico" sizes="16x16 32x32 48x48 64x64">
@@ -128,7 +133,7 @@ body::before{
   font:inherit;font-family:var(--sans);font-size:.68rem;font-weight:600;letter-spacing:.11em;
   text-transform:uppercase;white-space:nowrap;flex:0 0 auto;
   transition:border-color .16s,color .16s,background .16s}
-.hbtn:hover{border-color:var(--ink-2);color:var(--ink);background:var(--bg-3)}
+@media(hover:hover){.hbtn:hover{border-color:var(--ink-2);color:var(--ink);background:var(--bg-3)}}
 .hbtn .ic{font-size:.9rem;line-height:1;letter-spacing:0}
 
 /* Pomodoro — Stoppuhr-Anmutung */
@@ -207,7 +212,7 @@ body::before{
   position:relative;transition:background .14s,color .14s}
 .s-i::after{content:"";position:absolute;left:16px;right:16px;bottom:0;height:1px;background:var(--line)}
 .s-i:last-child::after{display:none}
-.s-i:hover{background:var(--bg-3);color:var(--ink)}
+@media(hover:hover){.s-i:hover{background:var(--bg-3);color:var(--ink)}}
 .s-i.on{background:var(--signal-soft);color:var(--ink);font-weight:600}
 .s-i.on::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--signal)}
 .s-i .t{display:flex;align-items:baseline;gap:10px}
@@ -385,8 +390,8 @@ body.hatbild #main{max-width:var(--spalte)}
 .kmp-kopf{display:flex;gap:16px;align-items:flex-start}
 .kmp-kopf .ks{flex:1;min-width:0;border-left:4px solid var(--accent);padding:2px 0 2px 16px}
 .ks-click{cursor:pointer;display:block;transition:background .14s;border-radius:0 var(--radius) var(--radius) 0}
-.ks-click:hover{background:color-mix(in srgb,var(--accent) 8%,transparent)}
-.ks-click:hover p{color:var(--accent)}
+@media(hover:hover){.ks-click:hover{background:color-mix(in srgb,var(--accent) 8%,transparent)}}
+@media(hover:hover){.ks-click:hover p{color:var(--accent)}}
 .ks-click:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .kmp-kopf .ks p{margin:0;font-size:1.04rem;font-weight:700;line-height:1.5;color:var(--ink)}
 
@@ -396,7 +401,7 @@ body.hatbild #main{max-width:var(--spalte)}
 .hamburger-label{cursor:pointer;display:flex;flex-direction:column;justify-content:center;
   align-items:center;gap:5px;width:40px;height:40px;border:1px solid var(--line-2);
   border-radius:var(--radius);background:var(--bg-2);transition:border-color .18s,background .18s}
-.hamburger-label:hover{border-color:var(--signal);background:var(--bg-3)}
+@media(hover:hover){.hamburger-label:hover{border-color:var(--signal);background:var(--bg-3)}}
 .hamburger-label .line1,.hamburger-label .line2,.hamburger-label .line3{
   width:19px;height:2px;background:var(--ink-2);border-radius:2px;
   transition:transform .3s cubic-bezier(.2,.8,.3,1),opacity .2s,width .3s,background .18s}
@@ -416,11 +421,11 @@ body.hatbild #main{max-width:var(--spalte)}
   border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent);border-radius:var(--radius);
   transition:background .14s}
 .kx-z.klick{cursor:pointer}
-.kx-z.klick:hover{background:color-mix(in srgb,var(--signal) 7%,transparent)}
+@media(hover:hover){.kx-z.klick:hover{background:color-mix(in srgb,var(--signal) 7%,transparent)}}
 .kx-z:first-child{border-top:0;padding-top:2px}
 .kx-z .pt{font-family:var(--mono);font-size:.72rem;color:var(--line-2);flex:0 0 auto;
   line-height:1.7;transition:color .14s}
-.kx-z:hover .pt{color:var(--signal)}
+@media(hover:hover){.kx-z:hover .pt{color:var(--signal)}}
 .kx-z .tx{flex:1 1 auto;min-width:0;font-size:.94rem;line-height:1.68;color:var(--ink)}
 .kx-z.auf .tx{color:var(--signal)}
 .kx-z.auf .pt{color:var(--signal)}
@@ -429,8 +434,8 @@ body.hatbild #main{max-width:var(--spalte)}
   border-radius:50%;width:19px;height:19px;padding:0;font-size:.7rem;color:var(--muted);
   transition:.14s;flex:0 0 auto}
 .mz::after{content:"→";line-height:1}
-.kx-z:hover .mz{border-color:var(--signal);color:var(--signal)}
-.mz:hover{border-color:var(--signal);color:var(--signal);background:var(--signal-soft)}
+@media(hover:hover){.kx-z:hover .mz{border-color:var(--signal);color:var(--signal)}}
+@media(hover:hover){.mz:hover{border-color:var(--signal);color:var(--signal);background:var(--signal-soft)}}
 .kx-z.auf .mz{border-color:var(--signal);color:var(--signal);background:var(--signal-soft)}
 .mz:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
 .kx-hint{font-family:var(--sans);font-size:.5rem;font-weight:600;letter-spacing:.15em;
@@ -551,7 +556,7 @@ body.detail #rail{display:none!important}
 .layer-mid{grid-row:2;grid-column:1/-1;pointer-events:auto;
   display:flex;align-items:center;justify-content:center;min-height:0}
 .layer-panel{background:var(--bg-2);border:1px solid var(--line-2);border-radius:14px;
-  box-shadow:var(--shadow);max-width:min(680px,92vw);max-height:calc(100vh - 108px);
+  box-shadow:var(--shadow);max-width:min(680px,92vw);max-height:calc(100vh - 108px);max-height:calc(100dvh - 108px);
   width:100%;overflow-y:auto;display:flex;flex-direction:column;
   scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
 .layer-panel::-webkit-scrollbar{width:8px}
@@ -571,7 +576,8 @@ body.detail #rail{display:none!important}
 .layer-panel .nav{display:flex;gap:8px;padding:12px 20px;border-top:1px solid var(--line-2);
   background:var(--bg-3);flex:0 0 auto}
 .layer-panel .nav button{flex:1}
-.layer-panel.pruef{padding:26px 28px}
+.layer-panel.pruef{padding:26px 30px 28px}
+.layer-panel.pruef .q{border:0;box-shadow:none;background:transparent;padding:0;margin:20px 0 0}
 .layer-tr .zu,.layer-tr .btn{cursor:pointer;background:transparent;border:1px solid var(--line-2);
   color:var(--muted);border-radius:var(--radius);width:34px;height:34px;flex:0 0 auto;font-family:var(--mono);
   font-size:.95rem;line-height:1;transition:all .15s;display:inline-flex;align-items:center;justify-content:center}
@@ -579,7 +585,14 @@ body.detail #rail{display:none!important}
 .layer-clock{font-family:var(--mono);font-size:.92rem;color:var(--ink-2);background:var(--bg-2);
   border:1px solid var(--line-2);border-radius:var(--radius);padding:7px 15px;
   font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-@media(max-width:620px){ #layer{padding:12px} .layer-panel .di{padding:17px 18px 22px} }
+@media(max-width:620px){ #layer{padding:12px} .layer-panel .di{padding:17px 18px 22px}
+  .layer-panel{max-height:calc(100vh - 84px);max-height:calc(100dvh - 84px - env(safe-area-inset-bottom,0px))}
+  .layer-panel.pruef{padding:14px 12px 16px}
+  .layer-panel.pruef .q{padding:6px 6px 4px;margin:12px 0 0}
+  .layer-panel.pruef .opt{padding:12px 13px;gap:11px;font-size:.9rem;line-height:1.5}
+  .layer-panel.pruef .conf{flex-wrap:wrap} }
+@media(min-width:621px){ #layer{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))} }
+@media(pointer:coarse){ .layer-tr .zu,.layer-tr .btn{width:42px;height:42px;font-size:1.05rem} }
 @media(prefers-reduced-motion:reduce){ #veil,.layer-panel,.layer-tr>*{transition:none!important} }
 
 /* ==========================================================================
@@ -819,7 +832,7 @@ details.kartenblock .inh{padding:4px 14px 14px}
   letter-spacing:.13em;text-transform:uppercase;color:var(--muted);white-space:nowrap;
   border:1px solid var(--line);border-radius:999px;padding:2px 8px;cursor:pointer;
   background:transparent;transition:all .13s}
-.gl-mod:hover{border-color:var(--signal);color:var(--signal)}
+@media(hover:hover){.gl-mod:hover{border-color:var(--signal);color:var(--signal)}}
 .gl.w .gl-term::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
   background:var(--accent);margin-left:8px;vertical-align:.12em}
 .gl-kurz{margin:0;font-size:.89rem;line-height:1.66;color:var(--ink-2);max-width:78ch}
@@ -841,7 +854,7 @@ details.kartenblock .inh{padding:4px 14px 14px}
 .kachel{position:relative;display:block;text-align:left;cursor:pointer;border:1px solid var(--line);
   border-radius:var(--radius);overflow:hidden;background:var(--bg-2);padding:0;
   font:inherit;color:var(--ink);transition:border-color .16s,transform .16s,box-shadow .16s}
-.kachel:hover{border-color:var(--signal);transform:translateY(-2px);box-shadow:var(--shadow)}
+@media(hover:hover){.kachel:hover{border-color:var(--signal);transform:translateY(-2px);box-shadow:var(--shadow)}}
 .kachel .bild{display:block;position:relative;aspect-ratio:var(--kar,1.7778);background:var(--bg-3);
   background-image:var(--bild);background-size:cover;background-position:center}
 .kachel .bild::after{content:"";position:absolute;inset:0;
@@ -972,7 +985,7 @@ details.kartenblock .inh{padding:4px 14px 14px}
 /* ---------- Aufdeck-Karten ---------- */
 details.rv{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);margin:9px 0;
   transition:border-color .16s}
-details.rv:hover{border-color:var(--line-2)}
+@media(hover:hover){details.rv:hover{border-color:var(--line-2)}}
 details.rv[open]{border-color:var(--line-2);box-shadow:var(--shadow)}
 details.rv>summary{cursor:pointer;padding:15px 18px;list-style:none;font-weight:600;font-size:.94rem;
   display:flex;gap:14px;align-items:flex-start;line-height:1.5}
@@ -998,7 +1011,7 @@ table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:520px}
 th,td{text-align:left;padding:12px 15px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.62}
 th{font-family:var(--sans);font-size:.6rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
   color:var(--ink-2);background:var(--bg-3);border-bottom:1px solid var(--line-2)}
-tbody tr:hover{background:var(--bg-3)}
+@media(hover:hover){tbody tr:hover{background:var(--bg-3)}}
 tbody tr:last-child td{border-bottom:0}
 td p{margin:.35em 0} td p:first-child{margin-top:0} td p:last-child{margin-bottom:0}
 @media(max-width:700px){
@@ -1021,7 +1034,7 @@ td p{margin:.35em 0} td p:first-child{margin-top:0} td p:last-child{margin-botto
   letter-spacing:.11em;text-transform:uppercase;
   display:flex;gap:10px;align-items:center;justify-content:center;transition:color .15s,background .15s}
 .steps button:last-child{border-right:0}
-.steps button:hover{color:var(--ink);background:var(--bg-3)}
+@media(hover:hover){.steps button:hover{color:var(--ink);background:var(--bg-3)}}
 .steps button.on{background:var(--signal-soft);color:var(--signal);box-shadow:inset 0 -3px 0 var(--signal)}
 .steps .n{font-family:var(--mono);font-size:.65rem;letter-spacing:0;opacity:.75;font-weight:400;text-transform:none}
 @media(max-width:600px){.steps button{flex-direction:column;gap:3px;font-size:.62rem;padding:11px 4px}}
@@ -1031,7 +1044,7 @@ td p{margin:.35em 0} td p:first-child{margin-top:0} td p:last-child{margin-botto
 .fb{cursor:pointer;background:transparent;border:1px solid var(--line-2);color:var(--muted);
   border-radius:999px;padding:7px 15px;font:inherit;font-family:var(--sans);font-size:.68rem;
   font-weight:600;letter-spacing:.06em;transition:all .15s}
-.fb:hover{border-color:var(--ink-2);color:var(--ink);background:var(--bg-3)}
+@media(hover:hover){.fb:hover{border-color:var(--ink-2);color:var(--ink);background:var(--bg-3)}}
 .fb.on{background:var(--signal-soft);border-color:var(--signal);color:var(--signal)}
 
 /* ---------- Quiz ---------- */
@@ -1041,7 +1054,7 @@ td p{margin:.35em 0} td p:first-child{margin-top:0} td p:last-child{margin-botto
   background:var(--bg);border:1px solid var(--line-2);color:var(--ink);border-radius:var(--radius);
   padding:14px 17px;margin:9px 0;font:inherit;font-size:.94rem;line-height:1.6;
   transition:border-color .14s,background .14s,transform .08s}
-.opt:hover:not([disabled]){border-color:var(--signal);background:var(--signal-soft)}
+@media(hover:hover){.opt:hover:not([disabled]){border-color:var(--signal);background:var(--signal-soft)}}
 .opt:active:not([disabled]){transform:scale(.985)}
 .opt[disabled]{cursor:default}
 .opt.ok{border-color:var(--signal);background:var(--signal-soft);box-shadow:inset 3px 0 0 var(--signal);animation:optpop .28s ease}
@@ -1052,7 +1065,37 @@ td p{margin:.35em 0} td p:first-child{margin-top:0} td p:last-child{margin-botto
   border-radius:var(--radius);background:var(--bg);color:var(--ink-2);font:inherit;font-family:var(--sans);
   font-size:.74rem;font-weight:600;letter-spacing:.06em;
   display:flex;align-items:center;justify-content:center;gap:9px;transition:all .15s}
-.conf button:hover{border-color:var(--signal);color:var(--signal);background:var(--signal-soft)}
+@media(hover:hover){.conf button:hover{border-color:var(--signal);color:var(--signal);background:var(--signal-soft)}}
+.q-fuss{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:space-between;margin-top:10px}
+.q-fuss .gemerkt{font-family:var(--mono);font-size:.68rem;letter-spacing:.02em;color:var(--muted)}
+.q-fuss .gemerkt::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--signal);margin-right:7px;vertical-align:1px;opacity:.8}
+@media(hover:none){ .q-fuss .tasten,#next .kbd,.conf .kbd{display:none} }
+/* Fortsetzen + Verwerfen als ein Paar */
+.btn-paar{display:inline-flex;align-items:stretch}
+.btn-paar .btn.fort{border-top-right-radius:0;border-bottom-right-radius:0}
+.btn-paar .btn.neu{border-top-left-radius:0;border-bottom-left-radius:0;border-left-width:0;
+  padding-left:12px;padding-right:12px;min-width:40px;justify-content:center}
+/* Chip: zurück in den unterbrochenen Stapel */
+#stapel-chip{position:fixed;left:50%;bottom:calc(16px + var(--audiobar-h,0px) + env(safe-area-inset-bottom,0px));
+  z-index:58;display:flex;align-items:stretch;transform:translate(-50%,24px);opacity:0;pointer-events:none;
+  transition:transform .32s cubic-bezier(.22,1,.36,1),opacity .22s;max-width:calc(100vw - 150px)}
+#stapel-chip.an{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+#stapel-chip button{font:inherit;cursor:pointer;background:var(--bg-2);color:var(--ink);
+  border:1px solid var(--signal);box-shadow:var(--shadow)}
+#stapel-chip .sc-go{display:flex;align-items:center;gap:11px;padding:8px 14px 8px 12px;min-width:0;
+  border-radius:999px 0 0 999px;border-right:0;text-align:left}
+#stapel-chip .sc-ic{color:var(--signal);font-size:1.05rem;flex:0 0 auto}
+#stapel-chip .sc-tx{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+#stapel-chip .sc-tx b{font-family:var(--sans);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--signal)}
+#stapel-chip .sc-wo{font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:36ch}
+#stapel-chip .sc-n{font-family:var(--mono);font-size:.74rem;color:var(--ink-2);flex:0 0 auto;padding-left:4px}
+#stapel-chip .sc-x{border-radius:0 999px 999px 0;padding:0 14px 0 11px;color:var(--muted);border-left:1px solid var(--line-2)}
+@media(hover:hover){ #stapel-chip .sc-go:hover{background:var(--signal-soft)} #stapel-chip .sc-x:hover{color:var(--accent)} }
+@media(max-width:620px){ #stapel-chip{left:12px;right:auto;transform:translate(0,24px);max-width:calc(100vw - 88px)}
+  #stapel-chip.an{transform:none} #stapel-chip .sc-wo{max-width:none} }
+html.klausur #stapel-chip{display:none}
+@media print{ #stapel-chip{display:none} }
 .verdict{padding:16px 19px;margin-top:20px;font-size:.89rem;border:1px solid var(--line);
   border-radius:var(--radius);line-height:1.68;background:var(--bg)}
 .verdict.danger{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
@@ -1079,9 +1122,9 @@ td p{margin:.35em 0} td p:first-child{margin-top:0} td p:last-child{margin-botto
 .btn{cursor:pointer;background:var(--bg);border:1px solid var(--line-2);color:var(--ink);
   border-radius:var(--radius);padding:11px 18px;font:inherit;font-family:var(--sans);font-size:.72rem;
   font-weight:600;letter-spacing:.07em;transition:all .15s;display:inline-flex;align-items:center;gap:9px}
-.btn:hover{border-color:var(--signal);color:var(--signal);background:var(--signal-soft)}
+@media(hover:hover){.btn:hover{border-color:var(--signal);color:var(--signal);background:var(--signal-soft)}}
 .btn.pri{background:var(--signal);border-color:var(--signal);color:var(--signal-ink)}
-.btn.pri:hover{filter:brightness(1.12);color:var(--signal-ink);background:var(--signal)}
+@media(hover:hover){.btn.pri:hover{filter:brightness(1.12);color:var(--signal-ink);background:var(--signal)}}
 .btn.sm{padding:7px 13px;font-size:.66rem}
 
 /* ---------- Diagramme ---------- */
@@ -1393,8 +1436,8 @@ a.fl.kx-f:hover{color:var(--signal);border-color:var(--signal);background:transp
 /* Modulkacheln: Foliensätze erscheinen erst beim Überfahren — das Bild bleibt ruhig */
 .kachel-w{position:relative;display:flex;transition:transform .16s}
 .kachel-w>.kachel{width:100%;flex:1 1 auto}
-.kachel-w:hover{transform:translateY(-2px)}
-.kachel-w:hover .kachel{transform:none}
+@media(hover:hover){.kachel-w:hover{transform:translateY(-2px)}}
+@media(hover:hover){.kachel-w:hover .kachel{transform:none}}
 .k-folien{position:absolute;top:9px;right:9px;z-index:3;display:flex;gap:5px;flex-wrap:wrap;
   justify-content:flex-end;max-width:calc(100% - 18px);opacity:0;transform:translateY(-3px);
   transition:opacity .18s,transform .18s;pointer-events:none}
@@ -1403,7 +1446,7 @@ a.fl.kx-f:hover{color:var(--signal);border-color:var(--signal);background:transp
   border-radius:20px;border:1px solid color-mix(in srgb,#fff 28%,transparent);color:#fff;
   background:color-mix(in srgb,#0B0D12 58%,transparent);backdrop-filter:blur(6px);transition:all .13s}
 .k-folien button::before{content:"▤ ";opacity:.75}
-.k-folien button:hover{background:var(--signal);border-color:var(--signal);color:var(--signal-ink)}
+@media(hover:hover){.k-folien button:hover{background:var(--signal);border-color:var(--signal);color:var(--signal-ink)}}
 @media(hover:none){ .k-folien{opacity:1;transform:none;pointer-events:auto} }
 
 /* Modulseite: Folien im Kompass */
@@ -1473,6 +1516,31 @@ details.anhang[open]>summary{margin:0 -14px}
   #modbild::before,.kachel .bild::before{background-size:2.5px 2.5px;
     background-image:radial-gradient(circle,color-mix(in srgb,var(--bg) 70%,transparent) 0 .6px,transparent .95px)}
 }
+
+/* ==========================================================================
+   GERÄTE — Safe Areas (Notch, Home-Indikator), Touch, Handy-Suche
+   ========================================================================== */
+#head{padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+@media(max-width:620px){ #head{padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))} }
+@media(max-width:400px){ #head{padding-left:max(9px,env(safe-area-inset-left,0px));padding-right:max(9px,env(safe-area-inset-right,0px))} }
+#side{padding-left:env(safe-area-inset-left,0px)}
+#main{padding-bottom:calc(140px + var(--audiobar-h,0px))}
+@media(max-width:1080px){ #main{padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))} }
+@media(max-width:620px){ #main{padding-left:max(15px,env(safe-area-inset-left,0px));padding-right:max(15px,env(safe-area-inset-right,0px))} }
+/* iOS zoomt in Felder unter 16 px hinein — auf Touch-Geräten daher 16 px */
+@media(pointer:coarse){ #suche,#gl-suche,.menu-row input{font-size:16px} }
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button,a,summary,label,.opt{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+/* Suche auf dem Handy: Lupe im Kopf, Feld klappt über die Kopfzeile */
+#such-btn{display:none}
+@media(max-width:620px){
+  #such-btn{display:inline-flex;font-size:.95rem;padding:0 10px}
+  body.such #suche{display:block;position:absolute;top:50%;transform:translateY(-50%);
+    left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));
+    width:auto!important;height:38px;z-index:3;background:var(--bg-2)}
+  body.such #head > :not(#suche){visibility:hidden}
+}
+#cd.leer{cursor:pointer}
 </style>
 
 
@@ -1527,7 +1595,8 @@ details.anhang[open]>summary{margin:0 -14px}
 
   <span class="grow"></span>
   <span id="cd">—</span>
-  <input id="suche" type="search" placeholder="suchen …   /" aria-label="Alle Inhalte durchsuchen">
+  <input id="suche" type="search" placeholder="suchen …   /" aria-label="Alle Inhalte durchsuchen" enterkeyhint="search" autocomplete="off">
+  <button class="hbtn" id="such-btn" aria-label="Suchen" title="Suchen"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg></button>
 
   <div class="menu" id="t-menu">
     <button class="hbtn" aria-haspopup="true"><span class="ic">◐</span> THEME</button>
@@ -1741,6 +1810,7 @@ function go(id,s){
   document.querySelectorAll(".sekt-run").forEach(e=>e.remove());
   aktiv=id; save("tw-aktiv",id);
   if(s){ schritt[id]=s; save("tw-schritt",schritt); }
+  stapelSichern();
   sess=null; clearInterval(window._t);
   document.documentElement.classList.remove("klausur");
   document.body.classList.remove("nav");
@@ -1812,6 +1882,7 @@ function render(){
   else                       m.innerHTML=modulHTML(MODULE.find(x=>x.id===aktiv)||MODULE[0]);
   railHTML(); bildHTML(); bind(); cdRender(); PET.tick(); vlabel();
   verlinkeFolien($("#main"));
+  if(typeof chipRender==="function") chipRender();
 }
 
 /* Kulisse rechts: nur auf Modulseiten, nur wenn es ein Bild gibt */
@@ -1860,7 +1931,7 @@ function bind(){
   const lm=$("#lead-mehr");
   if(lm) lm.onclick=()=>{ const p=$("#modlead"); const zu=p.classList.toggle("klemm");
     lm.classList.toggle("auf",!zu); lm.firstChild.nodeValue = zu?"Ganzen Text lesen":"Text einklappen"; };
-  $$("[data-sekt-drill]").forEach(b=>b.onclick=()=>drillSektion(b.dataset.sektDrill,b));
+  bindSektFuss();
   $$(".label-check[data-detail]").forEach(c=>c.onchange=()=>
     c.checked ? detailOeffnen(c.dataset.detail,-1) : detailSchliessen());
   $$("[data-asp]").forEach(b=>b.onclick=e=>{
@@ -1922,7 +1993,7 @@ function startHTML(){
     <p class="small muted">„Sitzt" heißt <strong>Box 4 oder 5</strong> — mindestens drei über Tage
     verteilte, erfolgreiche Abrufe. Nicht „einmal richtig geklickt", nicht „durchgelesen".</p>
     <div class="act">
-      <button class="btn pri" data-start="faellig">▶ Fällige üben · ${d}</button>
+      ${startBtnHTML("faellig",null,`▶ Fällige üben · ${d}`,true)}
       ${letzt?`<button class="btn" data-go="${letzt.id}">↩ Weiter: ${esc(kurz(letzt.titel))}</button>`:""}
       <button class="btn" data-go="${naechst.id}">→ ${esc(kurz(naechst.titel))}</button>
     </div>
@@ -1951,8 +2022,9 @@ function startHTML(){
       Mechanismus, Zahlen, Autoren und Abgrenzung. Zugeklappt steht die Frage, aufgeklappt die volle
       Antwort. Filter „prüfungsrelevant" zeigt zuerst, was mit hoher Wahrscheinlichkeit drankommt.</p></div>
     <div class="card"><p class="kicker">2 · Üben</p><p class="small">Multiple Choice mit
-      Konfidenz-Abfrage davor. Erst festlegen, wie sicher du bist, dann antworten. „Sicher + falsch"
-      ist die Lücke, die dich in der Klausur kostet — und die einzige Zahl, die zählt.</p></div>
+      Tempo-Messung: schnell und richtig zählt als sicher, bei Zögern fragt die Seite nach, wie sicher
+      du warst. Ein angefangener Stapel wird gemerkt — nachschlagen, schließen, später an derselben
+      Frage weitermachen.</p></div>
     <div class="card"><p class="kicker">3 · Testen</p><p class="small">Modulklausur ohne Auflösung
       zwischendurch, mit Uhr. Der globale Klausurmodus im Trainer nimmt alle ${QUIZ.length} Fragen
       und ${META.klausurMin} Minuten.</p></div>
@@ -2050,9 +2122,9 @@ function modulHTML(m){
         </div>
         <div class="bar"><i style="width:${st.proz}%"></i></div>
         <div class="act">
-          <button class="btn pri" data-start="faellig" data-modul="${m.id}">Fällige üben · ${st.due}</button>
-          <button class="btn" data-start="alle" data-modul="${m.id}">Alle mischen · ${st.n}</button>
-          <button class="btn" data-start="schwach" data-modul="${m.id}">Nur meine Fehler</button>
+          ${startBtnHTML("faellig",m.id,`Fällige üben · ${st.due}`,true)}
+          ${startBtnHTML("alle",m.id,`Alle mischen · ${st.n}`)}
+          ${startBtnHTML("schwach",m.id,"Nur meine Fehler")}
         </div>
       </div>
       <div id="run"></div>`;
@@ -2140,11 +2212,19 @@ function sektHTML(m,sk,i,filt,lehr){
            : (sektBegriffe(sk.id).length ? kompaktHTML(m,sk,i,null) : "") +
              `<div class="sekt-karten">${fs.map(factHTML).join("")}</div>`}
     ${sektTabellenHTML(sk.id)}
-    ${qs.length?`<div class="sekt-fuss">
-      <span>${qs.length} Frage${qs.length>1?"n":""}${ok?` · ${ok} sitzen`:""}</span>
-      <button class="btn sm ${due?"pri":""}" data-sekt-drill="${sk.id}">${due?`${due} jetzt üben`:"Nochmal üben"}</button>
-    </div>`:""}
+    ${sektFussHTML(m,sk)}
   </section>`;
+}
+function sektFussHTML(m,sk){
+  const qs=sk.quiz.map(id=>QUIZ.find(x=>x.id===id)).filter(Boolean);
+  if(!qs.length) return "";
+  const ok=qs.filter(sitzt).length, due=qs.filter(x=>faellig(x.id)).length;
+  const key=stapelKey("sekt",m.id,sk.id), st=STAPEL[key];
+  return `<div class="sekt-fuss">
+      <span>${qs.length} Frage${qs.length>1?"n":""}${ok?` · ${ok} sitzen`:""}</span>
+      ${st?`<span class="btn-paar"><button class="btn sm pri fort" data-sekt-drill="${sk.id}">↻ Fortsetzen · ${st.i+1}/${st.ids.length}</button><button class="btn sm neu" data-verwerfen="${key}" title="Stapel verwerfen — beim nächsten Mal neu gemischt" aria-label="Stapel verwerfen">✕</button></span>`
+          :`<button class="btn sm ${due?"pri":""}" data-sekt-drill="${sk.id}">${due?`${due} jetzt üben`:"Nochmal üben"}</button>`}
+    </div>`;
 }
 
 /* Karteikarten wandern ans Modulende — nach Abschnitt gruppiert, zugeklappt */
@@ -2706,9 +2786,9 @@ function trainerHTML(){
     <p class="small muted">Richtig = eine Box hoch. Falsch = kompromisslos zurück auf Box 1.
     Geraten und zufällig richtig steigt nicht auf.</p>
     <div class="act">
-      <button class="btn pri" data-start="faellig">Fällige üben · ${d}</button>
-      <button class="btn" data-start="alle">Alle mischen · ${QUIZ.length}</button>
-      <button class="btn" data-start="schwach">Schwachstellen</button>
+      ${startBtnHTML("faellig",null,`Fällige üben · ${d}`,true)}
+      ${startBtnHTML("alle",null,`Alle mischen · ${QUIZ.length}`)}
+      ${startBtnHTML("schwach",null,"Schwachstellen")}
       <button class="btn" data-start="klausur">Klausurmodus · ${QUIZ.length} Fragen, ${META.klausurMin} Min</button>
     </div>
   </div>
@@ -2737,7 +2817,99 @@ function schwachHTML(){
 /* ==========================================================================
    7 · SESSION
    ========================================================================== */
+/* ---------- STAPEL — angefangene Übungsstapel merken ----------
+   Ein Stapel (Trainer, Modul-Üben, Abschnitts-Drill) friert beim Start seine
+   Fragen und deren Reihenfolge ein. Stand, Antworten, offene Auflösung und Uhr
+   liegen in localStorage — Nachschlagen, Schließen, Seitenwechsel oder Neuladen
+   unterbrechen ihn nur. Beim nächsten Öffnen geht es an derselben Frage weiter.
+   Klausuren werden bewusst nicht gemerkt. */
+const STAPEL_TTL=3*864e5;
+let STAPEL=load("tw-stapel",{});
+const stapelKey=(modus,mod,sekt)=> sekt?`sekt:${sekt}`:`${mod||"alle"}:${modus}`;
+function stapelAufraeumen(){
+  const n=Date.now();
+  Object.keys(STAPEL).forEach(k=>{ const s=STAPEL[k];
+    if(!s||!Array.isArray(s.ids)||!s.ids.length||s.i>=s.ids.length||n-(s.ts||0)>STAPEL_TTL) delete STAPEL[k]; });
+  save("tw-stapel",STAPEL);
+}
+stapelAufraeumen();
+const stapelZeit=()=> sess ? (sess.basis||0)+(Date.now()-(sess.t0||Date.now())) : 0;
+function stapelSichern(){
+  if(!sess||!sess.key||sess.modus==="klausur") return;
+  if(sess.i>=sess.items.length){ stapelWeg(sess.key); return; }
+  STAPEL[sess.key]={ids:sess.items.map(q=>q.id),i:sess.i,modus:sess.modus,mod:sess.mod||null,
+    sekt:sess.sekt||null,antworten:sess.antworten,offen:sess.offen||null,zeit:stapelZeit(),
+    start:sess.start,ts:Date.now()};
+  save("tw-stapel",STAPEL);
+}
+function stapelWeg(key){ if(STAPEL[key]){ delete STAPEL[key]; save("tw-stapel",STAPEL); } }
+/* Gemerkten Stapel in eine Sitzung zurückholen (null, wenn keiner da ist) */
+function stapelLaden(key){
+  const s=STAPEL[key]; if(!s) return null;
+  const items=s.ids.map(id=>QUIZ.find(q=>q.id===id)).filter(Boolean);
+  if(!items.length||s.i>=items.length){ stapelWeg(key); return null; }
+  return {items,i:Math.min(s.i,items.length-1),modus:s.modus,mod:s.mod,sekt:s.sekt,min:0,
+    start:s.start||Date.now(),antworten:s.antworten||[],offen:s.offen||null,konf:null,
+    key,basis:s.zeit||0,t0:Date.now(),fortgesetzt:true};
+}
+/* Button, der einen Stapel startet — oder fortsetzt, wenn er schon angefangen ist */
+function startBtnHTML(modus,mod,label,pri){
+  const s=STAPEL[stapelKey(modus,mod)];
+  if(s) return `<span class="btn-paar"><button class="btn pri fort" data-start="${modus}" ${mod?`data-modul="${mod}"`:""}>↻ ${({faellig:"Fällige",alle:"Mischung",schwach:"Fehlerstapel"})[modus]||"Stapel"} fortsetzen · ${s.i+1}/${s.ids.length}</button><button class="btn neu" data-verwerfen="${stapelKey(modus,mod)}" title="Stapel verwerfen und neu mischen" aria-label="Stapel verwerfen">✕</button></span>`;
+  return `<button class="btn ${pri?"pri":""}" data-start="${modus}" ${mod?`data-modul="${mod}"`:""}>${label}</button>`;
+}
+/* Zuletzt unterbrochener Stapel — für den „Zurück zum Stapel"-Chip */
+function letzterStapel(){
+  let best=null;
+  Object.entries(STAPEL).forEach(([k,s])=>{ if(!best||s.ts>best[1].ts) best=[k,s]; });
+  return best && Date.now()-best[1].ts<6*3600e3 ? {key:best[0],...best[1]} : null;
+}
+function stapelFortsetzen(key){
+  const s=STAPEL[key]; if(!s) return;
+  if(s.sekt){
+    const mid=s.mod;
+    const oeffne=()=>{ const b=document.querySelector(`[data-sekt-drill="${s.sekt}"]`);
+      if(b) b.scrollIntoView({block:"center",behavior:"instant"}); drillSektion(s.sekt,b); };
+    if(aktiv!==mid||(schritt[mid]||"info")!=="info"){ schritt[mid]="info"; save("tw-schritt",schritt); go(mid); setTimeout(oeffne,80); }
+    else oeffne();
+    return;
+  }
+  const ziel=s.mod||"trainer";
+  if(s.mod){ schritt[s.mod]="ueben"; save("tw-schritt",schritt); }
+  if(aktiv!==ziel||(s.mod&&!$("#run"))) go(ziel);
+  setTimeout(()=>start(s.modus,s.mod),60);
+}
+function chipRender(){
+  let c=$("#stapel-chip");
+  const s=(!sess&&!Layer.isOpen()&&!document.documentElement.classList.contains("klausur"))?letzterStapel():null;
+  if(!s){ if(c) c.classList.remove("an"); return; }
+  if(!c){
+    c=document.createElement("div"); c.id="stapel-chip";
+    c.innerHTML=`<button class="sc-go"><span class="sc-ic">↻</span><span class="sc-tx"><b>Zurück zum Stapel</b><span class="sc-wo"></span></span><span class="sc-n"></span></button><button class="sc-x" aria-label="Hinweis ausblenden" title="Ausblenden (Stapel bleibt gemerkt)">✕</button>`;
+    document.body.appendChild(c);
+  }
+  const m=MODULE.find(x=>x.id===s.mod);
+  let wo = s.sekt ? (()=>{ const sk=m&&(m.sektionen||[]).find(x=>x.id===s.sekt); return sk?sk.titel:"Abschnitt"; })()
+         : (m?kurz(m.titel):"Trainer")+" · "+({faellig:"Fällige",alle:"Alle gemischt",schwach:"Fehler"}[s.modus]||s.modus);
+  c.querySelector(".sc-wo").textContent=wo;
+  c.querySelector(".sc-n").textContent=`${s.i+1}/${s.ids.length}`;
+  c.querySelector(".sc-go").onclick=()=>{ c.classList.remove("an"); stapelFortsetzen(s.key); };
+  c.querySelector(".sc-x").onclick=()=>{ c.classList.remove("an"); STAPEL[s.key].ts-=6*3600e3+1; save("tw-stapel",STAPEL); };
+  requestAnimationFrame(()=>c.classList.add("an"));
+}
+addEventListener("pagehide",()=>stapelSichern());
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") stapelSichern(); });
+
 function start(modus,mod){
+  const key=stapelKey(modus,mod);
+  if(modus!=="klausur"){
+    const alt=stapelLaden(key);
+    if(alt){
+      const run=$("#run");
+      if(!run){ go(mod||"trainer"); setTimeout(()=>start(modus,mod),60); return; }
+      sess=alt; chipRender(); frage(); run.scrollIntoView({behavior:"smooth",block:"start"}); return;
+    }
+  }
   let items;
   if(modus==="faellig")      items=misch(pool(mod));
   else if(modus==="klausur") items=(mod?QUIZ.filter(q=>q.modul===mod):QUIZ.slice())
@@ -2752,17 +2924,29 @@ function start(modus,mod){
       oder nimm „Alle mischen".</div>`; return;
   }
   const min = modus==="klausur" ? (mod?Math.max(5,Math.round(items.length*1.2)):META.klausurMin) : 0;
-  sess={items,i:0,modus,mod,min,start:Date.now(),antworten:[],konf:null};
+  sess={items,i:0,modus,mod,min,start:Date.now(),antworten:[],konf:null,
+        key:modus==="klausur"?null:key,basis:0,t0:Date.now()};
   if(modus==="klausur"){ document.documentElement.classList.add("klausur"); uhr(); }
+  else stapelSichern();
+  chipRender();
   frage(); run.scrollIntoView({behavior:"smooth",block:"start"});
 }
-/* Abschnitts-Drill: Fragen genau dieses Abschnitts, im Prüfungsfenster (Layer) */
+/* Abschnitts-Drill: Fragen genau dieses Abschnitts, im Prüfungsfenster (Layer).
+   Ein angefangener Drill wird fortgesetzt — gleiche Fragen, gleiche Reihenfolge. */
 function drillSektion(sid, originEl){
   const m=MODULE.find(x=>x.id===aktiv); if(!m) return;
   const sk=(m.sektionen||[]).find(x=>x.id===sid); if(!sk) return;
-  const faellige=sk.quiz.map(id=>QUIZ.find(x=>x.id===id)).filter(Boolean).filter(x=>faellig(x.id));
-  const items=misch(faellige.length?faellige:sk.quiz.map(id=>QUIZ.find(x=>x.id===id)).filter(Boolean));
-  sess={items,i:0,modus:"sekt",mod:m.id,sekt:sid,min:0,start:Date.now(),antworten:[],konf:null};
+  const key=stapelKey("sekt",m.id,sid);
+  sess=stapelLaden(key);
+  if(!sess){
+    const faellige=sk.quiz.map(id=>QUIZ.find(x=>x.id===id)).filter(Boolean).filter(x=>faellig(x.id));
+    const items=misch(faellige.length?faellige:sk.quiz.map(id=>QUIZ.find(x=>x.id===id)).filter(Boolean));
+    if(!items.length) return;
+    sess={items,i:0,modus:"sekt",mod:m.id,sekt:sid,min:0,start:Date.now(),antworten:[],konf:null,
+          key,basis:0,t0:Date.now()};
+    stapelSichern();
+  }
+  chipRender();
 
   const klon=document.createElement("button");
   klon.className="btn sm pri"; klon.innerHTML=`<span class="pruef-lbl">Jetzt üben</span>`;
@@ -2778,24 +2962,43 @@ function drillSektion(sid, originEl){
   },250);
 
   clearInterval(window._sektT);
-  const t0=Date.now();
+  const uhrText=()=>{ const s=Math.floor(stapelZeit()/1000);
+    return `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`; };
   Layer.open(originEl, {
     panelClass:"pruef",
     panel:`<div id="run"></div>`,
     topRight: klon,
-    topCenter: `<span class="layer-clock" id="ly-clock">0:00</span>`,
+    topCenter: `<span class="layer-clock" id="ly-clock">${uhrText()}</span>`,
     onClose:()=>{
       clearInterval(window._sektT);
       if(originEl) originEl.style.visibility="";
+      stapelSichern();
       sess=null; document.querySelectorAll(".sekt-run").forEach(e=>e.remove());
+      sektButtonsAuffrischen(); chipRender();
     }
   });
   window._sektT=setInterval(()=>{
-    const c=document.getElementById("ly-clock"); if(!c) return;
-    const s=Math.floor((Date.now()-t0)/1000);
-    c.textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;
+    const c=document.getElementById("ly-clock"); if(!c||!sess) return;
+    c.textContent=uhrText();
   },250);
   frage();
+}
+/* Nach dem Schließen eines Drills: Beschriftung der Abschnitts-Buttons nachziehen,
+   ohne die Seite neu zu rendern (Scrollposition bleibt, wo sie ist). */
+function sektButtonsAuffrischen(){
+  $$("[data-sekt-drill]").forEach(b=>{
+    const sid=b.dataset.sektDrill, w=b.closest(".sekt-fuss"); if(!w) return;
+    const m=MODULE.find(x=>(x.sektionen||[]).some(s=>s.id===sid)); if(!m) return;
+    const sk=m.sektionen.find(s=>s.id===sid);
+    w.outerHTML=sektFussHTML(m,sk);
+  });
+  bindSektFuss();
+}
+function bindSektFuss(){
+  $$("[data-sekt-drill]").forEach(b=>b.onclick=()=>drillSektion(b.dataset.sektDrill,b));
+  $$("[data-verwerfen]").forEach(b=>b.onclick=e=>{ e.stopPropagation();
+    stapelWeg(b.dataset.verwerfen); chipRender();
+    if(b.closest(".sekt-fuss")) sektButtonsAuffrischen(); else render(); });
 }
 
 function misch(a){ const b=a.slice();
@@ -2814,7 +3017,8 @@ function frage(){
       <p style="font-size:1.06rem;line-height:1.5"><strong>${esc(q.frage)}</strong></p>
       ${q.optionen.map((o,j)=>`<button class="opt" data-j="${j}">
         <span class="kbd">${j+1}</span><span>${esc(o)}</span></button>`).join("")}
-      <p class="small muted" style="margin-top:10px">Tasten 1–4${kl?" · keine Auflösung bis zum Ende":""}</p>
+      <p class="q-fuss small muted"><span class="tasten">Tasten 1–4${kl?" · keine Auflösung bis zum Ende":""}</span>
+        ${!kl&&sess.key?`<span class="gemerkt" title="Der Stapel bleibt gemerkt — nachschlagen, schließen, später hier weitermachen.">${sess.fortgesetzt?"↻ fortgesetzt · ":""}Stand wird gemerkt</span>`:""}</p>
     </div>
     ${kl?`<div class="act"><button class="btn sm" id="abbruch">Klausur abbrechen</button></div>`:""}`;
   run.querySelectorAll(".opt").forEach(b=>b.onclick=()=>antwort(+b.dataset.j));
@@ -2822,6 +3026,15 @@ function frage(){
   if(ab) ab.onclick=()=>{ clearInterval(window._t);
     document.documentElement.classList.remove("klausur"); sess=null; render(); };
   sess.tFrage=Date.now();
+  /* Unterbrochen mitten in einer Frage (Auflösung oder Konfidenz stand noch offen)? */
+  if(sess.offen&&typeof sess.offen.j==="number") antwort(sess.offen.j, sess.offen);
+}
+/* Eine Frage weiter — Stand sofort sichern */
+function naechste(verzoegert){
+  if(!sess) return;
+  sess.i++; sess.konf=null; sess.offen=null; sess.fortgesetzt=false;
+  stapelSichern();
+  if(verzoegert) setTimeout(()=>{ if(sess) frage(); },verzoegert); else frage();
 }
 
 /* Erklärkarte zur Frage finden — Wortüberlappung im selben Modul */
@@ -2869,21 +3082,31 @@ function zeigeVerdict(q,j,konf,ok,autoWeiter){
       ${karte?`<button class="btn" id="zurkarte">Erklärkarte lesen</button>`:""}
     </div>`);
   verlinkeFolien(ziel);
-  $("#next").onclick=()=>{ sess.i++; sess.konf=null; autoWeiter?autoWeiter():frage(); };
+  $("#next").onclick=()=>{ if(autoWeiter){ sess.i++; sess.konf=null; sess.offen=null; stapelSichern(); autoWeiter(); } else naechste(); };
   $("#next").focus({preventScroll:true});
+  /* Auflösung sichtbar machen — im Prüfungsfenster scrollt nur das Panel */
+  const v=ziel.querySelector(".verdict");
+  if(v&&v.getBoundingClientRect().bottom>innerHeight-20) setTimeout(()=>v.scrollIntoView({behavior:"smooth",block:"nearest"}),60);
   if(karte) $("#zurkarte").onclick=()=>{
+    stapelSichern();
     if(Layer.isOpen()) Layer.close();
     springeZuKarte(karte.id, q.modul);
   };
 }
 
-function antwort(j){
+/* wieder = gemerkter offener Zustand ({j,phase,konf}) — dann wird nichts
+   doppelt verbucht, nur die Ansicht wiederhergestellt. */
+function antwort(j, wieder){
+  if(!sess) return;
   const q=sess.items[sess.i], ok=j===q.richtig;
   const zeichen=(q.frage+q.optionen.join("")).length, grenze=2500+zeichen*35;
-  const schnell=(Date.now()-(sess.tFrage||0))<grenze;
+  const schnell=!wieder && (Date.now()-(sess.tFrage||0))<grenze;
   const run=$("#run");
   run.querySelectorAll(".opt").forEach((o,k)=>{
-    if(k===q.richtig) o.classList.add("ok"); else if(k===j) o.classList.add("no"); o.disabled=true; });
+    if(k===q.richtig) o.classList.add("ok"); else if(k===j) o.classList.add("no"); o.disabled=true;
+    if(wieder) o.style.animation="none"; });
+
+  if(wieder && wieder.phase==="verdict"){ zeigeVerdict(q,j,wieder.konf||"—",ok); return; }
 
   function erfassen(konf){
     sess.antworten.push({id:q.id,thema:q.thema,modul:q.modul,gewaehlt:j,richtig:ok,konf});
@@ -2894,20 +3117,19 @@ function antwort(j){
   }
 
   if(sess.modus==="klausur"){ erfassen("—"); sess.i++; sess.konf=null; return frage(); }
+  const sekt=sess.modus==="sekt";
 
-  if(sess.modus==="sekt"){
-    if(!ok){ erfassen("—"); zeigeVerdict(q,j,"—",false); return; }
-    if(schnell){ erfassen("sicher");
-      setTimeout(()=>{ sess.i++; sess.konf=null; frage(); },420); return; }
-    zeigeKonfidenz(konf=>{ erfassen(konf);
-      setTimeout(()=>{ sess.i++; sess.konf=null; frage(); },420); });
-    return;
+  if(!ok){
+    erfassen("—"); sess.offen={j,phase:"verdict",konf:"—"}; stapelSichern();
+    zeigeVerdict(q,j,"—",false); return;
   }
-
-  // normaler Modus (Trainer/Schwachstellen/Alle)
-  if(!ok){ erfassen("—"); zeigeVerdict(q,j,"—",false); return; }
-  if(schnell){ erfassen("sicher"); sess.i++; sess.konf=null; frage(); return; }
-  zeigeKonfidenz(konf=>{ erfassen(konf); zeigeVerdict(q,j,konf,true); });
+  if(schnell){ erfassen("sicher"); naechste(sekt?420:0); return; }
+  // richtig, aber langsam (oder nach Unterbrechung): Konfidenz erfragen
+  sess.offen={j,phase:"konf"}; stapelSichern();
+  zeigeKonfidenz(konf=>{ erfassen(konf);
+    if(sekt){ naechste(420); return; }
+    sess.offen={j,phase:"verdict",konf}; stapelSichern();
+    zeigeVerdict(q,j,konf,true); });
 }
 
 function uhr(){
@@ -2923,6 +3145,7 @@ function uhr(){
 
 function ende(){
   clearInterval(window._t);
+  if(sess&&sess.key) stapelWeg(sess.key);
   document.documentElement.classList.remove("klausur");
   const proMod={}; let sf=0;
   sess.antworten.forEach(a=>{ const t=proMod[a.modul]=proMod[a.modul]||{r:0,n:0};
@@ -2958,7 +3181,7 @@ function ende(){
         <button class="btn" data-start="schwach" ${mod?`data-modul="${mod}"`:""}>Fehler sofort nachüben</button>
       </div>
     </div>`;
-  sess=null; bind(); PET.tick(); railHTML();
+  sess=null; bind(); PET.tick(); railHTML(); chipRender();
   const zu=$("#sekt-zu");
   if(zu) zu.onclick=()=>{ const h=document.getElementById(sk);
     document.querySelectorAll(".sekt-run").forEach(e=>e.remove());
@@ -3069,6 +3292,8 @@ $("#suche").addEventListener("input",()=>{
         <p class="small">${esc(q.warum||"")}</p><p class="beleg">${belegHTML(q.beleg)}</p></div></details>`).join("")}`:""}`;
   bind();
 });
+$("#such-btn").onclick=()=>{ document.body.classList.add("such"); const f=$("#suche"); f.focus(); };
+$("#suche").addEventListener("blur",()=>{ if(!$("#suche").value.trim()) document.body.classList.remove("such"); });
 $("#suche").addEventListener("keydown",e=>{
   if(e.key==="Escape"){ $("#suche").value=""; $("#suche").blur(); sucheAktiv=false; render(); }});
 
@@ -3128,11 +3353,15 @@ function pauseDrill(){
    ========================================================================== */
 function tageBis(){
   const p=load("tw-pruefung",META.pruefung); if(!p) return null;
-  return Math.max(0,Math.ceil((new Date(p+"T09:00:00")-Date.now())/864e5));
+  const d=Math.ceil((new Date(p+"T09:00:00")-Date.now())/864e5);
+  return d<0 ? null : d;   // Termin vorbei → wie „kein Termin"
 }
 function cdRender(){
   const t=tageBis(), el=$("#cd");
-  if(t===null){ el.innerHTML=`<span class="muted">kein Termin</span>`; return; }
+  el.classList.toggle("leer",t===null);
+  if(t===null){ el.innerHTML=`<span class="muted">Klausurtermin setzen</span>`; el.title="Termin im Theme-Menü eintragen";
+    el.onclick=e=>{ e.stopPropagation(); $("#t-menu").classList.add("open"); setTimeout(()=>$("#datum").focus(),50); }; return; }
+  el.onclick=null;
   const offen=QUIZ.filter(q=>!sitzt(q)).length;
   el.innerHTML=`<b>${t}</b> Tage <span class="muted">·</span> <b>${t>0?Math.ceil(offen/t):offen}</b>/Tag`;
   el.classList.toggle("eng",t<=7);
@@ -3144,7 +3373,7 @@ $("#datum").onchange=e=>{ save("tw-pruefung",e.target.value); cdRender(); render
 
 const PET={
   el:null,
-  setz(m){ if(this.el) this.el.dataset.mood=m; },
+  setz(m){ if(!this.el) return; this.el.dataset.mood=m; if(typeof BOT!=="undefined") BOT.ruhig(); },
   tick(){
     if(!this.el) return;
     if(TB.phase==="pause"&&TB.an) return this.setz("schlaeft");
@@ -3161,7 +3390,11 @@ const PET={
     this.sprich(ok?pick(LINES.richtig):(konf==="sicher"?pick(LINES.sicherFalsch):pick(LINES.falsch)));
     setTimeout(()=>this.tick(),520);
   },
-  sprich(t){ const b=$("#bubble"); if(!b) return; b.textContent=t; b.classList.add("show");
+  sprich(t){ const b=$("#bubble"); if(!b) return;
+    if(typeof BOT!=="undefined") BOT.sprechen(t);
+    /* Handy mitten im Üben: Sprechblase würde Antworten verdecken — nur der Mund bewegt sich */
+    if(sess && matchMedia("(max-width:620px)").matches) return;
+    b.textContent=t; b.classList.add("show");
     clearTimeout(this._t); this._t=setTimeout(()=>b.classList.remove("show"),3800); },
   spruch(){ const f=pool().length, t=tageBis();
     if(!f) return pick(LINES.leer);
@@ -3179,7 +3412,7 @@ function dl(blob,name){ const u=URL.createObjectURL(blob);
   const a=Object.assign(document.createElement("a"),{href:u,download:name});
   document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(u),1200); }
 $("#bk-out").onclick=()=>{
-  dl(new Blob([JSON.stringify({srs:SRS,journal:JOURNAL,log:LOG.d,gelesen:GELESEN,tb:TB.cfg,
+  dl(new Blob([JSON.stringify({srs:SRS,journal:JOURNAL,log:LOG.d,gelesen:GELESEN,tb:TB.cfg,stapel:STAPEL,
     pruefung:load("tw-pruefung",META.pruefung),v:2,ts:Date.now()},null,1)],{type:"application/json"}),
     `trainwiss-fortschritt-${new Date().toISOString().slice(0,10)}.json`);
   PET.sprich("Gesichert. Klug."); };
@@ -3187,7 +3420,7 @@ $("#bk-in").onclick=()=>$("#bk-file").click();
 $("#bk-file").onchange=e=>{ const f=e.target.files[0]; if(!f) return;
   const r=new FileReader();
   r.onload=()=>{ try{ const d=JSON.parse(r.result);
-    const map={srs:"tw-srs",journal:"tw-journal",log:"tw-log",gelesen:"tw-gelesen",tb:"tw-tb",pruefung:"tw-pruefung"};
+    const map={srs:"tw-srs",journal:"tw-journal",log:"tw-log",gelesen:"tw-gelesen",tb:"tw-tb",pruefung:"tw-pruefung",stapel:"tw-stapel"};
     Object.entries(map).forEach(([k,s])=>{ if(d[k]!==undefined) save(s,d[k]); });
     location.reload(); }catch(_){ alert("Datei kaputt oder kein gültiges Backup."); } };
   r.readAsText(f); };
@@ -3198,7 +3431,7 @@ $("#ex-anki").onclick=()=>{
   dl(new Blob(["﻿"+z],{type:"text/tab-separated-values;charset=utf-8"}),"trainingswissenschaften-anki.tsv"); };
 $("#druck").onclick=()=>window.print();
 $("#reset-srs").onclick=()=>{ if(confirm("Boxen, Fehlerjournal, Lesestand und Heatmap werden gelöscht. Backup vorher gemacht?")){
-  ["tw-srs","tw-journal","tw-log","tw-gelesen","tw-aktiv","tw-schritt","tw-letzt"].forEach(k=>localStorage.removeItem(k));
+  ["tw-srs","tw-journal","tw-log","tw-gelesen","tw-aktiv","tw-schritt","tw-letzt","tw-stapel"].forEach(k=>localStorage.removeItem(k));
   location.reload(); } };
 
 /* ==========================================================================
@@ -3356,18 +3589,12 @@ window.addEventListener("blur", ()=>wischEnde());
 document.body.insertAdjacentHTML("beforeend",`
 <div id="dock">
   <div class="bubble" id="bubble"></div>
-  <div id="pet" data-mood="froh" role="button" tabindex="0" title="Lernbegleiter · Taste A versteckt ihn">
+  <div id="pet" data-mood="froh" data-face="auf" role="button" tabindex="0" title="Lernbegleiter · Taste A versteckt ihn">
     <span class="badge" id="pet-badge">0</span><span class="zzz">z z</span>
-    <svg viewBox="0 0 64 64" aria-hidden="true">
-      <path class="bd" d="M32 6 L38 20 L32 17 L26 20 Z"/>
-      <ellipse class="bd" cx="32" cy="40" rx="21" ry="18"/>
-      <path class="bd" d="M13 30 Q6 34 8 42 Q12 40 14 36 Z"/>
-      <path class="bd" d="M51 30 Q58 34 56 42 Q52 40 50 36 Z"/>
-      <circle cx="24" cy="38" r="4.2" fill="#07080A"/><circle cx="40" cy="38" r="4.2" fill="#07080A"/>
-      <circle cx="25.5" cy="36.5" r="1.5" fill="#fff"/><circle cx="41.5" cy="36.5" r="1.5" fill="#fff"/>
-      <rect class="lid" x="19.5" y="34" width="9" height="9"/><rect class="lid" x="35.5" y="34" width="9" height="9"/>
-      <path d="M27 47 q5 4 10 0" stroke="#07080A" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-    </svg>
+    <img class="bot b-auf"   src="avatar/bot-auf.webp"   alt="" draggable="false" decoding="async">
+    <img class="bot b-zu"    src="avatar/bot-zu.webp"    alt="" draggable="false" decoding="async">
+    <img class="bot b-mund"  src="avatar/bot-mund.webp"  alt="" draggable="false" decoding="async">
+    <img class="bot b-still" src="avatar/bot-still.webp" alt="" draggable="false" decoding="async">
   </div>
 </div>
 <style>
@@ -3377,18 +3604,18 @@ document.body.insertAdjacentHTML("beforeend",`
 #pet.jump{transform:translateY(-13px)}
 #pet.shock{animation:shk .42s}
 @keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px) rotate(-6deg)}75%{transform:translateX(5px) rotate(6deg)}}
-#pet svg{width:100%;height:100%;overflow:visible}
-#pet .bd{fill:var(--signal);transition:opacity .5s}
-#pet[data-mood="hungrig"] .bd{opacity:.7}
-#pet[data-mood="sehrhungrig"] .bd{opacity:.42}
-#pet[data-mood="schlaeft"] .bd{opacity:.32}
-#pet .lid{fill:var(--bg-2);transform-origin:center;transition:transform .2s}
-#pet[data-mood="schlaeft"] .lid,#pet[data-mood="sehrhungrig"] .lid{transform:scaleY(1)}
-#pet:not([data-mood="schlaeft"]):not([data-mood="sehrhungrig"]) .lid{transform:scaleY(0)}
+/* Roboter: vier deckungsgleiche Bilder übereinander, sichtbar ist immer genau eins
+   (auf = Ruhe, zu = Blinzeln/Schlaf, mund/still = Sprechen offen/geschlossen) */
+#pet .bot{position:absolute;inset:0;width:100%;height:100%;opacity:0;pointer-events:none;
+  user-select:none;-webkit-user-drag:none;filter:drop-shadow(0 3px 8px rgba(0,0,0,.28))}
+#pet[data-face="auf"] .b-auf,#pet[data-face="zu"] .b-zu,
+#pet[data-face="mund"] .b-mund,#pet[data-face="still"] .b-still{opacity:1}
+#pet{transition:transform .35s cubic-bezier(.34,1.56,.64,1),filter .5s,opacity .5s}
+#pet[data-mood="schlaeft"]{opacity:.85}
 #pet .badge{position:absolute;top:-4px;right:-4px;background:var(--bad);color:#fff;border-radius:999px;
   font-family:var(--mono);font-size:.62rem;padding:1px 6px;font-weight:700;display:none}
 #pet[data-hungry="1"] .badge{display:block}
-#pet .zzz{position:absolute;top:-7px;left:48px;font-size:.72rem;color:var(--muted);display:none;font-family:var(--mono)}
+#pet .zzz{position:absolute;top:-6px;left:-10px;font-size:.72rem;color:var(--muted);display:none;font-family:var(--mono)}
 #pet[data-mood="schlaeft"] .zzz{display:block}
 .bubble{position:absolute;right:0;bottom:72px;width:max-content;max-width:min(258px,calc(100vw - 48px));
   background:var(--bg-2);border:1px solid var(--line-2);border-radius:var(--radius);padding:9px 12px;
@@ -3399,6 +3626,41 @@ html.klausur #dock{display:none}
 @media(max-width:620px){#dock{right:12px;bottom:12px}#pet{width:52px;height:52px}}
 </style>`);
 PET.el=$("#pet");
+/* Gesicht des Roboters: gelegentliches Blinzeln, Mundbewegung beim Sprechen */
+const BOT={
+  el:$("#pet"), redet:false, bT:0, sT:0, endT:0,
+  still:()=>matchMedia("(prefers-reduced-motion:reduce)").matches,
+  face(f){ if(this.el) this.el.dataset.face=f; },
+  ruhe(){ return this.el&&this.el.dataset.mood==="schlaeft" ? "zu" : "auf"; },
+  ruhig(){ if(!this.redet) this.face(this.ruhe()); },
+  blinzeln(){
+    clearTimeout(this.bT);
+    this.bT=setTimeout(()=>{
+      const kann=()=>!this.redet && this.ruhe()==="auf" && !document.hidden && !this.still();
+      if(kann()){
+        this.face("zu"); setTimeout(()=>this.ruhig(),120+Math.random()*50);
+        if(Math.random()<.22) setTimeout(()=>{ if(kann()){ this.face("zu"); setTimeout(()=>this.ruhig(),110); } },300);
+      }
+      this.blinzeln();
+    }, 2400+Math.random()*4600);
+  },
+  sprechen(text){
+    if(!this.el) return;
+    clearTimeout(this.sT); clearTimeout(this.endT);
+    const silben=Math.max(3,Math.round(String(text||"").replace(/\s+/g,"").length/2.6));
+    const dauer=Math.min(3600,260+silben*135);
+    this.redet=true;
+    if(this.still()){ this.face("mund"); this.endT=setTimeout(()=>{ this.redet=false; this.ruhig(); },Math.min(900,dauer)); return; }
+    let offen=false; const ende=Date.now()+dauer;
+    const takt=()=>{
+      if(Date.now()>=ende){ this.redet=false; this.ruhig(); return; }
+      offen=!offen; this.face(offen?"mund":"still");
+      this.sT=setTimeout(takt, offen ? 110+Math.random()*90 : 70+Math.random()*80);
+    };
+    takt();
+  }
+};
+BOT.blinzeln();
 $("#pet").onclick=()=>PET.sprich(PET.spruch());
 $("#pet").onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); PET.sprich(PET.spruch()); } };
 let py=0,ziel=0;
@@ -3451,7 +3713,7 @@ html.klausur #audiobar{display:none}
   display:none;align-items:center;justify-content:center;transition:.15s}
 #audiobar.zu .ab-tab{display:flex}
 .ab-tab:hover{color:var(--signal);border-color:var(--signal)}
-.ab-body{display:flex;align-items:center;gap:16px;padding:11px 24px;
+.ab-body{display:flex;align-items:center;gap:16px;padding:11px max(24px,env(safe-area-inset-right,0px)) calc(11px + env(safe-area-inset-bottom,0px)) max(24px,env(safe-area-inset-left,0px));
   max-width:1180px;margin:0 auto;width:100%;box-sizing:border-box;
   background:color-mix(in srgb,var(--bg-2) 94%,transparent);backdrop-filter:blur(16px) saturate(140%);
   border-top:1px solid var(--line-2);box-shadow:0 -8px 24px rgba(0,0,0,.12)}
@@ -3490,7 +3752,7 @@ html.klausur #audiobar{display:none}
 #rail{max-height:calc(100vh - var(--head) - 90px - var(--audiobar-h))}
 #dock{bottom:calc(18px + var(--audiobar-h))}
 @media(max-width:620px){
-  .ab-body{padding:9px 14px;gap:10px}
+  .ab-body{padding:9px 14px calc(9px + env(safe-area-inset-bottom,0px));gap:10px}
   .ab-kicker{display:none}
   .ab-zeit{width:28px;font-size:.6rem}
   .ab-play{width:36px;height:36px}
@@ -3506,7 +3768,10 @@ html.klausur #audiobar{display:none}
 
   function fmt(s){ if(!isFinite(s)||s<0) s=0; s=Math.round(s);
     return `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`; }
-  function hoehe(){ document.documentElement.style.setProperty("--audiobar-h", zu?"0px":"74px"); }
+  /* echte Höhe messen (Handy, Safe-Area, Schriftgröße) statt fester 74 px */
+  function hoehe(){ const h=zu?0:Math.round(barEl.getBoundingClientRect().height)||74;
+    document.documentElement.style.setProperty("--audiobar-h", h+"px"); }
+  if(window.ResizeObserver) new ResizeObserver(()=>hoehe()).observe(barEl);
   function tracksRender(){
     $("#ab-tracks").innerHTML = PODCASTS.map((p,k)=>
       `<button class="ab-track ${k===i?"on":""}" data-i="${k}" title="${esc(p.titel)}">${k+1}</button>`).join("");
