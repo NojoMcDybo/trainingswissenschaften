@@ -1,0 +1,35 @@
+# Trainingswissenschaften — Klausur-Trainer
+
+> Interaktive Lernseite zum Modul Trainingswissenschaften (3. Semester Sport, WWU Münster, Prof. Dr. E. Eils). 16 Module in 6 Themengruppen, 779 Lernkarten, 584 Multiple-Choice-Prüfungsfragen, 151 Vergleichstabellen, 366 Glossarbegriffe, dazu die Vorlesungsfolien als PDF. Der Lernstoff der Seite wird per JavaScript gerendert; die folgenden Dateien enthalten ihn als reinen Text.
+
+Jede Aussage trägt einen Beleg im Format „VL n Titel, Folie m" bzw. „Revision, S. n"; die Foliennummer entspricht der Seitenzahl im jeweiligen PDF. Lehrbuchwissen, das nicht auf den Folien steht, ist als „Ergänzung (nicht Folieninhalt)" gekennzeichnet.
+
+## Inhalte
+
+- [Inhaltsübersicht](https://nojomcdybo.github.io/trainingswissenschaften/Inhaltsuebersicht-Trainingswissenschaften.md): alle 16 Module mit Leitfrage, Kernaussagen, Verwechslungsfallen und Stolpersteinen (ca. 60 KB)
+- [Ausführliche Zusammenfassung](https://nojomcdybo.github.io/trainingswissenschaften/Trainingswissenschaften-Zusammenfassung.md): Klausurniveau, alle Module mit Definitionen, Zahlen, Abgrenzungen und Klausurfallen (ca. 35 000 Wörter)
+
+## Vorlesungsfolien (PDF, Seite = Foliennummer)
+
+- [VL 1 Grundlagen 1](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl01.pdf)
+- [VL 2 Grundlagen 2](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl02.pdf)
+- [VL 3 Adaptationen & Leistungssteuerung](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl03.pdf)
+- [VL 4 Ausdauertraining](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl04.pdf)
+- [VL 5 Krafttraining](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl05.pdf)
+- [VL 6 Beweglichkeitstraining](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl06.pdf)
+- [VL 7 Schnelligkeitstraining](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl07-schnelligkeit.pdf)
+- [VL 7 Koordinationstraining](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl07-koordination.pdf)
+- [VL 8 Techniktraining](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl08.pdf)
+- [VL 9 Taktiktraining (ab Folie 38 Wechselwirkungen)](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl09-taktik.pdf)
+- [VL 9 Wechselwirkungen](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl09-wechselwirkungen.pdf)
+- [VL 10 Schulsport & Leistungsdiagnostik](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl10.pdf)
+- [VL 11 Kognitives Training & Talent](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl11.pdf)
+- [VL 12 Propriozeptive Wahrnehmung](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl12.pdf)
+- [VL 13 Lernen & visuelle Wahrnehmung](https://nojomcdybo.github.io/trainingswissenschaften/folien/vl13.pdf)
+- [Gastvorlesung Leichtes Schädelhirntrauma (Kutz)](https://nojomcdybo.github.io/trainingswissenschaften/folien/lsht.pdf)
+- [Eigene Revision (12 Seiten)](https://nojomcdybo.github.io/trainingswissenschaften/folien/revision.pdf)
+
+## Optional
+
+- [Seminar Krafttraining: Literaturrecherche](https://nojomcdybo.github.io/trainingswissenschaften/folien/seminar-literaturrecherche.pdf)
+- [Seminar Krafttraining: Trainingsdokumentation](https://nojomcdybo.github.io/trainingswissenschaften/folien/seminar-dokumentation.pdf)
