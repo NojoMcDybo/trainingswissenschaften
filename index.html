@@ -1180,6 +1180,135 @@ html.klausur #main{margin-left:0}
   .kicker{color:#555} th{color:#000;background:#eee} table{min-width:0}
   a{color:#000;text-decoration:none}
 }
+
+/* ==========================================================================
+   FOLIEN — Vorlesungen als Quelle: Belege verlinken, Viewer rechts wie #detail
+   ≥1460 px angedockt (wie die ausführliche Karte), darunter als Fenster
+   ========================================================================== */
+/* Belege: Quelle und Foliennummern werden zu Sprungmarken */
+a.fl{color:inherit;text-decoration:underline;text-decoration-style:dotted;
+  text-decoration-color:color-mix(in srgb,var(--signal) 70%,transparent);text-underline-offset:2px;
+  cursor:pointer;border-radius:2px;transition:color .13s,background .13s}
+a.fl:hover,a.fl:focus-visible{color:var(--signal);text-decoration-style:solid;outline:none;
+  background:color-mix(in srgb,var(--signal) 12%,transparent)}
+a.fl.nr{color:var(--ink-2);font-weight:600}
+a.fl.nr:hover{color:var(--signal)}
+@media print{ a.fl{text-decoration:none} }
+
+/* Viewer */
+#fveil{position:fixed;inset:0;z-index:95;background:rgba(10,10,12,.62);display:none;
+  clip-path:circle(150% at 50% 50%)}
+#fveil.an{display:block}
+#folien{position:fixed;z-index:96;display:none;flex-direction:column;overflow:hidden;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:min(1120px,calc(100vw - 40px));height:calc(100dvh - 40px);
+  background:var(--bg-2);border:1px solid var(--line-2);border-radius:14px;box-shadow:var(--shadow)}
+#folien.an{display:flex}
+@media(min-width:1460px){
+  #folien{top:calc(var(--head) + 22px);bottom:calc(var(--audiobar-h,0px) + 22px);right:24px;left:auto;
+    transform:none;height:auto;z-index:46;border-radius:var(--radius);
+    width:clamp(400px, calc(100vw - var(--sidebar) - 790px), 660px);
+    background:color-mix(in srgb,var(--bg-2) 94%,transparent);backdrop-filter:blur(16px) saturate(140%)}
+  #fveil{display:none!important}
+  body.folien #rail{display:none!important}
+}
+@media(max-width:620px){ #folien{width:calc(100vw - 16px);height:calc(100dvh - 16px);border-radius:12px} }
+#folien .dk{display:flex;gap:14px;align-items:flex-start;padding:16px 20px;flex:0 0 auto;
+  border-bottom:1px solid var(--line-2);background:var(--bg-3)}
+#folien .dk .dnr{font-family:var(--display);font-size:1.6rem;line-height:.9;color:var(--signal);flex:0 0 auto;
+  min-width:1.2em}
+#folien .dk .dt{flex:1;min-width:0}
+#folien .dk .dt b{display:block;font-size:.94rem;line-height:1.4;color:var(--ink)}
+#folien .dk .dt span{font-family:var(--sans);font-size:.55rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+#folien .dk .zu,#folien .dk .fx{cursor:pointer;background:transparent;border:1px solid var(--line-2);color:var(--muted);
+  border-radius:var(--radius);width:30px;height:30px;flex:0 0 auto;font-family:var(--mono);font-size:.9rem;
+  line-height:1;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;transition:all .15s}
+#folien .dk .zu:hover,#folien .dk .fx:hover{border-color:var(--accent);color:var(--accent)}
+.f-ziele{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:9px 20px;flex:0 0 auto;
+  border-bottom:1px solid var(--line);background:var(--bg-2)}
+.f-ziele:empty{display:none}
+.f-ziele .lb{font-family:var(--sans);font-size:.5rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);margin-right:4px}
+.f-ziele button{cursor:pointer;font-family:var(--mono);font-size:.66rem;padding:3px 9px;border-radius:20px;
+  border:1px solid var(--line-2);background:transparent;color:var(--ink-2);transition:all .13s}
+.f-ziele button:hover{border-color:var(--signal);color:var(--signal)}
+.f-ziele button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.f-seiten{flex:1;min-height:0;overflow-y:auto;position:relative;padding:14px 16px 30px;
+  overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;outline:none}
+.f-seiten::-webkit-scrollbar{width:8px}
+.f-seiten::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:4px}
+.f-seiten::-webkit-scrollbar-thumb:hover{background:var(--signal)}
+@media(min-width:1460px){ #folien .f-seiten{padding:14px 14px 26px} }
+@media(min-width:900px) and (max-width:1459px){ .f-seiten{padding:18px 28px 34px} }
+.fs{position:relative;margin:0 auto 14px;aspect-ratio:var(--ar,1.7796);width:100%;
+  max-width:var(--fsmax,none);
+  background:var(--bg-3);border:1px solid var(--line);border-radius:4px;overflow:hidden;
+  transition:border-color .2s,box-shadow .2s}
+.fs canvas{position:absolute;inset:0;width:100%;height:100%;display:block;background:#fff}
+.fs .fn{position:absolute;left:8px;top:7px;z-index:2;font-family:var(--mono);font-size:.6rem;
+  padding:1px 7px;border-radius:10px;background:color-mix(in srgb,var(--bg-2) 86%,transparent);
+  color:var(--muted);border:1px solid var(--line);pointer-events:none}
+.fs:not(.da)::after{content:"";position:absolute;left:14%;right:14%;top:50%;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,var(--signal),transparent);background-size:40% 100%;
+  background-repeat:no-repeat;opacity:.5;animation:fsLaden 1.1s linear infinite}
+@keyframes fsLaden{from{background-position:-40% 0}to{background-position:140% 0}}
+.fs.ziel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.fs.ziel .fn{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.fs.ziel .fn::after{content:" · Beleg"}
+.f-fehler{margin:30px 10px;padding:16px 18px;border:1px dashed var(--line-2);border-radius:var(--radius);
+  font-size:.86rem;color:var(--ink-2)}
+#folien .nav{display:flex;gap:8px;align-items:center;padding:12px 20px;flex:0 0 auto;
+  border-top:1px solid var(--line-2);background:var(--bg-3)}
+#folien .nav button{flex:1}
+#folien .f-pos{flex:0 0 auto;min-width:74px;text-align:center;font-family:var(--mono);font-size:.74rem;
+  color:var(--ink-2);font-variant-numeric:tabular-nums}
+#folien .f-pos b{color:var(--signal);font-weight:500}
+@media(prefers-reduced-motion:reduce){ .fs:not(.da)::after{animation:none} }
+
+/* Übersicht: die Foliensätze als ruhige Liste */
+.vl-liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:8px;margin:18px 0 0}
+.vl-i{display:grid;grid-template-columns:2.3em minmax(0,1fr) auto;gap:2px 12px;align-items:baseline;text-align:left;
+  cursor:pointer;font:inherit;color:var(--ink);background:var(--bg-2);border:1px solid var(--line);
+  border-radius:var(--radius);padding:11px 14px 11px 12px;transition:border-color .15s,background .15s}
+.vl-i:hover,.vl-i:focus-visible{border-color:var(--signal);outline:none;
+  background:color-mix(in srgb,var(--signal) 5%,var(--bg-2))}
+.vl-i .n{grid-row:1/3;font-family:var(--display);font-size:1.35rem;line-height:1;color:var(--signal);align-self:center}
+.vl-i .t{font-size:.86rem;font-weight:700;line-height:1.35}
+.vl-i .z{font-family:var(--mono);font-size:.62rem;color:var(--muted);white-space:nowrap}
+.vl-i .m{grid-column:2/4;font-family:var(--sans);font-size:.53rem;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--muted)}
+.vl-i.neben .n{color:var(--muted)}
+.vl-hint{font-size:.83rem;color:var(--muted);margin:10px 0 0;max-width:70ch}
+.vl-h{font-family:var(--sans);font-size:.55rem;font-weight:600;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--muted);margin:22px 0 0}
+
+/* Modulkacheln: Foliensätze erscheinen erst beim Überfahren — das Bild bleibt ruhig */
+.kachel-w{position:relative;display:flex;transition:transform .16s}
+.kachel-w>.kachel{width:100%;flex:1 1 auto}
+.kachel-w:hover{transform:translateY(-2px)}
+.kachel-w:hover .kachel{transform:none}
+.k-folien{position:absolute;top:9px;right:9px;z-index:3;display:flex;gap:5px;flex-wrap:wrap;
+  justify-content:flex-end;max-width:calc(100% - 18px);opacity:0;transform:translateY(-3px);
+  transition:opacity .18s,transform .18s;pointer-events:none}
+.kachel-w:hover .k-folien,.kachel-w:focus-within .k-folien{opacity:1;transform:none;pointer-events:auto}
+.k-folien button{cursor:pointer;font-family:var(--mono);font-size:.6rem;letter-spacing:.02em;padding:3px 8px;
+  border-radius:20px;border:1px solid color-mix(in srgb,#fff 28%,transparent);color:#fff;
+  background:color-mix(in srgb,#0B0D12 58%,transparent);backdrop-filter:blur(6px);transition:all .13s}
+.k-folien button::before{content:"▤ ";opacity:.75}
+.k-folien button:hover{background:var(--signal);border-color:var(--signal);color:var(--signal-ink)}
+@media(hover:none){ .k-folien{opacity:1;transform:none;pointer-events:auto} }
+
+/* Modulseite: Folien im Kompass */
+.kompass .k-vl{display:flex;flex-direction:column;gap:6px}
+.kompass .k-vl button{display:grid;grid-template-columns:4.2em minmax(0,1fr) auto;gap:10px;align-items:baseline;
+  text-align:left;cursor:pointer;font:inherit;background:transparent;border:1px solid var(--line);
+  border-radius:var(--radius);padding:8px 11px;color:var(--ink-2);transition:all .14s}
+.kompass .k-vl button:hover{border-color:var(--signal);color:var(--ink)}
+.kompass .k-vl .kn{font-family:var(--mono);font-size:.66rem;color:var(--signal);white-space:nowrap}
+.kompass .k-vl .kt{font-size:.83rem;line-height:1.4}
+.kompass .k-vl .kz{font-family:var(--mono);font-size:.6rem;color:var(--muted);white-space:nowrap}
+@media print{ #folien,#fveil,.k-folien,.vl-liste,.kompass .k-vl{display:none!important} }
 </style>
 
 
@@ -1277,6 +1406,18 @@ html.klausur #main{margin-left:0}
   <div class="nav"><button class="btn sm" id="d-vor">← Voriger</button>
     <button class="btn sm" id="d-drill">Abschnitt üben</button>
     <button class="btn sm" id="d-nach">Nächster →</button></div>
+</aside>
+<div id="fveil" aria-hidden="true"></div>
+<aside id="folien" role="dialog" aria-label="Vorlesungsfolien">
+  <div class="dk"><span class="dnr" id="f-nr">01</span>
+    <span class="dt"><span id="f-ober">Vorlesung</span><b id="f-titel"></b></span>
+    <a class="fx" id="f-pdf" target="_blank" rel="noopener" title="PDF in neuem Tab öffnen" aria-label="PDF in neuem Tab öffnen">↗</a>
+    <button class="zu" id="f-zu" aria-label="Folien schließen" title="Schließen · Esc">✕</button></div>
+  <div class="f-ziele" id="f-ziele"></div>
+  <div class="f-seiten" id="f-seiten" tabindex="-1"></div>
+  <div class="nav"><button class="btn sm" id="f-vor">← Folie</button>
+    <span class="f-pos" id="f-pos">–</span>
+    <button class="btn sm" id="f-nach">Folie →</button></div>
 </aside>
 <main id="main"></main>
 <aside id="rail" aria-label="Abschnitte"></aside>
@@ -1422,6 +1563,7 @@ function go(id,s){
   if(sucheAktiv){ $("#suche").value=""; sucheAktiv=false; }
   if(id!=="glossar") glFilter="";
   detailSchliessen();
+  if(typeof Folien!=="undefined") Folien.close();
   render(); window.scrollTo({top:0,behavior:"instant"});
 }
 const modIdx = () => MODULE.findIndex(m=>m.id===aktiv);
@@ -1606,15 +1748,17 @@ function startHTML(){
   <h2>Die 16 Module</h2>
   <div class="kacheln">
   ${MODULE.map((m,i)=>{const s=modStat(m.id); const b=BILDER[m.id];
-    return `<button class="kachel ${b?"":"ohnebild"} ${s.due===0?"fertig":""}" data-go="${m.id}" title="${esc(m.titel)}">
+    return `<div class="kachel-w"><button class="kachel ${b?"":"ohnebild"} ${s.due===0?"fertig":""}" data-go="${m.id}" title="${esc(m.titel)}">
       <span class="bild" ${b?`style="--bild:url('${b.kachel}');--kar:${b.ar||1.7778}"`:""}><span class="gnr">${String(i+1).padStart(2,"0")}</span></span>
       <span class="txt">
         <span class="knm">${esc(m.titel)}</span>
         <span class="kgr">${esc(m.gruppe)}</span>
         <span class="kbar"><i style="width:${s.proz}%"></i></span>
         <span class="kfuss"><span>${s.ok} / ${s.n} sitzen</span><b>${s.due?s.due+" fällig":"✓ durch"}</b></span>
-      </span></button>`;}).join("")}
+      </span></button>${kachelFolienHTML(m.id)}</div>`;}).join("")}
   </div>
+
+  ${vorlesungenHTML()}
 
   <h2>So arbeitest du damit</h2>
   <div class="grid2">
@@ -1660,7 +1804,8 @@ function startHTML(){
     <p><strong>Private Lernfassung.</strong> Erstellt aus der eigenen Revision und den
     Vorlesungsfolien des Moduls Trainingswissenschaften (Prof. Dr. E. Eils, WWU Münster) sowie der
     Gastvorlesung Leichtes Schädelhirntrauma (PD Dr. D. Kutz). Alle Abbildungen sind eigene
-    SVG-Nachzeichnungen — keine reproduzierten Dozentenfolien. Nicht zur Weitergabe bestimmt.</p>
+    SVG-Nachzeichnungen — keine reproduzierten Dozentenfolien. Die Original-Foliensätze liegen
+    unverändert (nur komprimiert) unter <code>folien/</code> und öffnen sich über die Belege. Nicht zur Weitergabe bestimmt.</p>
     <p class="np">Der Fortschritt liegt im <code>localStorage</code> dieses Browsers.
     <strong>Sichere ihn, bevor du ihn brauchst</strong> — Theme-Menü → Fortschritt sichern.</p>
   </footer>`;
@@ -1780,6 +1925,7 @@ function kompassHTML(m,f,q,sekt){
             <div><b>${st.proz}%</b>sitzen</div>
           </div>
         </div>
+        ${kompassFolienHTML(m)}
         ${m.stolperstein?`<div class="stolper"><b>Stolperstein</b>${mk(m.stolperstein)}</div>`:""}
       </div>
     </div>
@@ -1918,7 +2064,7 @@ function schaubildHTML(sb){
   default: return "";
   }
   return `<div class="sb">${sb.titel?`<h6>${esc(sb.titel)}</h6>`:""}${inn}
-    ${sb.beleg?`<p class="qz">${esc(sb.beleg)}</p>`:""}</div>`;
+    ${sb.beleg?`<p class="qz">${belegHTML(sb.beleg)}</p>`:""}</div>`;
 }
 
 /* ==========================================================================
@@ -1984,7 +2130,7 @@ function lehrHTML(a){
         <p class="auf">${mk(se.aufgabe)}</p>
         <span class="oeff">Musterlösung zeigen</span></summary>
       <div class="muster">${md(se.muster||"")}</div></details>`:""}
-    ${a.beleg?`<p class="beleg">${esc(belegKurz(a.beleg))}</p>`:""}
+    ${a.beleg?`<p class="beleg">${belegHTML(belegKurz(a.beleg))}</p>`:""}
   </div>`;
 }
 
@@ -2086,7 +2232,7 @@ function aspektDetailHTML(a,k){
   const kopf = x.art==="bsp" ? `Durchgerechnet: ${x.kopf}`
              : x.art==="verw" ? `Verwechslungsgefahr` : x.kopf;
   return `<div class="aspd"><p class="ak">${mk(kopf)}</p>${inn}
-    ${a.beleg?`<p class="abeleg">${esc(belegKurz(a.beleg))}</p>`:""}</div>`;
+    ${a.beleg?`<p class="abeleg">${belegHTML(belegKurz(a.beleg))}</p>`:""}</div>`;
 }
 
 const TYP={zahl:"Zahl",definition:"Definition",abgrenzung:"Abgrenzung",ablauf:"Ablauf",
@@ -2095,19 +2241,19 @@ function factHTML(f){
   return `<details class="rv" id="${f.id}" data-fid="${f.id}">
     <summary>${esc(f.frage)}
       ${f.wichtig?'<span class="tag w">prüfungsrelevant</span>':`<span class="tag">${TYP[f.typ]||"Karte"}</span>`}</summary>
-    <div class="body">${md(f.antwort)}<p class="beleg">${esc(f.beleg)}</p></div></details>`;
+    <div class="body">${md(f.antwort)}<p class="beleg">${belegHTML(f.beleg)}</p></div></details>`;
 }
 function tabHTML(t){
   return `<div class="card"><h3 style="margin-top:0">${esc(t.titel)}</h3>
     <div class="tw"><table><thead><tr>${t.kopf.map(k=>`<th>${esc(k)}</th>`).join("")}</tr></thead>
     <tbody>${t.zeilen.map(z=>`<tr>${z.map((c,i)=>
       `<td data-label="${esc(t.kopf[i]||"")}">${md(String(c)).replace(/^<p>/,"").replace(/<\/p>$/,"")}</td>`).join("")}</tr>`).join("")}
-    </tbody></table></div><p class="beleg">${esc(t.beleg)}</p></div>`;
+    </tbody></table></div><p class="beleg">${belegHTML(t.beleg)}</p></div>`;
 }
 function diagHTML(d){
   return `<figure><figcaption class="kicker" style="margin-bottom:12px">${esc(d.titel)}</figcaption>
     <div class="sc">${d.svg}</div>
-    <figcaption>${esc(d.beleg)} · eigene Nachzeichnung</figcaption></figure>`;
+    <figcaption>${belegHTML(d.beleg)} · eigene Nachzeichnung</figcaption></figure>`;
 }
 
 /* ==========================================================================
@@ -2319,7 +2465,7 @@ function karteOeffnen(fid,originEl){
     panel:`<div class="dk"><span class="dnr">${idx>=0?String(idx+1).padStart(2,"0"):""}</span>
         <span class="dt"><span>${ober}${f.wichtig?' <span class="tag w">prüfungsrelevant</span>':""}</span>
         <b>${esc(f.frage)}</b></span></div>
-      <div class="di"><div class="erk">${md(f.antwort)}</div><p class="beleg">${esc(f.beleg)}</p></div>
+      <div class="di"><div class="erk">${md(f.antwort)}</div><p class="beleg">${belegHTML(f.beleg)}</p></div>
       <div class="nav">
         <button class="btn sm" id="ly-vor">← Karte</button>
         ${hatAbschnitt?`<button class="btn sm" id="ly-abschnitt">Zum Abschnitt</button>`:""}
@@ -2525,7 +2671,7 @@ function zeigeVerdict(q,j,konf,ok,autoWeiter){
   ziel.insertAdjacentHTML("beforeend",`
     <div class="verdict ${cls}">${esc(txt)}</div>
     ${q.warum?`<p class="small" style="margin-top:12px">${esc(q.warum)}</p>`:""}
-    <p class="beleg">${esc(q.beleg||"")}</p>
+    <p class="beleg">${belegHTML(q.beleg||"")}</p>
     <div class="act">
       <button class="btn pri" id="next">Weiter <span class="kbd">Leertaste</span></button>
       ${karte?`<button class="btn" id="zurkarte">Erklärkarte lesen</button>`:""}
@@ -2611,7 +2757,7 @@ function ende(){
           return `<details class="rv"><summary>${esc(q.frage)}</summary><div class="body">
             <p><strong>Richtig:</strong> ${esc(q.optionen[q.richtig])}</p>
             <p><strong>Du:</strong> <span class="hot">${esc(q.optionen[a.gewaehlt])}</span></p>
-            <p class="small">${esc(q.warum||"")}</p><p class="beleg">${esc(q.beleg)}</p></div></details>`;}).join("")}`:""}
+            <p class="small">${esc(q.warum||"")}</p><p class="beleg">${belegHTML(q.beleg)}</p></div></details>`;}).join("")}`:""}
       <div class="act">
         ${sk?`<button class="btn pri" id="sekt-zu">Zurück in den Abschnitt</button>
               <button class="btn" data-sekt-drill="${sk}">Abschnitt nochmal</button>`
@@ -2679,7 +2825,7 @@ function glEintragHTML(e){
     <p class="gl-kurz">${mk(e.kurz)}</p>
     <div class="gl-fuss">
       <button class="gl-mehr" data-karte="${e.fact}|${e.modul}">Ganze Karte lesen →</button>
-      <span class="gl-beleg">${esc(belegKurz(e.beleg))}</span>
+      <span class="gl-beleg">${belegHTML(belegKurz(e.beleg))}</span>
     </div>
   </div>`;
 }
@@ -2722,12 +2868,12 @@ $("#suche").addEventListener("input",()=>{
     ${tf.map(f=>{ const m=MODULE.find(x=>x.id===f.modul);
       return `<details class="rv" data-fid="${f.id}"><summary>${esc(f.frage)}
         <span class="tag">${esc(m?kurz(m.titel):"")}</span></summary>
-        <div class="body">${md(f.antwort)}<p class="beleg">${esc(f.beleg)}</p>
+        <div class="body">${md(f.antwort)}<p class="beleg">${belegHTML(f.beleg)}</p>
         <div class="act"><button class="btn sm" data-go="${f.modul}">→ Modul öffnen</button></div></div></details>`;}).join("")}
     ${tq.length?`<h2>Passende Prüfungsfragen</h2>${tq.map(q=>
       `<details class="rv"><summary>${esc(q.frage)}</summary><div class="body">
         <p><strong>${esc(q.optionen[q.richtig])}</strong></p>
-        <p class="small">${esc(q.warum||"")}</p><p class="beleg">${esc(q.beleg)}</p></div></details>`).join("")}`:""}`;
+        <p class="small">${esc(q.warum||"")}</p><p class="beleg">${belegHTML(q.beleg)}</p></div></details>`).join("")}`:""}`;
   bind();
 });
 $("#suche").addEventListener("keydown",e=>{
@@ -2965,7 +3111,7 @@ function wischErlaubt(t){
   if (sess) return false;                                   // während einer Session nie
   if (document.documentElement.classList.contains("klausur")) return false;
   if (document.body.classList.contains("nav")) return false;
-  if (t.closest("button,a,input,textarea,select,summary,label,#side,#head,#dock,.menu,#help")) return false;
+  if (t.closest("button,a,input,textarea,select,summary,label,#side,#head,#dock,.menu,#help,#folien,#fveil")) return false;
   if (t.closest(".tw,figure .sc,.menu-pop")) return false;  // waagerecht scrollbare Bereiche
   return true;
 }
@@ -3213,6 +3359,336 @@ html.klausur #audiobar{display:none}
   if(zu) barEl.classList.add("zu");
   hoehe();
 })();
+
+/* ==========================================================================
+   16 · FOLIEN — die Vorlesungen als klickbare Quelle
+   --------------------------------------------------------------------------
+   DECKS      · alle Foliensätze in folien/ (Seite im PDF = Foliennummer)
+   MODFOLIEN  · welche Foliensätze ein Modul belegt, jeweils mit erster Belegfolie
+   belegHTML  · macht aus einem Beleg-Text Sprungmarken in die Folien
+   Folien     · Viewer: ≥1460 px rechts angedockt wie die ausführliche Karte,
+                darunter als Fenster; öffnet direkt auf der belegten Folie
+   ========================================================================== */
+const EILS="Prof. Dr. E. Eils";
+const DECKS={
+  "vl01":{nr:"01",art:"Vorlesung 1",titel:"Grundlagen 1",seiten:47},
+  "vl02":{nr:"02",art:"Vorlesung 2",titel:"Grundlagen 2",seiten:48},
+  "vl03":{nr:"03",art:"Vorlesung 3",titel:"Adaptationen & Leistungssteuerung",seiten:52},
+  "vl04":{nr:"04",art:"Vorlesung 4",titel:"Ausdauertraining",seiten:53},
+  "vl05":{nr:"05",art:"Vorlesung 5",titel:"Krafttraining",seiten:68},
+  "vl06":{nr:"06",art:"Vorlesung 6",titel:"Beweglichkeitstraining",seiten:53},
+  "vl07-schnelligkeit":{nr:"07",art:"Vorlesung 7",titel:"Schnelligkeitstraining",seiten:31},
+  "vl07-koordination":{nr:"07",art:"Vorlesung 7",titel:"Koordinationstraining",seiten:40},
+  "vl08":{nr:"08",art:"Vorlesung 8",titel:"Techniktraining",seiten:41},
+  "vl09-taktik":{nr:"09",art:"Vorlesung 9",titel:"Taktiktraining",seiten:63,zusatz:"ab Folie 38 Wechselwirkungen"},
+  "vl09-wechselwirkungen":{nr:"09",art:"Vorlesung 9",titel:"Wechselwirkungen",seiten:27},
+  "vl10":{nr:"10",art:"Vorlesung 10",titel:"Schulsport & Leistungsdiagnostik",seiten:70},
+  "vl11":{nr:"11",art:"Vorlesung 11",titel:"Kognitives Training & Talent",seiten:60},
+  "vl12":{nr:"12",art:"Vorlesung 12",titel:"Propriozeptive Wahrnehmung",seiten:43},
+  "vl13":{nr:"13",art:"Vorlesung 13",titel:"Lernen & visuelle Wahrnehmung",seiten:65},
+  "lsht":{nr:"GV",art:"Gastvorlesung · PD Dr. D. Kutz",titel:"Leichtes Schädelhirntrauma",seiten:56,neben:1},
+  "revision":{nr:"R",art:"Eigene Revision",titel:"Revision Trainingswissenschaften",seiten:12,ar:.7071,einheit:"Seite",neben:1},
+  "seminar-literaturrecherche":{nr:"S",art:"Seminar Krafttraining",titel:"Literaturrecherche (24WiSe)",seiten:6,ar:.7071,einheit:"Seite",neben:1},
+  "seminar-dokumentation":{nr:"S",art:"Seminar Krafttraining",titel:"Trainingsdokumentation (25WiSe)",seiten:1,ar:1.4142,einheit:"Seite",neben:1}
+};
+const MODFOLIEN = {"m1":[["vl01",4],["vl02",4],["revision",3]],"m2":[["vl03",4],["revision",4],["vl02",35]],"m3":[["vl04",4],["revision",5]],"m4":[["vl04",5],["vl10",39],["revision",5]],"m5":[["vl05",4],["revision",4],["seminar-literaturrecherche",1]],"m6":[["vl06",4],["revision",5]],"m7":[["vl07-schnelligkeit",3]],"m8":[["vl07-koordination",2]],"m9":[["vl08",2],["revision",3]],"m10":[["vl09-taktik",2],["revision",10]],"m11":[["vl09-wechselwirkungen",3]],"m12":[["vl11",3],["revision",11]],"m13":[["vl12",1],["revision",5]],"m14":[["vl13",2],["revision",1]],"m15":[["lsht",2],["revision",1]],"m16":[["vl10",3]]};
+const istVL = id => /^vl/.test(id);
+const deckKurz = id => istVL(id) ? "VL "+(+DECKS[id].nr) : id==="lsht" ? "Gast-VL" : id==="revision" ? "REV" : "SEM";
+const deckEinheit = id => DECKS[id].einheit||"Folie";
+function deckModule(id){ return MODULE.filter(m=>(MODFOLIEN[m.id]||[]).some(x=>x[0]===id)); }
+
+/* Beleg-Bezeichnung → Foliensatz */
+function deckVon(label, seite){
+  const l=String(label).trim();
+  if(/^LSHT/.test(l)) return "lsht";
+  if(/^Revision/.test(l)) return "revision";
+  if(/^Literaturrecherche/.test(l)) return "seminar-literaturrecherche";
+  if(/^Trainingsdokumentation/.test(l)) return "seminar-dokumentation";
+  const m=l.match(/^VL\s*(\d+)\b\s*(.*)$/); if(!m) return null;
+  const n=+m[1], rest=m[2];
+  if(n===7) return /Koord/i.test(rest) ? "vl07-koordination" : /Schnell/i.test(rest) ? "vl07-schnelligkeit" : null;
+  if(n===9){
+    if(/^Wechsel/i.test(rest)) return seite>DECKS["vl09-wechselwirkungen"].seiten ? "vl09-taktik" : "vl09-wechselwirkungen";
+    return "vl09-taktik";
+  }
+  const id="vl"+String(n).padStart(2,"0");
+  return DECKS[id] ? id : null;
+}
+/* „Folien 48, 49 und 51–53" → [[48],[49],[51,52,53]] */
+function nummernGruppen(t){
+  const out=[]; const re=/(\d+)(?:\s*[–-]\s*(\d+))?/g; let m;
+  while((m=re.exec(t))){ const a=+m[1], b=m[2]?+m[2]:a;
+    const g=[]; for(let i=a;i<=Math.min(b,a+60);i++) g.push(i); out.push({txt:m[0],von:m.index,seiten:g}); }
+  return out;
+}
+const BELEG_RE=/(VL\s*\d+(?:\s+[^,·()]*?)?|LSHT \(Kutz\)|Revision|Literaturrecherche Krafttraining \(\d+WiSe\)|Trainingsdokumentation Kraft \(\d+WiSe\)),\s*(Folien?|S\.)\s*(\d+(?:\s*[–-]\s*\d+)?(?:(?:\s*,\s*|\s+und\s+)(?:S\.\s*)?\d+(?:\s*[–-]\s*\d+)?)*)/g;
+function belegHTML(b){
+  const s=String(b||""); let out="", last=0, m;
+  BELEG_RE.lastIndex=0;
+  while((m=BELEG_RE.exec(s))){
+    const [ganz,label,wort,zahlen]=m;
+    const gruppen=nummernGruppen(zahlen);
+    const alle=[...new Set(gruppen.flatMap(g=>g.seiten))];
+    const deck=deckVon(label, alle[0]||1);
+    out+=esc(s.slice(last,m.index));
+    if(!deck || !alle.length){ out+=esc(ganz); last=m.index+ganz.length; continue; }
+    const D=DECKS[deck], ok=alle.filter(n=>n>=1&&n<=D.seiten);
+    const ziele=ok.join(",");
+    const t=`${D.art}: ${D.titel}`;
+    out+=`<a class="fl" href="folien/${deck}.pdf#page=${ok[0]||1}" data-folie="${deck}|${ok[0]||1}|${ziele}" title="${esc(t)} öffnen">${esc(label)}</a>, ${esc(wort)} `;
+    let pos=0;
+    gruppen.forEach(g=>{
+      out+=esc(zahlen.slice(pos,g.von));
+      const z=g.seiten.filter(n=>n>=1&&n<=D.seiten);
+      out+= z.length
+        ? `<a class="fl nr" href="folien/${deck}.pdf#page=${z[0]}" data-folie="${deck}|${z[0]}|${ziele}" title="${esc(D.titel)} · ${deckEinheit(deck)} ${z[0]}">${esc(g.txt)}</a>`
+        : esc(g.txt);
+      pos=g.von+g.txt.length;
+    });
+    out+=esc(zahlen.slice(pos));
+    last=m.index+ganz.length;
+  }
+  return out+esc(s.slice(last));
+}
+
+/* ---------- Viewer ---------- */
+const Folien=(()=>{
+  const el=$("#folien"), veil=$("#fveil"), box=$("#f-seiten");
+  let offen=false, deck=null, ziele=[], slots=[], doc=null, token=0, aktiv=1;
+  let io=null, breite=0, htmlLock=false, lib=null, laeuft=new Map();
+  const gerendert=new Map(), DOCS=new Map();
+  const docked=()=>matchMedia("(min-width:1460px)").matches;
+  const reduziert=()=>matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+  function ladeLib(){
+    if(lib) return lib;
+    lib=new Promise((res,rej)=>{
+      if(window.pdfjsLib) return res(window.pdfjsLib);
+      const s=document.createElement("script"); s.src="vendor/pdfjs/pdf.min.js"; s.async=true;
+      s.onload=()=>{ const L=window.pdfjsLib; if(!L) return rej(new Error("pdf.js fehlt"));
+        L.GlobalWorkerOptions.workerSrc="vendor/pdfjs/pdf.worker.min.js"; res(L); };
+      s.onerror=()=>rej(new Error("pdf.js nicht ladbar"));
+      document.head.appendChild(s);
+    }).catch(e=>{ lib=null; throw e; });
+    return lib;
+  }
+  function ladeDoc(id){
+    if(!DOCS.has(id)) DOCS.set(id, ladeLib()
+      .then(L=>L.getDocument({url:`folien/${id}.pdf`, disableAutoFetch:true, rangeChunkSize:262144,
+                              isEvalSupported:false}).promise)
+      .catch(e=>{ DOCS.delete(id); throw e; }));
+    return DOCS.get(id);
+  }
+
+  function kopf(){
+    const D=DECKS[deck];
+    $("#f-nr").textContent=D.nr;
+    $("#f-ober").textContent = istVL(deck) ? `${D.art} · ${EILS}` : D.art;
+    $("#f-titel").textContent=D.titel;
+    $("#f-pdf").href=`folien/${deck}.pdf`;
+    $("#f-vor").textContent=`← ${deckEinheit(deck)}`;
+    $("#f-nach").textContent=`${deckEinheit(deck)} →`;
+  }
+  function zieleLeiste(){
+    const z=$("#f-ziele");
+    if(!ziele.length){ z.innerHTML=""; return; }
+    z.innerHTML=`<span class="lb">Belegt</span>`+ziele.map(n=>
+      `<button data-fz="${n}" title="Zu ${deckEinheit(deck)} ${n}">${n}</button>`).join("");
+    z.querySelectorAll("[data-fz]").forEach(b=>b.onclick=()=>springe(+b.dataset.fz,true));
+  }
+  function aufbauen(){
+    const D=DECKS[deck], ar=D.ar||1.7796;
+    abbrechenAlle(); gerendert.clear();
+    box.style.setProperty("--ar",ar);
+    box.style.setProperty("--fsmax", ar>1 ? `calc((100dvh - 230px) * ${ar})` : "860px");
+    box.innerHTML=Array.from({length:D.seiten},(_,i)=>
+      `<div class="fs" data-s="${i+1}"><span class="fn">${i+1}</span></div>`).join("");
+    slots=[...box.children];
+    if(io) io.disconnect();
+    io=new IntersectionObserver(eintraege=>{
+      eintraege.forEach(e=>{ if(e.isIntersecting) rendere(+e.target.dataset.s); });
+    },{root:box,rootMargin:"120% 0px"});
+    slots.forEach(s=>io.observe(s));
+    breite=box.clientWidth;
+  }
+  function markiere(){
+    slots.forEach(s=>s.classList.toggle("ziel", ziele.includes(+s.dataset.s)));
+  }
+  function abbrechenAlle(){ laeuft.forEach(t=>{ try{t.cancel();}catch(_){} }); laeuft.clear(); }
+
+  async function rendere(n){
+    const slot=slots[n-1]; if(!slot || gerendert.has(n) || laeuft.has(n)) return;
+    const meinToken=token;
+    let d; try{ d=await ladeDoc(deck); }catch(e){ fehler(); return; }
+    if(meinToken!==token || !offen) return;
+    laeuft.set(n,{cancel(){}});
+    try{
+      const page=await d.getPage(n);
+      if(meinToken!==token){ laeuft.delete(n); return; }
+      const w=slot.clientWidth||box.clientWidth;
+      const dpr=Math.min(2, window.devicePixelRatio||1);
+      const v1=page.getViewport({scale:1});
+      const vp=page.getViewport({scale: Math.max(.5, w*dpr/v1.width)});
+      const c=document.createElement("canvas"); c.width=Math.round(vp.width); c.height=Math.round(vp.height);
+      c.setAttribute("aria-label",`${deckEinheit(deck)} ${n}`);
+      const task=page.render({canvasContext:c.getContext("2d",{alpha:false}), viewport:vp});
+      laeuft.set(n,task);
+      await task.promise;
+      laeuft.delete(n);
+      if(meinToken!==token){ c.width=c.height=0; return; }
+      slot.querySelectorAll("canvas").forEach(x=>{ x.width=x.height=0; x.remove(); });
+      slot.prepend(c); slot.classList.add("da"); gerendert.set(n,c);
+      aufraeumen();
+    }catch(e){ laeuft.delete(n); }
+  }
+  /* Speicher schonen: weit entfernte Folien wieder freigeben */
+  function aufraeumen(){
+    if(gerendert.size<=18) return;
+    [...gerendert.keys()].sort((a,b)=>Math.abs(b-aktiv)-Math.abs(a-aktiv)).slice(0,gerendert.size-18).forEach(n=>{
+      const c=gerendert.get(n); if(c){ c.width=c.height=0; c.remove(); }
+      gerendert.delete(n); const s=slots[n-1]; if(s){ s.classList.remove("da"); io.unobserve(s); io.observe(s); }
+    });
+  }
+  function fehler(){
+    if(box.querySelector(".f-fehler")) return;
+    box.insertAdjacentHTML("afterbegin",`<div class="f-fehler">Die Folien konnten gerade nicht geladen werden.
+      <a class="fl" href="folien/${deck}.pdf" target="_blank" rel="noopener">PDF direkt öffnen ↗</a></div>`);
+  }
+
+  function springe(n,sanft){
+    const D=DECKS[deck]; n=Math.max(1,Math.min(D.seiten,n));
+    const s=slots[n-1]; if(!s) return;
+    box.scrollTo({top:Math.max(0,s.offsetTop-14), behavior:(sanft&&!reduziert())?"smooth":"instant"});
+    setzeAktiv(n);
+  }
+  function setzeAktiv(n){
+    aktiv=n; const D=DECKS[deck];
+    $("#f-pos").innerHTML=`<b>${n}</b> / ${D.seiten}`;
+    const v=$("#f-vor"), w=$("#f-nach");
+    v.disabled=n<=1; v.style.opacity=n<=1?.35:1;
+    w.disabled=n>=D.seiten; w.style.opacity=n>=D.seiten?.35:1;
+    $$("#f-ziele [data-fz]").forEach(b=>b.classList.toggle("on",+b.dataset.fz===n));
+  }
+  let raf=0;
+  box.addEventListener("scroll",()=>{
+    if(raf) return;
+    raf=requestAnimationFrame(()=>{ raf=0; if(!offen||!slots.length) return;
+      const y=box.scrollTop+box.clientHeight*.3; let n=1;
+      for(const s of slots){ if(s.offsetTop<=y) n=+s.dataset.s; else break; }
+      if(n!==aktiv) setzeAktiv(n);
+    });
+  },{passive:true});
+  new ResizeObserver(()=>{
+    if(!offen) return;
+    const w=box.clientWidth; if(!w || Math.abs(w-breite)<40) return;
+    breite=w; const halt=aktiv;
+    abbrechenAlle();
+    gerendert.forEach(c=>{ c.width=c.height=0; c.remove(); }); gerendert.clear();
+    slots.forEach(s=>{ s.classList.remove("da"); io.unobserve(s); io.observe(s); });
+    springe(halt,false);
+  }).observe(box);
+
+  function einblenden(origin){
+    el.classList.add("an");
+    if(docked()){
+      document.body.classList.add("folien");
+      if(!reduziert()) el.animate([{opacity:0,transform:"translateX(22px)"},{opacity:1,transform:"none"}],
+        {duration:280,easing:"cubic-bezier(.22,1,.36,1)"});
+      return;
+    }
+    veil.classList.add("an");
+    if(!Layer.isOpen() && !htmlLock){ htmlLock=true; document.documentElement.style.overflow="hidden"; }
+    if(reduziert()||!origin) return;
+    const r=origin.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2;
+    const rad=Math.hypot(Math.max(cx,innerWidth-cx),Math.max(cy,innerHeight-cy));
+    veil.animate([{clipPath:`circle(0px at ${cx}px ${cy}px)`},{clipPath:`circle(${rad}px at ${cx}px ${cy}px)`}],
+      {duration:400,easing:"cubic-bezier(.22,1,.36,1)"});
+    const p=el.getBoundingClientRect();
+    if(p.width&&p.height) el.animate([
+      {clipPath:`inset(${Math.max(0,r.top-p.top)}px ${Math.max(0,p.right-r.right)}px ${Math.max(0,p.bottom-r.bottom)}px ${Math.max(0,r.left-p.left)}px round 14px)`,opacity:.4},
+      {clipPath:"inset(0 round 14px)",opacity:1}],{duration:400,easing:"cubic-bezier(.22,1,.36,1)"});
+  }
+
+  function open(id, seite, zielListe, origin){
+    const D=DECKS[id]; if(!D) return;
+    const warOffen=offen, gleich=warOffen && deck===id;
+    token++; deck=id; offen=true;
+    ziele=[...new Set((zielListe||[]).filter(n=>n>=1&&n<=D.seiten))].sort((a,b)=>a-b);
+    seite=Math.max(1,Math.min(D.seiten, seite||ziele[0]||1));
+    kopf();
+    if(!gleich){ if(!warOffen) el.classList.add("an"); aufbauen(); }
+    zieleLeiste(); markiere();
+    if(!warOffen) einblenden(origin);
+    else if(!docked()){ veil.classList.add("an"); }
+    requestAnimationFrame(()=>{ springe(seite, gleich); box.focus({preventScroll:true}); });
+    ladeDoc(id).catch(()=>fehler());
+  }
+  function close(){
+    if(!offen) return;
+    offen=false; token++;
+    abbrechenAlle();
+    el.classList.remove("an"); veil.classList.remove("an");
+    document.body.classList.remove("folien");
+    if(htmlLock){ htmlLock=false; document.documentElement.style.overflow=""; }
+    gerendert.forEach(c=>{ c.width=c.height=0; }); gerendert.clear();
+    if(io) io.disconnect(); box.innerHTML=""; slots=[]; deck=null;
+  }
+  $("#f-zu").onclick=close;
+  veil.onclick=close;
+  $("#f-vor").onclick=()=>springe(aktiv-1,true);
+  $("#f-nach").onclick=()=>springe(aktiv+1,true);
+  return {open, close, isOpen:()=>offen, step:d=>springe(aktiv+d,true)};
+})();
+
+/* Klicks auf Belege, Kacheln, Listen: alles mit data-folie öffnet den Viewer */
+document.addEventListener("click",e=>{
+  const a=e.target.closest("[data-folie]"); if(!a) return;
+  if(e.metaKey||e.ctrlKey||e.shiftKey) return;           // Strg-Klick: PDF im neuen Tab
+  e.preventDefault(); e.stopPropagation();
+  const [id,s,z]=a.dataset.folie.split("|");
+  Folien.open(id, +s||1, (z||"").split(",").filter(Boolean).map(Number), a);
+},true);
+/* Tastatur: Esc schließt zuerst die Folien, Pfeile blättern */
+window.addEventListener("keydown",e=>{
+  if(!Folien.isOpen()) return;
+  if(e.key==="Escape"){ e.preventDefault(); e.stopImmediatePropagation(); Folien.close(); return; }
+  if(/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)||e.metaKey||e.ctrlKey||e.altKey) return;
+  if(e.key==="ArrowRight"||e.key==="PageDown"){ e.preventDefault(); e.stopImmediatePropagation(); Folien.step(1); }
+  else if(e.key==="ArrowLeft"||e.key==="PageUp"){ e.preventDefault(); e.stopImmediatePropagation(); Folien.step(-1); }
+  else if(/^[jkmea1-4 ]$/i.test(e.key) && !document.body.classList.contains("folien")) e.stopImmediatePropagation();
+},true);
+
+/* ---------- Bausteine für Übersicht, Kacheln und Modulseite ---------- */
+function modFolienListe(mid){
+  return (MODFOLIEN[mid]||[]).slice().sort((a,b)=>(DECKS[a[0]].neben?1:0)-(DECKS[b[0]].neben?1:0));
+}
+function kachelFolienHTML(mid){
+  const L=modFolienListe(mid).filter(([d])=>istVL(d)||d==="lsht");
+  if(!L.length) return "";
+  return `<span class="k-folien">${L.map(([d,s])=>
+    `<button data-folie="${d}|${s}|" title="Folien: ${esc(DECKS[d].art)} · ${esc(DECKS[d].titel)}">${deckKurz(d)}</button>`).join("")}</span>`;
+}
+function kompassFolienHTML(m){
+  const L=modFolienListe(m.id); if(!L.length) return "";
+  return `<div><h6>Folien zum Modul</h6><div class="k-vl">${L.map(([d,s])=>{ const D=DECKS[d];
+    return `<button data-folie="${d}|${s}|" title="Öffnet ${deckEinheit(d)} ${s} — die erste, die dieses Modul belegt">
+      <span class="kn">${deckKurz(d)}</span><span class="kt">${esc(D.titel)}</span>
+      <span class="kz">ab ${s} / ${D.seiten}</span></button>`;}).join("")}</div></div>`;
+}
+function vorlesungenHTML(){
+  const ids=Object.keys(DECKS), haupt=ids.filter(d=>!DECKS[d].neben), neben=ids.filter(d=>DECKS[d].neben);
+  const zeile=d=>{ const D=DECKS[d], M=deckModule(d);
+    return `<button class="vl-i ${D.neben?"neben":""}" data-folie="${d}|1|">
+      <span class="n">${D.nr}</span><span class="t">${esc(D.titel)}</span>
+      <span class="z">${D.seiten} ${D.seiten===1?deckEinheit(d):deckEinheit(d)==="Seite"?"Seiten":"Folien"}</span>
+      <span class="m">${M.length>6?`Quer durch ${M.length} Module`:M.length?"Modul "+M.map(x=>MODULE.indexOf(x)+1).join(" · "):esc(D.art)}${D.zusatz?" · "+esc(D.zusatz):""}</span></button>`; };
+  return `<h2>Die Vorlesungen</h2>
+  <p class="vl-hint">Alle Foliensätze zum Durchblättern. Jeder Beleg im Lernstoff ist ein Link:
+    ein Klick auf <span class="kbd">Folie 28</span> öffnet den Satz genau dort, die belegten Folien sind markiert.</p>
+  <div class="vl-liste">${haupt.map(zeile).join("")}</div>
+  <p class="vl-h">Gastvorlesung · Revision · Seminar</p>
+  <div class="vl-liste">${neben.map(zeile).join("")}</div>`;
+}
 
 /* ---------- Start ---------- */
 pRender(); render();
