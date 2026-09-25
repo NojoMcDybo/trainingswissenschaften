@@ -1950,54 +1950,54 @@ button,a,summary,label,.opt{-webkit-tap-highlight-color:transparent;touch-action
    ========================================================================== */
 @media(prefers-reduced-motion:no-preference){
   /* Seitenleiste: Marke wächst ein, Einträge gleiten beim Überfahren */
-  .s-i.on.neu::before{animation:navMarke .38s cubic-bezier(.22,1,.36,1) both;transform-origin:top}
+  .s-i.on.neu::before{animation:navMarke .6s cubic-bezier(.22,1,.36,1) both;transform-origin:top}
   @keyframes navMarke{from{transform:scaleY(0)}}
-  .s-i.on.neu{animation:navHell .5s ease both}
+  .s-i.on.neu{animation:navHell .8s ease both}
   @keyframes navHell{from{background:transparent}}
-  @media(hover:hover){ .s-i .t{transition:transform .2s cubic-bezier(.22,1,.36,1)} .s-i:hover .t{transform:translateX(3px)} }
-  #side.erst .s-bar i{animation:balken .9s cubic-bezier(.22,1,.36,1) both;transform-origin:left;
-    animation-delay:calc(var(--i,0) * 22ms + .15s)}
+  @media(hover:hover){ .s-i .t{transition:transform .3s cubic-bezier(.22,1,.36,1)} .s-i:hover .t{transform:translateX(3px)} }
+  #side.erst .s-bar i{animation:balken 1.4s cubic-bezier(.22,1,.36,1) both;transform-origin:left;
+    animation-delay:calc(var(--i,0) * 34ms + .25s)}
   @keyframes balken{from{transform:scaleX(0)}}
   /* Mobile Schublade: Einträge laufen gestaffelt ein */
   @media(max-width:1080px){
-    body.nav #side .s-i,body.nav #side .s-h{animation:navEin .34s cubic-bezier(.22,1,.36,1) both;
-      animation-delay:calc(var(--i,0) * 14ms + 60ms)}
+    body.nav #side .s-i,body.nav #side .s-h{animation:navEin .5s cubic-bezier(.22,1,.36,1) both;
+      animation-delay:calc(var(--i,0) * 22ms + 80ms)}
     @keyframes navEin{from{opacity:0;transform:translateX(-14px)}}
   }
   /* Schritte 1·2·3: Unterstrich fährt aus */
-  #main.einblenden .steps button.on{animation:tabLinie .45s cubic-bezier(.22,1,.36,1) both}
+  #main.einblenden .steps button.on{animation:tabLinie .7s cubic-bezier(.22,1,.36,1) both}
   @keyframes tabLinie{from{box-shadow:inset 0 0 0 var(--signal)}}
   /* Abschnittsleiste rechts */
   #rail a{transition:background .18s,transform .2s cubic-bezier(.22,1,.36,1)}
   @media(hover:hover){ #rail a:hover{transform:translateX(2px)} }
   /* Übersicht: Kacheln und Foliensätze kommen gestaffelt */
-  #main.einblenden .kachel-w,#main.einblenden .vl-i{animation:hoch .55s cubic-bezier(.22,1,.36,1) both;
-    animation-delay:calc(var(--i,0) * 32ms)}
+  #main.einblenden .kachel-w,#main.einblenden .vl-i{animation:hoch .85s cubic-bezier(.22,1,.36,1) both;
+    animation-delay:calc(var(--i,0) * 50ms)}
   @keyframes hoch{from{opacity:0;transform:translateY(12px)}}
-  #main.einblenden .kbar i{animation:balken 1s cubic-bezier(.22,1,.36,1) both;transform-origin:left;
-    animation-delay:calc(var(--i,0) * 32ms + .25s)}
+  #main.einblenden .kbar i{animation:balken 1.5s cubic-bezier(.22,1,.36,1) both;transform-origin:left;
+    animation-delay:calc(var(--i,0) * 50ms + .4s)}
   /* Folien-Viewer: Inhaltsverzeichnis-Einträge */
-  .f-toc.auf li{animation:hoch .35s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(var(--i,0) * 12ms)}
+  .f-toc.auf li{animation:hoch .5s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(var(--i,0) * 18ms)}
 
   /* Grafiken: Schaubilder bauen sich beim Hineinscrollen auf */
   .sb.anim :is(.st,.ast,.ph,.fd,.lg,.zr,.zl,.lz,.wz,.xk,.yk,.pf){opacity:0;transform:translateY(9px)}
   .sb.anim.an :is(.st,.ast,.ph,.fd,.lg,.zr,.zl,.lz,.wz,.xk,.yk,.pf){opacity:1;transform:none;
-    transition:opacity .5s ease,transform .55s cubic-bezier(.22,1,.36,1);transition-delay:calc(var(--k,0) * 75ms)}
+    transition:opacity .8s ease,transform .85s cubic-bezier(.22,1,.36,1);transition-delay:calc(var(--k,0) * 115ms)}
   .sb.anim .zb i{transform:scaleX(0);transform-origin:left}
-  .sb.anim.an .zb i{transform:none;transition:transform .9s cubic-bezier(.22,1,.36,1) .25s}
+  .sb.anim.an .zb i{transform:none;transition:transform 1.4s cubic-bezier(.22,1,.36,1) .4s}
   .sb.anim .bal{clip-path:inset(0 100% 0 0)}
-  .sb.anim.an .bal{clip-path:inset(0 0 0 0);transition:clip-path 1s cubic-bezier(.22,1,.36,1)}
+  .sb.anim.an .bal{clip-path:inset(0 0 0 0);transition:clip-path 1.5s cubic-bezier(.22,1,.36,1)}
   .sb.anim .verb{transform:scaleY(0);transform-origin:top}
-  .sb.anim.an .verb{transform:none;transition:transform .4s ease}
+  .sb.anim.an .verb{transform:none;transition:transform .6s ease}
   /* SVG-Diagramme: Linien zeichnen sich, Punkte und Beschriftungen folgen */
   .sc.anim svg .dg[pathLength]{stroke-dasharray:1 1;stroke-dashoffset:1}
-  .sc.anim.an svg .dg[pathLength]{stroke-dashoffset:0;transition:stroke-dashoffset 1.3s cubic-bezier(.45,0,.2,1)}
+  .sc.anim.an svg .dg[pathLength]{stroke-dashoffset:0;transition:stroke-dashoffset 2s cubic-bezier(.45,0,.2,1)}
   .sc.anim svg :is(text,circle,rect,ellipse,polygon,.dg-aux,.dg-lead,.dg-box){opacity:0}
   .sc.anim.an svg :is(text,circle,rect,ellipse,polygon,.dg-aux,.dg-lead,.dg-box){opacity:1;
-    transition:opacity .6s ease;transition-delay:calc(.45s + var(--k,0) * 18ms)}
+    transition:opacity .9s ease;transition-delay:calc(.8s + var(--k,0) * 28ms)}
   /* Kompass-Zahlen */
   .zahlen.anim div{opacity:0;transform:translateY(6px)}
-  .zahlen.anim.an div{opacity:1;transform:none;transition:opacity .45s ease,transform .45s ease;transition-delay:calc(var(--k,0) * 80ms)}
+  .zahlen.anim.an div{opacity:1;transform:none;transition:opacity .7s ease,transform .7s ease;transition-delay:calc(var(--k,0) * 120ms)}
 }
 @media print{ .anim *{opacity:1!important;transform:none!important;clip-path:none!important;stroke-dashoffset:0!important} }
 /* Diagramm-Beschriftungen mit Hof, damit Linien sie nicht durchkreuzen */
@@ -2032,6 +2032,27 @@ body.nurbild #rail,body.nurbild .steps{opacity:0;pointer-events:none}
   body.hatbild #main::after{content:"";display:block;height:calc(100vh - var(--head) - 60px)}
 }
 
+
+/* Interaktive Grafiken */
+.sb.ia :is(.st,.ast,.ph,.fd,.lg,.zr,.lz,.zl){cursor:pointer;transition:opacity .35s ease,background .35s ease}
+.sb.ia-fokus :is(.st,.ast,.ph,.fd,.lg,.zr,.lz,.zl):not(.ia-hi){opacity:.32}
+.sb .ia-hi{background:color-mix(in srgb,var(--signal) 10%,transparent);border-radius:var(--radius)}
+.sb-mx .ia-kopf{color:var(--signal)!important}
+svg .ia-g{cursor:pointer;transition:opacity .3s ease}
+svg.ia-fokus .ia-g:not(.ia-hi){opacity:.3}
+svg .ia-g.ia-hi text{fill:var(--ink)}
+svg.ia-kurve{touch-action:pan-y;cursor:crosshair}
+.ia-leser{opacity:0;transition:opacity .2s ease;pointer-events:none}
+.ia-leser.an{opacity:1}
+.ia-leser .ia-l{stroke:var(--accent);stroke-width:1;stroke-dasharray:3 3}
+.ia-leser .ia-p{fill:var(--accent);stroke:var(--bg-2);stroke-width:2}
+.ia-leser .ia-b{fill:var(--bg-2);stroke:var(--accent);stroke-width:1}
+.ia-leser .ia-t{fill:var(--ink);font-family:var(--mono);font-size:9px}
+figure .sc{position:relative}
+figure .sc.hat-leser::after{content:"Mit Maus oder Finger über die Kurve fahren";display:block;
+  font-family:var(--sans);font-size:.5rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+  text-align:right;margin-top:4px}
+.bubble .b-teilen{vertical-align:-2px;color:var(--signal)}
 </style>
 
 <div id="deco" aria-hidden="true">
@@ -3886,19 +3907,31 @@ const PET={
     b.classList.remove("klickbar"); b.textContent=t; b.classList.add("show");
     clearTimeout(this._t); this._t=setTimeout(()=>b.classList.remove("show"),3800); },
   /* Beim Öffnen 30 s lang: Hinweis auf die Textfassung für KI-Lernassistenten */
+  /* Beim Öffnen: Tipp 1 (30 s) — Website-Link für KI-Lernassistenten;
+     auf iPhone/iPad danach Tipp 2 — Seite als Web-App auf den Home-Bildschirm */
   hinweis(){ const b=$("#bubble"); if(!b||!this.el||document.getElementById("dock").classList.contains("weg")) return;
-    const url=new URL("llms.txt",location.href).href;
-    b.innerHTML=`<b>Tipp:</b> Du lernst gern mit einer KI? Gib ihr diesen Link in den Chat — dann kennt sie den Stoff
-      dieser Seite und kann dich gezielt abfragen.<span class="b-link"><code>${esc(url.replace(/^https?:\/\//,""))}</code>
-      <button type="button" class="b-kopie">Link kopieren</button></span>`;
-    b.classList.add("show","klickbar");
-    if(typeof BOT!=="undefined") BOT.sprechen("Tipp: Gib einer KI diesen Link.");
-    b.querySelector(".b-kopie").onclick=async e=>{ e.stopPropagation();
-      try{ await navigator.clipboard.writeText(url); e.target.textContent="Kopiert ✓"; }
-      catch(_){ const r=document.createRange(); r.selectNodeContents(b.querySelector("code"));
-        const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); e.target.textContent="Markiert — Strg+C"; } };
-    b.onclick=e=>{ if(!e.target.closest(".b-kopie")) b.classList.remove("show","klickbar"); };
-    clearTimeout(this._t); this._t=setTimeout(()=>b.classList.remove("show","klickbar"),30000); },
+    const url=location.href.split("#")[0].split("?")[0];
+    const ios=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+    const alsApp=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+    const zeige=(html,ms,sagen,nach)=>{
+      b.innerHTML=html; b.classList.add("show","klickbar"); clearTimeout(this._t);
+      if(typeof BOT!=="undefined") BOT.sprechen(sagen);
+      const fertig=()=>{ b.classList.remove("show","klickbar"); if(nach) setTimeout(nach,900); };
+      b.onclick=e=>{ if(e.target.closest("button")) return; clearTimeout(this._t); fertig(); };
+      this._t=setTimeout(fertig,ms); };
+    const tipp2=()=>{ if(!ios||alsApp||sess) return;
+      zeige(`<b>Tipp:</b> Nutz die Seite als App: Tippe auf das Teilen-Symbol
+        <svg class="b-teilen" viewBox="0 0 16 16" width="14" height="14" aria-label="Teilen" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10.5V2"/><path d="M5.2 4.6 8 1.8l2.8 2.8"/><path d="M5 7H3.5v7h9V7H11"/></svg>
+        und dann auf „Zum Home-Bildschirm“. Sie startet dann im Vollbild wie eine App.`,
+        20000,"Noch ein Tipp."); };
+    zeige(`<b>Tipp:</b> Du lernst mit einer KI? Gib ihr den Website-Link in den Chat, dann kennt sie den Stoff
+      dieser Seite und kann dich gezielt abfragen.<span class="b-link"><button type="button" class="b-kopie">Website-Link kopieren</button></span>`,
+      30000,"Tipp: Gib einer KI den Website-Link.",tipp2);
+    b.querySelector(".b-kopie").onclick=async e=>{ e.stopPropagation(); const k=e.currentTarget;
+      try{ await navigator.clipboard.writeText(url); }
+      catch(_){ const t=Object.assign(document.createElement("textarea"),{value:url}); t.style.cssText="position:fixed;opacity:0";
+        document.body.appendChild(t); t.select(); try{ document.execCommand("copy"); }catch(__){} t.remove(); }
+      k.textContent="Kopiert ✓"; }; },
   spruch(){ const f=pool().length, t=tageBis();
     if(!f) return pick(LINES.leer);
     if(t!==null&&t<=5) return `${t} Tage. ${f} Karten. Rechne selbst.`;
@@ -5018,17 +5051,116 @@ function vorlesungenHTML(){
 }
 
 
+
+/* ---------- Grafiken interaktiv ----------
+   HTML-Schaubilder: Überfahren/Antippen hebt ein Element hervor (Rest tritt zurück), Klick fixiert;
+   Gegenüberstellungen koppeln die Zeilen beider Seiten, Matrizen markieren Zeilen- und Spaltenkopf.
+   SVG-Diagramme: Gruppen (Punkt + Beschriftung) heben sich hervor; Kurven lassen sich abfahren —
+   ein Messpunkt folgt der Kurve und zeigt Wert, Phase und nahe Markierungen. */
+const GrafikInteraktiv=(()=>{
+  const ITEMS=".st,.ast,.ph,.fd,.lg,.zr,.lz,.zl";
+  function sb(el){
+    if(el.dataset.ia) return; el.dataset.ia="1";
+    if(!el.querySelector(ITEMS)) return;
+    el.classList.add("ia");
+    const mx=el.querySelector(".sb-mx"), geg=el.querySelector(".sb-geg");
+    const setze=t=>{
+      el.querySelectorAll(".ia-hi,.ia-kopf").forEach(x=>x.classList.remove("ia-hi","ia-kopf"));
+      el.classList.toggle("ia-fokus",!!t); if(!t) return;
+      if(t.matches(".zl")&&geg){ const i=[...t.parentElement.querySelectorAll(".zl")].indexOf(t);
+        geg.querySelectorAll(".sp").forEach(sp=>{ const z=sp.querySelectorAll(".zl")[i]; if(z) z.classList.add("ia-hi"); }); }
+      else if(t.matches(".fd")&&mx){ t.classList.add("ia-hi");
+        const fd=[...mx.querySelectorAll(".fd")], X=mx.querySelectorAll(".xk").length||1, i=fd.indexOf(t);
+        const xk=mx.querySelectorAll(".xk")[i%X], yk=mx.querySelectorAll(".yk")[Math.floor(i/X)];
+        if(xk) xk.classList.add("ia-kopf"); if(yk) yk.classList.add("ia-kopf"); }
+      else t.classList.add("ia-hi");
+    };
+    el.addEventListener("pointerover",e=>{ if(e.pointerType!=="mouse"||el._fix) return;
+      const t=e.target.closest(ITEMS); if(t&&el.contains(t)) setze(t); });
+    el.addEventListener("pointerleave",()=>{ if(!el._fix) setze(null); });
+    el.addEventListener("click",e=>{ if(e.target.closest("a,button")) return;
+      const t=e.target.closest(ITEMS); if(!t||!el.contains(t)) return;
+      if(el._fix===t){ el._fix=null; setze(null); } else { el._fix=t; setze(t); } });
+  }
+  function svgPt(svg,e){ const p=svg.createSVGPoint(); p.x=e.clientX; p.y=e.clientY;
+    return p.matrixTransform(svg.getScreenCTM().inverse()); }
+  function leser(svg){
+    const kurve=[...svg.querySelectorAll("path.dg")].find(p=>{ const b=p.getBBox(); return b.width>180&&b.height>30; });
+    const gruppen=[...svg.querySelectorAll(":scope > g")].filter(g=>g.querySelector("text")&&g.querySelector("circle,rect,path,line"));
+    gruppen.forEach(g=>{ g.classList.add("ia-g");
+      g.addEventListener("pointerenter",()=>{ svg.classList.add("ia-fokus"); g.classList.add("ia-hi"); });
+      g.addEventListener("pointerleave",()=>{ svg.classList.remove("ia-fokus"); g.classList.remove("ia-hi"); }); });
+    if(!kurve) return;
+    const L=kurve.getTotalLength(), kb=kurve.getBBox();
+    const senk=[...svg.querySelectorAll("line.dg")].find(l=>l.getAttribute("x1")===l.getAttribute("x2"));
+    const waag=[...svg.querySelectorAll("line.dg")].find(l=>l.getAttribute("y1")===l.getAttribute("y2"));
+    const ax=senk?+senk.getAttribute("x1"):kb.x, boden=waag?+waag.getAttribute("y1"):kb.y+kb.height;
+    const texte=[...svg.querySelectorAll("text")];
+    const ticks=texte.filter(t=>/^\d+([.,]\d+)?$/.test(t.textContent.trim())&&t.getBBox().x<ax);
+    let wert=null, einheit="";
+    if(ticks.length>=2){ const P=ticks.map(t=>{ const b=t.getBBox(); return [b.y+b.height*.62, parseFloat(t.textContent.replace(",","."))]; });
+      const n=P.length, sy=P.reduce((a,p)=>a+p[0],0)/n, sv=P.reduce((a,p)=>a+p[1],0)/n;
+      const k=P.reduce((a,p)=>a+(p[0]-sy)*(p[1]-sv),0)/P.reduce((a,p)=>a+(p[0]-sy)**2,0);
+      wert=y=>sv+k*(y-sy);
+      const u=texte.map(t=>t.textContent.match(/\(([^)]*\/[^)]*)\)/)).find(Boolean); if(u) einheit=u[1];
+      else { const u2=texte.find(t=>/^[a-zµ]+\/[a-z]+$/i.test(t.textContent.trim())); if(u2) einheit=u2.textContent.trim(); } }
+    const phasen=texte.filter(t=>t.classList.contains("hi")&&t.getBBox().y<kb.y+12&&t.getBBox().y<60)
+      .map(t=>({x:t.getBBox().x-10,t:t.textContent.trim()})).sort((a,b)=>a.x-b.x);
+    const marken=[...svg.querySelectorAll("circle")].map(c=>{ const g=c.closest("g"), tx=g&&g.querySelector("text");
+      return {x:+c.getAttribute("cx"),y:+c.getAttribute("cy"),t:tx?tx.textContent.trim():""}; }).filter(m=>m.t);
+    const NS="http://www.w3.org/2000/svg", mk=(n,a)=>{ const e=document.createElementNS(NS,n); for(const k in a) e.setAttribute(k,a[k]); return e; };
+    const g=mk("g",{class:"ia-leser"}), vl=mk("line",{class:"ia-l"}), pt=mk("circle",{r:4.5,class:"ia-p"}),
+      bx=mk("rect",{rx:3,class:"ia-b"}), tx=mk("text",{class:"ia-t"});
+    g.append(vl,pt,bx,tx); svg.append(g);
+    const punkt=x=>{ let lo=0,hi=L; for(let i=0;i<22;i++){ const m=(lo+hi)/2, q=kurve.getPointAtLength(m); if(q.x<x) lo=m; else hi=m; }
+      return kurve.getPointAtLength((lo+hi)/2); };
+    const vb=svg.viewBox.baseVal;
+    const zeig=e=>{
+      const s=svgPt(svg,e); if(s.x<kb.x-6||s.x>kb.x+kb.width+6){ g.classList.remove("an"); return; }
+      const q=punkt(Math.max(kb.x,Math.min(kb.x+kb.width,s.x)));
+      vl.setAttribute("x1",q.x); vl.setAttribute("x2",q.x); vl.setAttribute("y1",q.y); vl.setAttribute("y2",boden);
+      pt.setAttribute("cx",q.x); pt.setAttribute("cy",q.y);
+      const teile=[];
+      const ph=phasen.filter(p=>p.x<=q.x).pop(); if(ph) teile.push(ph.t);
+      if(wert){ const v=wert(q.y); teile.push(`≈ ${v.toFixed(v<10?1:0).replace(".",",")}${einheit?" "+einheit:""}`); }
+      const nah=marken.find(m=>Math.hypot(m.x-q.x,m.y-q.y)<14); if(nah) teile.push(nah.t);
+      if(!teile.length) teile.push("Verlauf");
+      tx.textContent=teile.join("  ·  ");
+      const w=tx.getComputedTextLength()+14, h=17;
+      let bxX=q.x+10, bxY=q.y-28; if(bxX+w>vb.x+vb.width) bxX=q.x-10-w; if(bxY<vb.y+2) bxY=q.y+12;
+      bx.setAttribute("x",bxX); bx.setAttribute("y",bxY); bx.setAttribute("width",w); bx.setAttribute("height",h);
+      tx.setAttribute("x",bxX+7); tx.setAttribute("y",bxY+12);
+      g.classList.add("an");
+    };
+    svg.classList.add("ia-kurve");
+    svg.addEventListener("pointermove",zeig);
+    svg.addEventListener("pointerdown",zeig);
+    svg.addEventListener("pointerleave",()=>g.classList.remove("an"));
+  }
+  function an(el){
+    if(el.matches(".sb")) return sb(el);
+    const svg=el.querySelector("svg"); if(!svg||svg.dataset.ia) return; svg.dataset.ia="1";
+    if([...svg.querySelectorAll("path.dg")].some(p=>((p.getAttribute("d")||"").match(/[LC]/g)||[]).length>=5)) el.classList.add("hat-leser");
+    svg.addEventListener("pointerenter",()=>{ if(!svg._bereit){ svg._bereit=1; try{ leser(svg); }catch(_){} } });
+    svg.addEventListener("touchstart",()=>{ if(!svg._bereit){ svg._bereit=1; try{ leser(svg); }catch(_){} } },{passive:true});
+  }
+  return {an};
+})();
 /* ---------- Bewegung: Grafiken beim Hineinscrollen aufbauen, Navigation markieren ---------- */
 const GrafikAnim=(()=>{
   const still=()=>matchMedia("(prefers-reduced-motion:reduce)").matches;
   const io=("IntersectionObserver" in window) ? new IntersectionObserver(es=>es.forEach(e=>{
-    if(e.isIntersecting){ e.target.classList.add("an"); io.unobserve(e.target); } }),
+    if(e.isIntersecting){ const t=e.target; t.classList.add("an"); io.unobserve(t);
+      setTimeout(()=>t.classList.remove("anim","an"),3600); } }),
     {rootMargin:"0px 0px -6% 0px",threshold:.15}) : null;
   function staffeln(el,sel){ el.querySelectorAll(sel).forEach(c=>{
     const geschw=[...c.parentElement.children].filter(x=>x.matches(sel)); c.style.setProperty("--k",Math.min(14,geschw.indexOf(c))); }); }
   function scan(root){
-    if(!root||!io||still()) return;
-    root.querySelectorAll(".sb:not(.anim),figure .sc:not(.anim),.kompass .zahlen:not(.anim)").forEach(el=>{
+    if(!root) return;
+    root.querySelectorAll(".sb,figure .sc").forEach(el=>GrafikInteraktiv.an(el));
+    if(!io||still()) return;
+    root.querySelectorAll(".sb:not([data-am]),figure .sc:not([data-am]),.kompass .zahlen:not([data-am])").forEach(el=>{
+      el.dataset.am="1";
       if(el.matches(".sc")){
         el.querySelectorAll("svg .dg").forEach(p=>{ if(p.getTotalLength) p.setAttribute("pathLength","1"); });
         el.querySelectorAll("svg :is(text,circle,rect,ellipse,polygon,.dg-aux,.dg-lead,.dg-box)").forEach((c,i)=>c.style.setProperty("--k",Math.min(30,i)));
