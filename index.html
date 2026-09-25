@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Trainingswissenschaften — Klausur-Trainer</title>
 <meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="icons/favicon.ico" sizes="16x16 32x32 48x48 64x64">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#111318">
 <style>
 /* ==========================================================================
    TRAININGSPLAN — ruhiger Swiss-Sport-Look
@@ -1451,6 +1457,23 @@ details.anhang[open]{padding:0 14px 14px}
 details.anhang[open]>summary{margin:0 -14px}
 @media(max-width:620px){ .sekt{padding:40px 0 30px} .sekt-nr{font-size:2.2rem} .sekt-tx h2{font-size:1.06rem} }
 @media print{ details.sekt-tab,details.anhang,details.synth-d{border:0} }
+
+/* ==========================================================================
+   PUNKTRASTER über den Hintergrundbildern — kaschiert Kompression und
+   geringe Auflösung (wie ein feines Bildschirm-/Druckraster)
+   ========================================================================== */
+#modbild::before,.kachel .bild::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:radial-gradient(circle,color-mix(in srgb,var(--bg) 78%,transparent) 0 .95px,transparent 1.35px);
+  background-size:3px 3px}
+#modbild{filter:saturate(.92)}
+#modbild::after{z-index:2}
+.kachel .bild::before{background-size:3px 3px;opacity:.9}
+.kachel .bild::after{z-index:1}
+:root[data-theme="paper"] #modbild::before{background-image:radial-gradient(circle,color-mix(in srgb,var(--bg) 70%,transparent) 0 .9px,transparent 1.3px)}
+@media(min-resolution:2dppx){
+  #modbild::before,.kachel .bild::before{background-size:2.5px 2.5px;
+    background-image:radial-gradient(circle,color-mix(in srgb,var(--bg) 78%,transparent) 0 .75px,transparent 1.1px)}
+}
 </style>
 
 
