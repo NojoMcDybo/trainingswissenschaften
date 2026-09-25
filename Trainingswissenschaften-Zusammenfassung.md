@@ -1,7 +1,7 @@
 # Trainingswissenschaften — Zusammenfassung auf Klausurniveau
 
 **3. Semester Sport · WWU Münster · Prof. Dr. E. Eils**
-**Klausur: 28. September 2026 · 90 Minuten · 51 Punkte zum Bestehen**
+**Klausur: 90 Minuten · 51 Punkte zum Bestehen**
 
 Quellenbasis: die eigene Revision (12 Seiten). 13 Vorlesungen. die Gastvorlesung zum leichten
 Schädelhirntrauma und das Krafttrainings-Seminar. Foliendeckung 583 von 614 inhaltstragenden
