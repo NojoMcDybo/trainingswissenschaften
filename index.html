@@ -1410,6 +1410,47 @@ a.fl.kx-f:hover{color:var(--signal);border-color:var(--signal);background:transp
 .kompass .k-vl .kt{font-size:.83rem;line-height:1.4}
 .kompass .k-vl .kz{font-family:var(--mono);font-size:.6rem;color:var(--muted);white-space:nowrap}
 @media print{ #folien,#fveil,.k-folien,.vl-liste,.kompass .k-vl{display:none!important} }
+
+/* ==========================================================================
+   ÜBERSICHTLICHER — Kapitel klar getrennt, Nachschlagestoff eingeklappt
+   ========================================================================== */
+.sekt{margin:0;padding:52px 0 40px;border-top:1px solid var(--line-2);scroll-margin-top:90px}
+.sekt:first-of-type{margin-top:30px}
+.sekt-kopf{border-bottom:0;padding-bottom:0;margin:0 0 4px;gap:18px}
+.sekt-nr{font-size:2.9rem;color:var(--signal);opacity:.38;padding-top:0}
+.sekt.fertig .sekt-nr{color:var(--ok);opacity:.7}
+.sekt-tx h2{font-size:1.2rem;line-height:1.3;margin:0}
+.sekt-folien{border:0;background:transparent;padding:0;margin:7px 0 0;gap:2px 10px;font-size:.62rem}
+.sekt-folien .sl{display:none}
+.sekt-folien .sg::before{content:"▤ ";color:var(--muted);opacity:.7}
+.sekt .kmp{margin-top:22px}
+.sekt-fuss{border:0;background:transparent;padding:0;margin:22px 0 0;justify-content:flex-end;gap:14px}
+.sekt-fuss span{font-family:var(--mono);font-size:.64rem;color:var(--muted)}
+details.sekt-tab{margin:14px 0 0;border:1px solid var(--line);border-radius:var(--radius)}
+details.sekt-tab>summary,details.anhang>summary,details.synth-d>summary{cursor:pointer;list-style:none;
+  display:flex;align-items:baseline;gap:10px;padding:10px 14px;font-size:.86rem;color:var(--ink-2)}
+details.sekt-tab>summary::-webkit-details-marker,details.anhang>summary::-webkit-details-marker,
+details.synth-d>summary::-webkit-details-marker{display:none}
+details.sekt-tab>summary::before,details.anhang>summary::before,details.synth-d>summary::before{
+  content:"+";font-family:var(--mono);color:var(--signal);flex:0 0 auto}
+details.sekt-tab[open]>summary::before,details.anhang[open]>summary::before,details.synth-d[open]>summary::before{content:"−"}
+details.sekt-tab>summary:hover,details.anhang>summary:hover,details.synth-d>summary:hover{color:var(--ink)}
+details.sekt-tab .tl,details.anhang .tl{font-family:var(--sans);font-size:.52rem;font-weight:600;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--muted);flex:0 0 auto}
+details.sekt-tab>.card{margin:0;border:0;border-top:1px solid var(--line);box-shadow:none}
+details.sekt-tab>.card h3{display:none}
+.synth{margin:0;padding:48px 0 0;border:0;border-top:1px solid var(--line-2);background:transparent;border-radius:0}
+.synth .fuenf{margin:0}
+details.synth-d{margin:14px 0 0;border:1px solid var(--line);border-radius:var(--radius)}
+details.synth-d ol{padding:4px 18px 16px}
+details.anhang{margin:40px 0 0;border:1px solid var(--line);border-radius:var(--radius);padding:0}
+details.anhang>summary{padding:14px 16px}
+details.anhang>summary .tl{font-size:.6rem;color:var(--ink-2)}
+details.anhang>summary .sub{font-size:.8rem;color:var(--muted)}
+details.anhang[open]{padding:0 14px 14px}
+details.anhang[open]>summary{margin:0 -14px}
+@media(max-width:620px){ .sekt{padding:40px 0 30px} .sekt-nr{font-size:2.2rem} .sekt-tx h2{font-size:1.06rem} }
+@media print{ details.sekt-tab,details.anhang,details.synth-d{border:0} }
 </style>
 
 
@@ -1951,8 +1992,7 @@ function modulHTML(m){
     const lehrAb={}; if(L) (L.abschnitte||[]).forEach(x=>lehrAb[x.sekt]=x);
     body=`
       ${kompassHTML(m,f,q,sekt)}
-      ${L&&L.faden?`<div class="faden"><h6>Der rote Faden</h6><p>${mk(L.faden)}</p></div>`:""}
-      ${L&&L.schaubild?schaubildHTML(L.schaubild):""}
+      ${L&&L.schaubild&&!SCHAUBILD_DOPPELT.includes(m.id)?schaubildHTML(L.schaubild):""}
       ${dg.length?dg.map(diagHTML).join(""):""}
       ${!L?`<div class="lehr-offen"><b>Lehrgang noch nicht geschrieben.</b> Für dieses Modul
         stehen bisher nur die Lernkarten und Tabellen bereit — die ausführlichen Erklärungen mit
@@ -1964,13 +2004,14 @@ function modulHTML(m){
         <span class="grow"></span>
         <button class="fb" id="tog-alle">alle aufklappen</button></div>`:""}
       ${sekt.map((sk,i)=>sektHTML(m,sk,i,filter,lehrAb[sk.id])).join("")}
-      ${L&&(L.synthese||[]).length?`<div class="synth">
-        <h3>Das Modul in ${L.synthese.length} Sätzen</h3>
-        <ol>${L.synthese.map(x=>`<li>${mk(x)}</li>`).join("")}</ol>
+      ${L&&((L.fuenfMinuten||[]).length||(L.synthese||[]).length)?`<div class="synth">
         ${(L.fuenfMinuten||[]).length?`<div class="fuenf"><h6>Wenn du nur fünf Minuten hast</h6>
           <ul>${L.fuenfMinuten.map(x=>`<li>${mk(x)}</li>`).join("")}</ul></div>`:""}
+        ${(L.synthese||[]).length?`<details class="synth-d"><summary>Das Modul in ${L.synthese.length} Sätzen</summary>
+          <ol>${L.synthese.map(x=>`<li>${mk(x)}</li>`).join("")}</ol></details>`:""}
       </div>`:""}
-      ${t.length?`<h2>Vergleichstabellen zum Nachschlagen</h2>${t.map(tabHTML).join("")}`:""}
+      ${(()=>{ const rest=t.filter(x=>TABSEKT[x.id]===undefined || (TABSEKT[x.id] && !sekt.some(sk=>sk.id===TABSEKT[x.id])));
+        return rest.length?`<details class="sekt-tab"><summary><span class="tl">Weitere Tabellen</span>${rest.length}</summary>${rest.map(tabHTML).join("")}</details>`:""; })()}
       ${L?kartenAnhangHTML(m,sekt,f):""}
       <div class="card sig" style="margin-top:30px">
         <p><strong>Gelesen? Zählt noch nicht.</strong> Der Fortschritt bewegt sich erst beim
@@ -2010,7 +2051,7 @@ function modulHTML(m){
   <p class="kicker">${esc(m.gruppe)} <span class="muted">·</span> Modul ${i+1} / ${MODULE.length}
     ${st.proz>=80?'<span class="pill sig">sitzt</span>':""}</p>
   <h1>${esc(m.titel)}</h1>
-  <p class="lead klemm" id="modlead">${mk(m.intro||m.kicker||"")}</p>
+  <p class="lead klemm" id="modlead">${mk((LEHR[m.id]&&LEHR[m.id].faden)||m.intro||m.kicker||"")}</p>
   <button class="lead-mehr" id="lead-mehr">Ganzen Text lesen</button>
   <div class="bahn" aria-hidden="true" style="margin-top:26px"></div>
   <div class="steps" style="margin-top:0">
@@ -2069,28 +2110,25 @@ function sektHTML(m,sk,i,filt,lehr){
       <span class="sekt-nr">${String(i+1).padStart(2,"0")}</span>
       <div class="sekt-tx">
         <h2>${mk(sk.titel)}</h2>
-        ${sk.worum?`<p>${mk(sk.worum)}</p>`:""}
+        ${sektFolienHTML(sk.id)}
       </div>
       <span class="sekt-mess">${gesamt} Karten<i style="--w:${proz}%"></i></span>
     </div>
-    ${sektFolienHTML(sk.id)}
     ${lehr ? kompaktHTML(m,sk,i,lehr)
            : (sektBegriffe(sk.id).length ? kompaktHTML(m,sk,i,null) : "") +
              `<div class="sekt-karten">${fs.map(factHTML).join("")}</div>`}
+    ${sektTabellenHTML(sk.id)}
     ${qs.length?`<div class="sekt-fuss">
-      <p><b>Gelesen?</b> ${qs.length} Prüfungsfrage${qs.length>1?"n":""} zu diesem Abschnitt${ok?` · ${ok} sitzen bereits`:""}.
-      Direkt abrufen schlägt Weiterlesen.</p>
-      <button class="btn sm ${due?"pri":""}" data-sekt-drill="${sk.id}">${due?`Diese ${due} jetzt üben`:"Nochmal durchgehen"}</button>
+      <span>${qs.length} Frage${qs.length>1?"n":""}${ok?` · ${ok} sitzen`:""}</span>
+      <button class="btn sm ${due?"pri":""}" data-sekt-drill="${sk.id}">${due?`${due} jetzt üben`:"Nochmal üben"}</button>
     </div>`:""}
   </section>`;
 }
 
 /* Karteikarten wandern ans Modulende — nach Abschnitt gruppiert, zugeklappt */
 function kartenAnhangHTML(m,sekt,f){
-  return `<div class="anhang">
-    <h2>Alle Karteikarten des Moduls</h2>
-    <p>Die ${f.length} Karten in ihrer ausführlichen Fassung, nach Abschnitt sortiert — zum
-    gezielten Nachschlagen. Der Lehrgang oben deckt denselben Stoff im Zusammenhang ab.</p>
+  return `<details class="anhang"><summary><span class="tl">Alle ${f.length} Karteikarten</span>
+      <span class="sub">derselbe Stoff als Einzelkarten, zum Nachschlagen</span></summary>
     <div class="filt">
       <button class="fb ${filter==="alle"?"on":""}" data-filter="alle">Alle · ${f.length}</button>
       <button class="fb ${filter==="wichtig"?"on":""}" data-filter="wichtig">Prüfungsrelevant · ${f.filter(x=>x.wichtig).length}</button>
@@ -2107,7 +2145,13 @@ function kartenAnhangHTML(m,sekt,f){
         <span class="anz">${fs.length}</span></summary>
         <div class="inh">${fs.map(factHTML).join("")}</div></details>`;
     }).join("")}
-  </div>`;
+  </details>`;
+}
+/* Tabellen eines Abschnitts: eingeklappt, direkt beim Stoff statt gesammelt am Modulende */
+function sektTabellenHTML(sid){
+  const T=TABELLEN.filter(t=>TABSEKT[t.id]===sid); if(!T.length) return "";
+  return T.map(t=>`<details class="sekt-tab"><summary><span class="tl">Tabelle</span>${esc(t.titel)}</summary>
+    ${tabHTML(t)}</details>`).join("");
 }
 
 /* ==========================================================================
@@ -2330,10 +2374,7 @@ function kompaktErkHTML(sk,a){
     return "";
   }).join("");
   return `${a.vorab?`<div class="kx-vorab"><span class="fz">?</span><p>${mk(a.vorab)}</p></div>`:""}
-    <p class="kx-hint">Kompakt · vollständige Fassung rechts aufklappbar</p>
-    <div class="kx">${zeilen}</div>
-    ${a.merksatz?`<div class="merk"><span class="ic">◆</span><p>${mk(a.merksatz)}</p></div>`:""}
-    ${chips?`<div class="kx-chips"><span class="kx-chips-lbl">Außerdem enthalten:</span>${chips}</div>`:""}`;
+    <div class="kx">${zeilen}</div>`;
 }
 /* --- rechts: genau ein Aspekt --- */
 function aspektDetailHTML(a,k){
@@ -3526,6 +3567,11 @@ const FOLIENTOC = {"vl01":["Grundlagen 1 · Titel","Grundlagen - Begrifflichkeit
 /* Je Abschnitt und Absatz der Erklärung: die Folie(n), auf die sich der Absatz stützt.
    Explizit genannte Folien zuerst, sonst die textlich passendste unter den Belegfolien des Abschnitts. */
 const ASPFOLIEN = {"m1-s1":[[["vl01",15]],[["vl01",16]],[["vl01",11],["vl01",14]],[["vl01",13]],[["vl01",6],["vl01",8]],[["vl01",9]]],"m1-s2":[[["vl01",17]],[["vl01",19]],[["vl01",20]],[["vl01",20]],[["vl01",23]],[["vl01",22]]],"m1-s3":[[["vl02",30]],[["vl02",30]],[],[["vl01",26]],[["vl01",27]],[["vl01",31]]],"m1-s4":[[["vl01",35]],[["vl01",36]],[["vl01",36],["vl01",39],["vl01",40]],[["vl01",43]],[["vl01",44]],[["vl01",42],["vl01",45]]],"m1-s5":[[["vl02",5],["vl02",4]],[["vl02",6]],[["vl02",6]],[["vl02",12]],[["vl02",12]],[["vl02",6]]],"m1-s6":[[["vl02",7]],[["vl02",8]],[["vl02",8],["revision",3]],[["vl02",11]],[["vl02",15],["vl02",16]],[["vl07-schnelligkeit",5],["vl07-schnelligkeit",3],["vl02",17]]],"m1-s7":[[["vl02",19]],[["vl02",20]],[["vl02",21]],[["vl02",27]],[["vl02",22],["vl02",19]],[["vl02",22]]],"m1-s8":[[["vl02",23]],[["vl02",23]],[["vl02",24]],[["vl02",24],["vl02",25]],[["vl02",26]],[["vl02",28]]],"m2-s1":[[["vl02",36]],[["vl02",35]],[["vl02",36]],[["vl02",38]],[["vl02",39]],[["vl02",36],["vl02",46]]],"m2-s2":[[["vl02",43]],[["vl02",42]],[["vl02",44]],[["vl02",44]],[["vl02",45],["vl02",46]],[["vl02",46]]],"m2-s3":[[["vl03",8],["vl03",5],["vl03",4]],[["vl03",5]],[["vl03",5]],[["vl03",6]],[],[["vl03",7]]],"m2-s4":[[],[["vl03",8]],[["vl03",9]],[["vl03",10]],[["vl03",11]],[["vl03",16]]],"m2-s5":[[["vl03",19]],[["vl03",20]],[["vl03",22],["vl03",20]],[["vl03",21]],[["vl03",25],["vl03",26]],[["vl03",24],["vl03",23]]],"m2-s6":[[["vl03",27]],[["vl03",30]],[["vl03",28]],[["vl03",29]],[["vl03",30]],[["vl03",30]]],"m2-s7":[[["vl03",36]],[["vl03",37]],[],[["vl03",38]],[["vl03",42],["vl03",39]],[["vl03",43]]],"m2-s8":[[["vl03",44]],[["vl03",44]],[["vl03",46]],[["vl03",47]],[["vl03",48]],[["vl03",49]]],"m3-s1":[[["vl04",4]],[["vl04",9]],[["vl04",4]],[["vl04",5]],[["vl04",6]]],"m3-s2":[[["vl04",8],["vl04",6]],[["vl04",16],["vl04",8],["vl04",6]],[["vl04",8],["vl04",6]],[["vl04",8]],[["vl04",8]],[["vl04",7]]],"m3-s3":[[["vl04",11]],[["vl04",13]],[["vl04",13]],[["vl04",14],["vl04",13]],[["vl04",14],["vl04",13]],[["vl04",13]]],"m3-s4":[[["vl04",13]],[["vl04",16]],[["vl04",16]],[["vl04",17]],[["vl04",17]],[["vl04",17]]],"m3-s5":[[["vl04",32]],[["vl04",32]],[["vl04",38],["vl04",40]],[["vl04",38],["vl04",32],["vl04",40]],[],[["vl04",9]]],"m3-s6":[[["vl04",35]],[["vl04",38]],[["vl04",33]],[["vl04",42]],[["vl04",37]],[["vl04",18]]],"m3-s7":[[["vl04",38],["revision",7]],[["vl04",38],["revision",7]],[["vl04",38],["revision",7]],[["vl04",40],["revision",7]],[["revision",7]],[["vl04",38],["vl04",40]]],"m3-s8":[[["vl04",19]],[["vl04",27]],[["vl04",13],["revision",5]],[["vl04",44],["vl04",45]],[["vl04",45]],[["vl04",47]]],"m4-s1":[[["vl10",44],["vl10",53]],[["vl04",5],["revision",8]],[["vl04",22]],[["vl04",21]],[["vl04",23]]],"m4-s2":[[["vl04",45]],[["vl04",45]],[["vl04",27]],[["vl04",28]],[["vl04",28]],[["vl04",28],["revision",8]]],"m4-s3":[[["vl04",28]],[["vl04",28]],[["vl04",28],["revision",8]],[["vl04",28]],[["revision",8]],[["vl04",28],["revision",9]]],"m4-s4":[[["revision",8]],[["revision",9]],[["revision",8]],[["revision",9]],[["revision",9]],[["revision",8]]],"m4-s5":[[["vl04",28]],[["revision",8]],[["vl04",28]],[["vl04",30]],[["vl04",28]],[["vl04",28]]],"m4-s6":[[["vl10",39]],[["vl10",40]],[["vl10",46]],[["vl10",47]],[["vl10",48]],[["vl10",49],["vl10",45],["vl10",53]]],"m4-s7":[[["vl10",60],["vl10",53]],[["vl10",61],["vl10",55]],[["vl10",59]],[["vl10",58]],[["vl10",65]],[["vl10",68]]],"m5-s1":[[["vl05",5]],[["vl05",32]],[["vl05",4]],[["vl05",7]],[["vl05",8]],[["vl05",31],["revision",9]]],"m5-s2":[[["vl05",11]],[["vl05",31]],[["vl05",13],["vl05",11]],[["vl05",15],["revision",9]],[["vl05",31],["vl05",54]],[["vl05",15],["vl05",14]]],"m5-s3":[[["vl05",31]],[["vl05",31],["revision",5]],[["vl06",34]],[["vl05",18]],[["vl05",25]],[["vl05",20]]],"m5-s4":[[["vl05",23]],[["vl05",24]],[["vl05",25]],[["vl05",26]],[["vl05",27]],[["vl05",28],["vl05",29]]],"m5-s5":[[["vl05",30]],[["vl05",31]],[["vl05",32]],[["vl05",33]],[["vl05",35]],[["vl05",37]]],"m5-s6":[[["vl05",40]],[["vl05",63]],[["vl05",41]],[["vl05",49]],[["vl05",48]],[["vl05",53],["vl05",44]]],"m5-s7":[[["vl05",54]],[["vl05",59]],[["vl05",56]],[["vl05",57]],[["vl05",58]],[["vl05",60]]],"m5-s8":[[["vl05",62]],[["vl05",63]],[["vl05",64],["vl05",65],["vl05",66]],[["vl05",38]],[["seminar-literaturrecherche",2]],[["seminar-literaturrecherche",4]]],"m6-s1":[[["vl06",4]],[["vl05",5]],[["vl05",5]],[["vl06",6]],[["vl06",6],["vl06",50]]],"m6-s2":[[["vl06",7]],[["vl06",10]],[["vl06",9],["vl06",10]],[["revision",12]],[["vl06",12]],[["vl06",21]]],"m6-s3":[[["vl06",15]],[["vl06",16]],[["vl06",17],["vl06",18]],[["vl06",19]],[["vl06",21]],[["vl06",22],["vl06",23]]],"m6-s4":[[["vl06",32]],[["revision",12]],[["vl06",33]],[["revision",10]],[["vl06",36],["vl06",37]],[["vl06",35],["vl06",38]]],"m6-s5":[[["vl06",37]],[["vl06",41],["vl06",51]],[["vl06",42]],[["vl05",35]],[["vl06",44],["vl06",43],["vl06",45]],[["vl06",48]]],"m6-s6":[[["vl06",49]],[["vl06",5],["vl06",51]],[["vl06",50]],[["vl06",50]],[["vl06",51]],[["vl06",52]]],"m7-s1":[[["vl07-schnelligkeit",3],["vl07-schnelligkeit",5]],[["vl07-schnelligkeit",14]],[["vl07-schnelligkeit",13]],[["vl07-schnelligkeit",6]],[["vl07-schnelligkeit",7]],[["vl07-schnelligkeit",15]]],"m7-s2":[[["vl07-schnelligkeit",19]],[["vl07-schnelligkeit",16],["vl07-schnelligkeit",17],["vl07-schnelligkeit",18]],[],[["vl07-schnelligkeit",20]],[["vl07-schnelligkeit",22]],[["vl07-schnelligkeit",22]]],"m7-s3":[[["vl07-schnelligkeit",26],["vl07-schnelligkeit",27]],[["vl07-schnelligkeit",22]],[],[],[],[["vl07-schnelligkeit",10]]],"m7-s4":[[["vl07-schnelligkeit",15]],[["vl07-schnelligkeit",9]],[["vl07-schnelligkeit",10]],[["vl07-schnelligkeit",11]],[["vl07-schnelligkeit",12]],[["vl07-schnelligkeit",8]]],"m7-s5":[[["vl09-wechselwirkungen",13],["vl07-schnelligkeit",15]],[["vl07-schnelligkeit",28]],[["vl07-schnelligkeit",3]],[["vl07-schnelligkeit",22]],[["vl07-schnelligkeit",28]],[["vl09-wechselwirkungen",13]]],"m8-s1":[[["vl07-koordination",2]],[["vl07-koordination",4]],[["vl07-koordination",5]],[["vl07-koordination",6]],[["vl07-koordination",7]],[["vl07-koordination",34]]],"m8-s2":[[["vl07-koordination",8],["vl07-koordination",12]],[["vl07-koordination",10]],[["vl07-koordination",11]],[["vl07-koordination",32],["vl07-koordination",33]],[["vl07-koordination",13]],[["vl07-koordination",14]]],"m8-s3":[[["vl07-koordination",13]],[],[["vl07-koordination",23],["vl07-koordination",19],["vl07-koordination",20]],[["vl07-koordination",28]],[["vl07-koordination",37]],[["vl07-koordination",11],["vl07-koordination",25]]],"m8-s4":[[["vl07-koordination",24]],[["vl07-koordination",25],["vl07-koordination",23]],[["vl07-koordination",28]],[["vl07-koordination",27]],[["vl07-koordination",28],["vl07-koordination",29],["vl07-koordination",30],["vl07-koordination",31]],[["vl07-koordination",26],["vl07-koordination",37]]],"m8-s5":[[["vl07-koordination",32]],[["vl07-koordination",33]],[],[["vl07-koordination",34]],[["vl07-koordination",35]],[["vl07-koordination",32],["vl07-koordination",34],["vl07-koordination",37]]],"m8-s6":[[["vl07-koordination",36]],[["vl07-koordination",36]],[["vl07-koordination",37]],[["vl08",17]],[["vl07-koordination",38]],[["vl07-koordination",38]]],"m9-s1":[[["vl08",5]],[["vl08",4]],[["vl08",4],["revision",3]],[["vl08",6]],[["vl08",6],["vl08",19]]],"m9-s2":[[["vl08",19]],[["vl08",19]],[["vl08",19],["revision",10]],[["vl08",19],["revision",10]],[["vl08",20],["vl08",19]]],"m9-s3":[[["vl08",7]],[["vl08",21]],[["vl08",8]],[["vl08",10]],[["vl08",11]],[["vl08",28]]],"m9-s4":[[["vl08",13],["vl08",12]],[["vl08",15]],[["vl08",15]],[["vl08",16]],[["vl08",17]],[["vl08",17]]],"m9-s5":[[["vl08",22]],[["vl08",22]],[["vl08",23]],[["vl08",24],["vl07-koordination",23]],[["vl08",10],["vl08",39],["vl08",21]]],"m9-s6":[[["vl08",26]],[["vl08",27]],[["vl08",26],["revision",10]],[["vl08",28]],[["vl08",28]],[["vl08",32],["revision",10]]],"m9-s7":[[["vl08",29]],[["vl08",31],["vl08",30]],[["vl08",30]],[["vl08",31]],[["vl08",29],["vl08",31],["vl08",30]],[["vl08",30]]],"m9-s8":[[["vl08",21]],[["vl08",18],["vl08",21]],[["vl08",21]],[["vl08",2]],[["vl08",38]],[["vl08",19]]],"m10-s1":[[["vl09-taktik",3]],[["vl09-taktik",3]],[["vl09-taktik",3]],[["vl09-taktik",3]],[["vl09-taktik",3]],[["vl09-taktik",10]]],"m10-s2":[[["vl09-taktik",2]],[["vl09-taktik",2],["revision",10]],[["vl09-taktik",4]],[["vl09-taktik",6]],[["vl09-taktik",7]],[]],"m10-s3":[[["vl09-taktik",8]],[["vl09-taktik",8]],[["vl09-taktik",9]],[],[["vl09-taktik",10]],[["vl09-taktik",11]]],"m10-s4":[[["vl09-taktik",12]],[["vl09-taktik",12]],[["vl09-taktik",12]],[["vl09-taktik",12]],[["vl09-taktik",18]],[["vl09-taktik",19]]],"m10-s5":[[["vl09-taktik",13]],[["vl09-taktik",13]],[["vl09-taktik",14]],[["vl09-taktik",16]],[["vl09-taktik",16]],[["vl09-taktik",13]]],"m10-s6":[[["vl09-taktik",17]],[["vl09-taktik",17]],[["vl09-taktik",21],["vl09-taktik",20]],[["vl09-taktik",25]],[["vl09-taktik",25]],[["vl09-taktik",27]]],"m10-s7":[[["vl09-taktik",29]],[["vl09-taktik",30]],[["vl09-taktik",30]],[["vl09-taktik",31],["vl09-taktik",32]],[["vl09-taktik",33]],[["vl09-taktik",34],["vl09-taktik",33]]],"m10-s8":[[["vl09-taktik",35]],[["vl09-taktik",35]],[["vl09-taktik",35]],[["vl08",21]],[["vl09-taktik",8]],[["vl09-taktik",36]]],"m11-s1":[[["vl09-wechselwirkungen",3]],[["vl09-wechselwirkungen",9]],[["vl09-wechselwirkungen",16],["vl09-wechselwirkungen",9],["vl09-wechselwirkungen",10]],[["vl09-wechselwirkungen",6],["vl09-wechselwirkungen",7],["vl09-wechselwirkungen",23],["vl09-wechselwirkungen",24]],[["vl09-wechselwirkungen",21]],[["vl09-wechselwirkungen",6],["vl09-wechselwirkungen",7],["vl09-wechselwirkungen",8],["vl09-wechselwirkungen",9]]],"m11-s2":[[["vl09-wechselwirkungen",4]],[["vl09-wechselwirkungen",6]],[["vl09-wechselwirkungen",26],["vl09-wechselwirkungen",7],["vl09-wechselwirkungen",9]],[["vl09-wechselwirkungen",7],["vl09-wechselwirkungen",10]],[["vl09-wechselwirkungen",7]],[["vl09-wechselwirkungen",8]]],"m11-s3":[[["vl09-wechselwirkungen",9]],[["vl09-wechselwirkungen",26]],[["vl09-wechselwirkungen",9]],[["vl09-wechselwirkungen",9]],[["vl09-wechselwirkungen",9]],[]],"m11-s4":[[["vl09-wechselwirkungen",10]],[["vl09-wechselwirkungen",10],["vl09-wechselwirkungen",24]],[["vl09-wechselwirkungen",9]],[["vl09-wechselwirkungen",10]],[["vl09-wechselwirkungen",10]],[]],"m11-s5":[[["vl09-wechselwirkungen",13],["vl09-wechselwirkungen",12]],[["vl09-wechselwirkungen",13]],[["vl09-wechselwirkungen",14],["vl09-wechselwirkungen",16]],[["vl09-wechselwirkungen",16]],[["vl09-wechselwirkungen",17]],[["vl09-wechselwirkungen",18]]],"m11-s6":[[["vl09-wechselwirkungen",23]],[["vl09-wechselwirkungen",24]],[["vl09-wechselwirkungen",25]],[["vl09-wechselwirkungen",7],["vl09-wechselwirkungen",8],["vl09-wechselwirkungen",9],["vl09-wechselwirkungen",10]],[],[["vl09-wechselwirkungen",26]]],"m12-s1":[[["vl11",4]],[["vl11",5]],[["vl11",7],["vl11",6]],[["vl11",9]],[["vl11",20]],[["vl11",10]]],"m12-s2":[[["vl11",11]],[["vl11",9],["vl11",19],["vl11",12]],[["vl11",12]],[["vl11",12]],[["vl11",13]],[["vl11",13]]],"m12-s3":[[["vl11",16],["vl11",17]],[["vl11",18]],[["vl11",19]],[["vl11",19]],[["vl11",20]],[["vl11",20]]],"m12-s4":[[["vl11",25]],[["vl11",28],["vl11",26]],[["vl11",31]],[["vl11",31]],[["vl11",32],["vl11",6]],[["vl11",33]]],"m12-s5":[[["vl11",37]],[["vl11",42]],[["vl11",43]],[["vl11",43]],[["vl11",44]],[["vl11",45]]],"m12-s6":[[["vl11",46]],[],[["vl11",43]],[["vl11",52]],[["vl11",52]],[["vl11",47],["vl11",50]]],"m12-s7":[[["vl11",48]],[["vl11",48]],[["vl11",49]],[["vl11",50]],[["vl11",50]],[["vl11",51]]],"m13-s1":[[["vl12",18]],[["vl12",3]],[["vl12",4]],[["vl12",5]],[["vl12",22]],[["vl12",23]]],"m13-s2":[[["vl12",4]],[["vl12",5],["revision",11]],[["vl12",8]],[["vl12",6]],[["vl12",5],["vl12",6]],[["vl12",7]]],"m13-s3":[[["vl12",7]],[["vl12",7]],[["vl12",28]],[["vl12",8]],[["vl12",9]],[["vl12",9]]],"m13-s4":[[["vl12",9]],[["vl12",9]],[["vl12",9],["vl12",10]],[["vl12",12]],[["vl12",13]],[["vl13",19]]],"m13-s5":[[["vl06",27]],[["vl12",20]],[["vl06",27]],[["vl12",21]],[],[["vl12",22]]],"m13-s6":[[["vl12",23]],[["vl12",23]],[],[["vl12",26]],[["vl12",27]],[["vl12",41]]],"m13-s7":[[["vl12",28]],[["vl12",29],["vl12",30]],[["vl12",31]],[["vl12",38]],[["vl12",39],["vl12",7]]],"m14-s1":[[["vl13",2]],[["vl08",11]],[["vl01",43]],[["vl13",3]],[["vl13",4]],[["vl08",15]]],"m14-s2":[[["vl13",6]],[["vl13",17],["vl13",16],["vl13",6]],[["vl13",8]],[["vl13",5],["vl13",9]],[["vl13",10]],[["vl13",10]]],"m14-s3":[[["vl13",12]],[["vl13",12]],[["vl13",14]],[["vl13",12],["vl13",14]],[["vl13",16]],[["vl13",19]]],"m14-s4":[[["vl13",17]],[["vl13",17]],[["vl13",17],["vl13",12]],[["vl13",3]],[["vl13",19]],[["vl13",2]]],"m14-s5":[[["vl13",24]],[["vl13",26]],[["revision",12]],[["vl13",26],["revision",12]],[["vl13",27]],[["vl13",28]]],"m14-s6":[[["vl13",26]],[["vl13",26]],[["vl13",26],["revision",12]],[["vl13",33]],[["vl13",36],["vl13",35]],[["vl13",36]]],"m14-s7":[[["vl13",37]],[["vl13",38]],[],[["vl13",50]],[["vl13",51],["vl13",52]],[["vl13",36]]],"m14-s8":[[["vl13",55]],[["vl13",55]],[["vl13",56]],[["vl13",58],["vl13",59]],[["vl13",60]],[["vl13",62]]],"m15-s1":[[["lsht",3],["lsht",2]],[["lsht",2]],[["lsht",2]],[["lsht",3]],[["lsht",3]],[["lsht",29]]],"m15-s2":[[["lsht",4]],[["lsht",4]],[["lsht",4]],[["revision",1]],[["lsht",5]],[["revision",1]]],"m15-s3":[[["revision",2]],[["lsht",15],["lsht",17]],[],[],[["lsht",6],["lsht",7],["lsht",8]],[]],"m15-s4":[[["lsht",29],["lsht",32],["lsht",31]],[["lsht",29],["lsht",28]],[["lsht",29]],[["lsht",31],["lsht",32]],[["lsht",32]],[["lsht",32],["lsht",31]]],"m15-s5":[[["lsht",34]],[["lsht",34]],[["lsht",34]],[["lsht",34]],[["lsht",37]],[["lsht",36]]],"m15-s6":[[["lsht",14]],[["lsht",15]],[["lsht",15]],[["lsht",17]],[["lsht",12],["lsht",10]],[["lsht",9]]],"m15-s7":[[["lsht",48]],[["lsht",41]],[["lsht",44],["lsht",43]],[],[["lsht",48],["lsht",47],["lsht",44]],[["lsht",48],["lsht",47]]],"m15-s8":[[["lsht",18]],[["lsht",3]],[["lsht",19]],[["lsht",20]],[["lsht",38]],[["lsht",55]]],"m16-s1":[[["vl10",4]],[["vl10",6]],[["vl10",10]],[["vl10",16]],[["vl10",16],["vl10",29]],[]],"m16-s2":[[["vl10",12]],[["vl10",7]],[["vl10",8]],[["vl10",9]],[["vl10",13]],[["vl10",29]]],"m16-s3":[[["vl10",20],["vl01",13],["vl10",21]],[["vl10",20],["vl10",21]],[["vl10",21]],[["vl10",22]],[["vl10",23]],[["vl10",24],["vl10",30]]],"m16-s4":[[["vl10",25]],[["vl10",26]],[["vl10",28],["vl10",27]],[["vl10",26]],[["vl10",35]],[["vl10",31]]],"m16-s5":[[["vl10",40]],[["vl10",39]],[["vl10",40]],[["vl10",43]],[["vl10",44],["vl10",53]],[["vl10",44],["vl10",39]]],"m16-s6":[[["vl10",45]],[["vl10",48]],[["vl10",47]],[["vl10",46]],[["vl10",49]],[["vl10",49]]],"m16-s7":[[["vl10",50]],[["vl10",65]],[],[],[],[["vl10",59]]],"m16-s8":[[["vl10",60]],[["vl10",53]],[["vl10",60]],[["vl10",65]],[["vl10",65]],[["vl10",68]]]};
+/* Doppelungen: Tabellen, die ein Abschnitts-Schaubild 1:1 wiederholen, entfallen (0);
+   alle übrigen wandern in den Abschnitt, dessen Text sie abdecken. */
+const TABSEKT = {"t-m1-1":0,"t-m1-10":"m1-s3","t-m1-11":"m1-s2","t-m1-12":"m1-s4","t-m1-2":"m1-s5","t-m1-3":"m1-s3","t-m1-4":0,"t-m1-5":"m1-s6","t-m1-6":"m1-s8","t-m1-7":0,"t-m1-8":0,"t-m1-9":"m1-s1","t-m2-1":"m2-s1","t-m2-10":"m2-s6","t-m2-2":0,"t-m2-3":0,"t-m2-4":"m2-s4","t-m2-5":0,"t-m2-6":"m2-s5","t-m2-7":"m2-s7","t-m2-8":0,"t-m2-9":"m2-s6","t-m3-1":0,"t-m3-10":"m3-s8","t-m3-11":"m3-s8","t-m3-2":"m3-s2","t-m3-3":"m3-s3","t-m3-4":0,"t-m3-5":"m3-s4","t-m3-6":"m3-s5","t-m3-7":0,"t-m3-8":0,"t-m3-9":"m3-s4","t-m4-1":0,"t-m4-10":"m4-s2","t-m4-2":0,"t-m4-3":"m4-s1","t-m4-4":0,"t-m4-5":"m4-s1","t-m4-6":"m4-s2","t-m4-7":"m4-s6","t-m4-8":"m4-s6","t-m4-9":"m4-s7","t-m5-1":"m5-s2","t-m5-10":"m5-s8","t-m5-11":"m5-s6","t-m5-2":"m5-s3","t-m5-3":0,"t-m5-4":"m5-s2","t-m5-5":0,"t-m5-6":0,"t-m5-7":"m5-s4","t-m5-8":"m5-s7","t-m5-9":0,"t-m6-1":0,"t-m6-10":"m6-s6","t-m6-2":0,"t-m6-3":0,"t-m6-4":0,"t-m6-5":"m6-s4","t-m6-6":"m6-s2","t-m6-7":"m6-s3","t-m6-8":"m6-s3","t-m6-9":"m6-s5","t-m7-1":"m7-s2","t-m7-2":0,"t-m7-3":"m7-s4","t-m7-4":"m7-s3","t-m7-5":0,"t-m7-6":"m7-s5","t-m7-7":"m7-s2","t-m7-8":"m7-s1","t-m8-1":0,"t-m8-2":"m8-s2","t-m8-3":"m8-s4","t-m8-4":"m8-s5","t-m8-5":0,"t-m8-6":"m8-s5","t-m8-7":"m8-s4","t-m8-8":"m8-s6","t-m8-9":"m8-s1","t-m9-1":"m9-s1","t-m9-2":"m9-s2","t-m9-3":"m9-s3","t-m9-4":"m9-s3","t-m9-5":0,"t-m9-6":"m9-s6","t-m9-7":0,"t-m9-8":"m9-s5","t-m9-9":"m9-s4","t-m10-1":"m10-s1","t-m10-10":"m10-s2","t-m10-2":"m10-s1","t-m10-3":"m10-s2","t-m10-4":"m10-s3","t-m10-5":"m10-s4","t-m10-6":"m10-s6","t-m10-7":0,"t-m10-8":"m10-s6","t-m10-9":0,"t-m11-1":"m11-s2","t-m11-2":0,"t-m11-3":"m11-s1","t-m11-4":"m11-s2","t-m11-5":"m11-s3","t-m11-6":0,"t-m11-7":0,"t-m12-1":0,"t-m12-2":"m12-s2","t-m12-3":0,"t-m12-4":"m12-s3","t-m12-5":"m12-s5","t-m12-6":"m12-s5","t-m12-7":0,"t-m12-8":0,"t-m13-1":"m13-s3","t-m13-2":"m13-s3","t-m13-3":0,"t-m13-4":"m13-s3","t-m13-5":0,"t-m13-6":"m13-s7","t-m13-7":"m13-s7","t-m13-8":"m13-s6","t-m14-1":0,"t-m14-2":0,"t-m14-3":"m14-s4","t-m14-4":"m14-s5","t-m14-5":0,"t-m14-6":"m14-s6","t-m14-7":"m14-s6","t-m14-8":"m14-s8","t-m14-9":0,"t-m15-1":"m15-s3","t-m15-2":0,"t-m15-3":"m15-s4","t-m15-4":"m15-s5","t-m15-5":0,"t-m15-6":"m15-s7","t-m15-7":"m15-s7","t-m15-8":"m15-s8","t-m15-9":"m15-s8","t-m16-1":"m16-s6","t-m16-10":"m16-s1","t-m16-2":0,"t-m16-3":"m16-s4","t-m16-4":0,"t-m16-5":"m16-s8","t-m16-6":"m16-s6","t-m16-7":"m16-s8","t-m16-8":"m16-s7","t-m16-9":0};
+/* Modul-Schaubilder, deren Inhalt ein Abschnitt schon vollständig trägt */
+const SCHAUBILD_DOPPELT = ["m1", "m5", "m7", "m9"];
 const MODFOLIEN = {"m1":[["vl01",4],["vl02",4],["revision",3]],"m2":[["vl03",4],["revision",4],["vl02",35]],"m3":[["vl04",4],["revision",5]],"m4":[["vl04",5],["vl10",39],["revision",5]],"m5":[["vl05",4],["revision",4],["seminar-literaturrecherche",1]],"m6":[["vl06",4],["revision",5]],"m7":[["vl07-schnelligkeit",3]],"m8":[["vl07-koordination",2]],"m9":[["vl08",2],["revision",3]],"m10":[["vl09-taktik",2],["revision",10]],"m11":[["vl09-wechselwirkungen",3]],"m12":[["vl11",3],["revision",11]],"m13":[["vl12",1],["revision",5]],"m14":[["vl13",2],["revision",1]],"m15":[["lsht",2],["revision",1]],"m16":[["vl10",3]]};
 const istVL = id => /^vl/.test(id);
 const deckKurz = id => istVL(id) ? "VL "+(+DECKS[id].nr) : id==="lsht" ? "Gast-VL" : id==="revision" ? "REV" : "SEM";
