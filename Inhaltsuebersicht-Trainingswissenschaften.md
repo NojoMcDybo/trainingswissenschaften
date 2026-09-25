@@ -1,6 +1,6 @@
 # Trainingswissenschaften — was auf der Klausartrainer-Seite steht
 
-**3. Semester Sport · WWU Münster · Prof. Dr. E. Eils · Klausur 28.09.2026, 90 Minuten, 51 Punkte zum Bestehen**
+**3. Semester Sport · WWU Münster · Prof. Dr. E. Eils · Klausur 90 Minuten, 51 Punkte zum Bestehen**
 
 Quellenbasis: die eigene Revision (12 Seiten, inhaltlicher Schwerpunkt), 13 Vorlesungen, die Gastvorlesung zum leichten Schädelhirntrauma und das Krafttrainings-Seminar. Foliendeckung: 583 von 614 Folien mit Inhalt (94 %) — die verbleibenden 31 sind Titel-, Agenda- und Literaturfolien.
 
