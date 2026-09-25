@@ -1463,16 +1463,15 @@ details.anhang[open]>summary{margin:0 -14px}
    geringe Auflösung (wie ein feines Bildschirm-/Druckraster)
    ========================================================================== */
 #modbild::before,.kachel .bild::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background-image:radial-gradient(circle,color-mix(in srgb,var(--bg) 78%,transparent) 0 .95px,transparent 1.35px);
-  background-size:3px 3px}
-#modbild{filter:saturate(.92)}
+  background-image:radial-gradient(circle,color-mix(in srgb,var(--bg) 70%,transparent) 0 .7px,transparent 1.1px);
+  background-size:3px 3px;opacity:.5}
 #modbild::after{z-index:2}
-.kachel .bild::before{background-size:3px 3px;opacity:.9}
+.kachel .bild::before{background-size:3px 3px;opacity:.45}
 .kachel .bild::after{z-index:1}
-:root[data-theme="paper"] #modbild::before{background-image:radial-gradient(circle,color-mix(in srgb,var(--bg) 70%,transparent) 0 .9px,transparent 1.3px)}
+:root[data-theme="paper"] #modbild::before{background-image:radial-gradient(circle,color-mix(in srgb,var(--bg) 70%,transparent) 0 .7px,transparent 1.1px)}
 @media(min-resolution:2dppx){
   #modbild::before,.kachel .bild::before{background-size:2.5px 2.5px;
-    background-image:radial-gradient(circle,color-mix(in srgb,var(--bg) 78%,transparent) 0 .75px,transparent 1.1px)}
+    background-image:radial-gradient(circle,color-mix(in srgb,var(--bg) 70%,transparent) 0 .6px,transparent .95px)}
 }
 </style>
 
