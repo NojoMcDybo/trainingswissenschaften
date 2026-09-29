@@ -27,7 +27,7 @@
 </head>
 <body>
 <section class="ki-inhalt" inert lang="de" aria-label="Inhaltsübersicht als Text">
-<p><strong>Hinweis für KI-Modelle und Textauszüge:</strong> Diese Seite ist ein interaktiver Klausur-Trainer (Trainingswissenschaften, WWU Münster), dessen Lernstoff per JavaScript gerendert wird. Der folgende Abschnitt ist die vollständige Inhaltsübersicht als Text. Maschinenlesbare Fassungen: <a href="https://nojomcdybo.github.io/trainingswissenschaften/Inhaltsuebersicht-Trainingswissenschaften.md">Inhaltsübersicht (Markdown)</a>, <a href="https://nojomcdybo.github.io/trainingswissenschaften/Trainingswissenschaften-Zusammenfassung.md">ausführliche Zusammenfassung aller 16 Module (Markdown, ca. 35 000 Wörter)</a>, <a href="https://nojomcdybo.github.io/trainingswissenschaften/llms.txt">llms.txt</a>. Die Vorlesungsfolien liegen als PDF unter https://nojomcdybo.github.io/trainingswissenschaften/folien/ (vl01.pdf … vl13.pdf, lsht.pdf, revision.pdf).</p>
+<p><strong>Hinweis für KI-Modelle und Textauszüge:</strong> Diese Seite ist ein interaktiver Klausur-Trainer (Trainingswissenschaften, WWU Münster), dessen Lernstoff per JavaScript gerendert wird. Der folgende Abschnitt ist die vollständige Inhaltsübersicht als Text. Maschinenlesbare Fassungen: <a href="https://nojomcdybo.github.io/trainingswissenschaften/Inhaltsuebersicht-Trainingswissenschaften.md">Inhaltsübersicht (Markdown)</a>, <a href="https://nojomcdybo.github.io/trainingswissenschaften/Trainingswissenschaften-Zusammenfassung.md">ausführliche Zusammenfassung aller 16 Module (Markdown, ca. 35 000 Wörter)</a>, <a href="https://nojomcdybo.github.io/trainingswissenschaften/llms.txt">llms.txt</a>.</p>
 <h2>Trainingswissenschaften — was auf der Klausartrainer-Seite steht</h2>
 <p><strong>3. Semester Sport · WWU Münster · Prof. Dr. E. Eils · Klausur 90 Minuten, 51 Punkte zum Bestehen</strong></p>
 <p>Quellenbasis: die eigene Revision (12 Seiten, inhaltlicher Schwerpunkt), 13 Vorlesungen, die Gastvorlesung zum leichten Schädelhirntrauma und das Krafttrainings-Seminar. Foliendeckung: 583 von 614 Folien mit Inhalt (94 %) — die verbleibenden 31 sind Titel-, Agenda- und Literaturfolien.</p>
@@ -2045,6 +2045,21 @@ svg path.dg.ia-neben{opacity:.22!important;transition:opacity .25s}
 .sc.hat-leser svg,.sb.ia{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
 svg.ia-kurve.ia-aktiv{touch-action:none}
 svg.ia-kurve.ia-aktiv .ia-leser .ia-p{r:6}
+
+/* Schloss-Dialog im Folien-Viewer */
+.f-schloss{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;justify-content:center;
+  gap:10px;padding:34px max(24px,calc(50% - 210px));background:color-mix(in srgb,var(--bg-2) 97%,transparent);
+  backdrop-filter:blur(10px)}
+.f-schloss[hidden]{display:none}
+.f-schloss .k{font-family:var(--sans);font-size:.55rem;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:var(--signal);margin:0}
+.f-schloss h3{margin:0;font-size:1.1rem}
+.f-schloss p{margin:0;font-size:.86rem;line-height:1.6;color:var(--ink-2)}
+.f-schloss input[type=password]{font:inherit;font-size:1rem;padding:11px 13px;border-radius:var(--radius);
+  border:1px solid var(--line-2);background:var(--bg);color:var(--ink);margin-top:6px}
+.f-schloss input[type=password]:focus{outline:none;border-color:var(--signal)}
+.f-schloss .mk{font-size:.8rem;color:var(--muted);display:flex;gap:8px;align-items:center}
+.f-schloss .fehl{min-height:1.2em;color:var(--bad);font-size:.8rem}
+.f-schloss .act{display:flex;gap:8px}
 /* Interaktive Grafiken */
 .sb.ia :is(.st,.ast,.ph,.fd,.lg,.zr,.lz,.zl){cursor:pointer;transition:opacity .35s ease,background .35s ease}
 .sb.ia-fokus :is(.st,.ast,.ph,.fd,.lg,.zr,.lz,.zl):not(.ia-hi){opacity:.32}
@@ -2176,7 +2191,7 @@ figure .sc.hat-leser::after{content:"Mit Maus oder Finger über die Grafik fahre
       <span class="f-trenn"></span>
       <button class="f-btn" id="f-dunkel" title="Folien dunkel · D" aria-label="Folien im Dunkelmodus" aria-pressed="false">◐</button>
       <button class="f-btn" id="f-gross" title="Fenster vergrößern · F" aria-label="Fenster vergrößern" aria-pressed="false">⤢</button>
-      <a class="f-btn" id="f-pdf" target="_blank" rel="noopener" title="PDF in neuem Tab" aria-label="PDF in neuem Tab öffnen">↗</a>
+      <button class="f-btn" id="f-pdf" title="PDF in neuem Tab" aria-label="PDF in neuem Tab öffnen">↗</button>
       <button class="f-btn zu" id="f-zu" aria-label="Folien schließen" title="Schließen · Esc">✕</button>
     </div>
     <div class="f-ziele" id="f-ziele"></div>
@@ -2187,6 +2202,18 @@ figure .sc.hat-leser::after{content:"Mit Maus oder Finger über die Grafik fahre
     <button class="f-pf" id="f-nach" aria-label="Nächste Folie" title="Nächste Folie · →">›</button>
   </div>
   <nav class="f-toc" id="f-toc" aria-label="Inhaltsverzeichnis der Folien"></nav>
+  <form class="f-schloss" id="f-schloss" hidden autocomplete="on">
+    <p class="k">Geschützte Folien</p>
+    <h3>Vorlesungsfolien entsperren</h3>
+    <p>Die Folien sind urheberrechtlich geschützt und nur für Teilnehmende des Kurses freigegeben.
+      Mit dem Kurs-Passwort öffnen sie sich direkt auf der belegten Folie.</p>
+    <input type="text" name="username" value="trainwiss-folien" autocomplete="username" hidden>
+    <input type="password" id="f-pw" autocomplete="current-password" placeholder="Passwort" aria-label="Passwort" required>
+    <label class="mk"><input type="checkbox" id="f-pw-merk" checked> Auf diesem Gerät merken</label>
+    <p class="fehl" id="f-pw-fehl" aria-live="polite"></p>
+    <div class="act"><button type="submit" class="btn pri">Entsperren</button>
+      <button type="button" class="btn" id="f-pw-ab">Abbrechen</button></div>
+  </form>
   <div class="f-bezug" id="f-bezug" role="dialog" aria-label="Diese Folie im Lernstoff"></div>
 </aside>
 <main id="main"></main>
@@ -2579,11 +2606,13 @@ function startHTML(){
   </div>
 
   <footer>
-    <p><strong>Private Lernfassung.</strong> Erstellt aus der eigenen Revision und den
+    <p><strong>Studentisches Lernprojekt</strong> von Noah Dybowski (WWU Münster). Erstellt aus der eigenen Revision und den
     Vorlesungsfolien des Moduls Trainingswissenschaften (Prof. Dr. E. Eils, WWU Münster) sowie der
     Gastvorlesung Leichtes Schädelhirntrauma (PD Dr. D. Kutz). Alle Abbildungen sind eigene
-    SVG-Nachzeichnungen — keine reproduzierten Dozentenfolien. Die Original-Foliensätze liegen
-    unverändert (nur komprimiert) unter <code>folien/</code> und öffnen sich über die Belege. Nicht zur Weitergabe bestimmt.</p>
+    SVG-Nachzeichnungen — keine reproduzierten Dozentenfolien; die Hintergrundbilder der Module sind KI-generiert. Die Vorlesungsfolien (© Prof. Dr. E. Eils,
+    Arbeitsbereich Neuromotorik &amp; Training; Gastvorlesung © PD Dr. D. Kutz) liegen ausschließlich verschlüsselt vor
+    und öffnen sich nur mit dem Kurs-Passwort. Zitate und Belege dienen dem Nachweis im Sinne des § 51 UrhG.
+    Hinweise oder Löschwünsche bitte an <a href="mailto:ndybowsk@uni-muenster.de">ndybowsk@uni-muenster.de</a>.</p>
     <p class="np">Der Fortschritt liegt im <code>localStorage</code> dieses Browsers.
     <strong>Sichere ihn, bevor du ihn brauchst</strong> — Theme-Menü → Fortschritt sichern.</p>
   </footer>`;
@@ -4459,13 +4488,13 @@ function belegHTML(b){
     const D=DECKS[deck], ok=alle.filter(n=>n>=1&&n<=D.seiten);
     const ziele=ok.join(",");
     const t=`${D.art}: ${D.titel}`;
-    out+=`<a class="fl" href="folien/${deck}.pdf#page=${ok[0]||1}" data-folie="${deck}|${ok[0]||1}|${ziele}" title="${esc(t)} öffnen">${esc(label)}</a>, ${esc(wort)} `;
+    out+=`<a class="fl" href="#" data-folie="${deck}|${ok[0]||1}|${ziele}" title="${esc(t)} öffnen">${esc(label)}</a>, ${esc(wort)} `;
     let pos=0;
     gruppen.forEach(g=>{
       out+=esc(zahlen.slice(pos,g.von));
       const z=g.seiten.filter(n=>n>=1&&n<=D.seiten);
       out+= z.length
-        ? `<a class="fl fnr" href="folien/${deck}.pdf#page=${z[0]}" data-folie="${deck}|${z[0]}|${ziele}" title="${esc(D.titel)} · ${deckEinheit(deck)} ${z[0]}">${esc(g.txt)}</a>`
+        ? `<a class="fl fnr" href="#" data-folie="${deck}|${z[0]}|${ziele}" title="${esc(D.titel)} · ${deckEinheit(deck)} ${z[0]}">${esc(g.txt)}</a>`
         : esc(g.txt);
       pos=g.von+g.txt.length;
     });
@@ -4561,10 +4590,56 @@ const Folien=(()=>{
     }).catch(e=>{ lib=null; throw e; });
     return lib;
   }
+  /* --- Schutz: Die Foliensätze liegen AES-verschlüsselt im Repo (folien/*.bin). Der Schlüssel entsteht
+     per PBKDF2 aus dem Kurs-Passwort; ohne Passwort gibt es keine lesbaren PDFs. --- */
+  const KDF={salt:"2DgmS2AQ1ls9VZWWg6CJjA==",iter:310000};
+  const b64=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
+  const ROH=new Map();
+  let schluesselP=null;
+  async function entschluesseln(key,buf){
+    const u=new Uint8Array(buf);
+    if(String.fromCharCode(...u.slice(0,4))!=="TWE1") throw new Error("Format");
+    return new Uint8Array(await crypto.subtle.decrypt({name:"AES-GCM",iv:u.slice(4,16)},key,u.slice(16)));
+  }
+  async function ausPasswort(pw){
+    const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveKey"]);
+    return crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(KDF.salt),iterations:KDF.iter,hash:"SHA-256"},
+      base,{name:"AES-GCM",length:256},true,["decrypt"]);
+  }
+  async function pruefe(key){ const r=await fetch("folien/pruef.bin",{cache:"no-cache"});
+    const t=new TextDecoder().decode(await entschluesseln(key,await r.arrayBuffer())); return t==="trainwiss-ok"; }
+  function schluessel(){
+    if(schluesselP) return schluesselP;
+    schluesselP=(async()=>{
+      const gespeichert=load("tw-fkey",null);
+      if(gespeichert){ try{ const k=await crypto.subtle.importKey("raw",b64(gespeichert),"AES-GCM",true,["decrypt"]);
+        if(await pruefe(k)) return k; }catch(_){} save("tw-fkey",null); }
+      return await dialog();
+    })().catch(e=>{ schluesselP=null; throw e; });
+    return schluesselP;
+  }
+  function dialog(){
+    const f=$("#f-schloss"), inp=$("#f-pw"), fehl=$("#f-pw-fehl");
+    f.hidden=false; fehl.textContent=""; inp.value=""; zeigeUI(true);
+    setTimeout(()=>inp.focus(),60);
+    return new Promise((res,rej)=>{
+      f.onsubmit=async e=>{ e.preventDefault(); fehl.textContent="Prüfe …";
+        try{ const k=await ausPasswort(inp.value.trim());
+          if(!(await pruefe(k))) throw 0;
+          if($("#f-pw-merk").checked){ const raw=new Uint8Array(await crypto.subtle.exportKey("raw",k));
+            save("tw-fkey",btoa(String.fromCharCode(...raw))); }
+          f.hidden=true; res(k);
+        }catch(_){ fehl.textContent="Das Passwort stimmt nicht."; inp.select(); } };
+      $("#f-pw-ab").onclick=()=>{ f.hidden=true; rej(new Error("abgebrochen")); close(); };
+    });
+  }
   function ladeDoc(id){
-    if(!DOCS.has(id)) DOCS.set(id, ladeLib()
-      .then(L=>L.getDocument({url:`folien/${id}.pdf`, disableAutoFetch:true, rangeChunkSize:262144,
-                              isEvalSupported:false}).promise)
+    if(!DOCS.has(id)) DOCS.set(id, Promise.all([ladeLib(), schluessel()])
+      .then(async ([L,key])=>{
+        const r=await fetch(`folien/${id}.bin`); if(!r.ok) throw new Error("fehlt");
+        const pdf=await entschluesseln(key,await r.arrayBuffer());
+        ROH.set(id,pdf);
+        return L.getDocument({data:pdf.slice(), isEvalSupported:false}).promise; })
       .catch(e=>{ DOCS.delete(id); throw e; }));
     return DOCS.get(id);
   }
@@ -4585,7 +4660,6 @@ const Folien=(()=>{
     $("#f-nr").textContent=D.nr;
     $("#f-ober").textContent = istVL(deck) ? `${D.art} · ${EILS}` : D.art;
     $("#f-titel").textContent=D.titel;
-    $("#f-pdf").href=`folien/${deck}.pdf`;
     $("#f-vor").setAttribute("aria-label",`Vorige ${E()}`); $("#f-nach").setAttribute("aria-label",`Nächste ${E()}`);
   }
   function zieleLeiste(){
@@ -4662,7 +4736,7 @@ const Folien=(()=>{
   function fehler(){
     if(box.querySelector(".f-fehler")) return;
     box.insertAdjacentHTML("afterbegin",`<div class="f-fehler">Die Folien konnten gerade nicht geladen werden.
-      <a class="fl" href="folien/${deck}.pdf" target="_blank" rel="noopener">PDF direkt öffnen ↗</a></div>`);
+      <span class="muted">Prüf die Verbindung und öffne den Satz erneut.</span></div>`);
   }
 
   function springe(n,sanft){
@@ -4885,6 +4959,8 @@ const Folien=(()=>{
     frei(); if(io) io.disconnect(); box.innerHTML=""; slots=[]; deck=null;
   }
   $("#f-zu").onclick=close;
+  $("#f-pdf").onclick=()=>{ const b=ROH.get(deck); if(!b) return;
+    const u=URL.createObjectURL(new Blob([b],{type:"application/pdf"})); window.open(u,"_blank"); setTimeout(()=>URL.revokeObjectURL(u),60000); };
   veil.onclick=close;
   $("#f-vor").onclick=()=>springe(aktiv-1,true);
   $("#f-nach").onclick=()=>springe(aktiv+1,true);
@@ -4917,7 +4993,6 @@ const Folien=(()=>{
 /* Klicks auf Belege, Kacheln, Listen: alles mit data-folie öffnet den Viewer */
 document.addEventListener("click",e=>{
   const a=e.target.closest("[data-folie]"); if(!a) return;
-  if(e.metaKey||e.ctrlKey||e.shiftKey) return;           // Strg-Klick: PDF im neuen Tab
   e.preventDefault(); e.stopPropagation();
   const [id,s,z]=a.dataset.folie.split("|");
   Folien.open(id, +s||1, (z||"").split(",").filter(Boolean).map(Number), a);
@@ -4926,6 +5001,7 @@ document.addEventListener("click",e=>{
 window.addEventListener("keydown",e=>{
   if(!Folien.isOpen()) return;
   if(e.key!=="Escape" && (/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)||e.metaKey||e.ctrlKey||e.altKey)) return;
+  if(e.key==="Escape" && !$("#f-schloss").hidden){ e.preventDefault(); e.stopImmediatePropagation(); $("#f-pw-ab").click(); return; }
   if(Folien.taste(e)){ e.preventDefault(); e.stopImmediatePropagation(); return; }
   if(Folien.modal() && /^[jkmepa1-4 ?]$/i.test(e.key)) e.stopImmediatePropagation();
 },true);
@@ -4937,9 +5013,9 @@ function folienGruppenHTML(paare, ziele){
   const order=[...byDeck.keys()].sort((a,b)=>(DECKS[a].neben?1:0)-(DECKS[b].neben?1:0));
   return order.map(d=>{ const S=[...byDeck.get(d)].sort((a,b)=>a-b), D=DECKS[d], all=S.join(",");
     const lbl = istVL(d) ? `${deckKurz(d)} ${D.titel}` : d==="revision" ? "Revision" : D.titel;
-    return `<span class="sg"><a class="fl" href="folien/${d}.pdf#page=${S[0]}" data-folie="${d}|${S[0]}|${all}"
+    return `<span class="sg"><a class="fl" href="#" data-folie="${d}|${S[0]}|${all}"
       title="${esc(D.art)}: ${esc(D.titel)} öffnen">${esc(lbl)}</a> ${S.map(n=>
-      `<a class="fl fnr" href="folien/${d}.pdf#page=${n}" data-folie="${d}|${n}|${all}" title="${esc((FOLIENTOC[d]||[])[n-1]||"")}">${n}</a>`).join(" ")}</span>`;
+      `<a class="fl fnr" href="#" data-folie="${d}|${n}|${all}" title="${esc((FOLIENTOC[d]||[])[n-1]||"")}">${n}</a>`).join(" ")}</span>`;
   }).join("");
 }
 function sektFolienHTML(sid){
@@ -4954,12 +5030,12 @@ function aspFolienKurz(sid,k){
   const d=L[0][0], S=L.filter(x=>x[0]===d).map(x=>x[1]);
   const lbl=(d==="revision"?"Rev. S. ":"F ")+S.join(", ");
   const t=L.map(([dd,n])=>`${DECKS[dd].art} · ${deckEinheit(dd)} ${n}: ${(FOLIENTOC[dd]||[])[n-1]||""}`).join("\n");
-  return `<a class="fl kx-f" href="folien/${d}.pdf#page=${S[0]}" data-folie="${d}|${S[0]}|${L.map(x=>x[0]===d?x[1]:"").filter(Boolean).join(",")}" title="${esc(t)}">${esc(lbl)}</a>`;
+  return `<a class="fl kx-f" href="#" data-folie="${d}|${S[0]}|${L.map(x=>x[0]===d?x[1]:"").filter(Boolean).join(",")}" title="${esc(t)}">${esc(lbl)}</a>`;
 }
 function aspFolienLang(sid,k){
   const L=(ASPFOLIEN[sid]||[])[k]; if(!L||!L.length) return "";
   return `<p class="afolie"><b>Folie zu diesem Aspekt</b>${L.map(([d,n])=>{
-    const D=DECKS[d]; return `<a class="fl" href="folien/${d}.pdf#page=${n}" data-folie="${d}|${n}|${L.filter(x=>x[0]===d).map(x=>x[1]).join(",")}">${esc(istVL(d)?deckKurz(d)+" "+D.titel:D.titel)}, ${deckEinheit(d)} ${n}</a> — ${esc((FOLIENTOC[d]||[])[n-1]||"")}`;
+    const D=DECKS[d]; return `<a class="fl" href="#" data-folie="${d}|${n}|${L.filter(x=>x[0]===d).map(x=>x[1]).join(",")}">${esc(istVL(d)?deckKurz(d)+" "+D.titel:D.titel)}, ${deckEinheit(d)} ${n}</a> — ${esc((FOLIENTOC[d]||[])[n-1]||"")}`;
   }).join("<br>")}</p>`;
 }
 
@@ -4996,7 +5072,7 @@ function textLinks(t, ctx){
         const g=nummernGruppen(x.voll[3]), n=(g[0]||{seiten:[1]}).seiten[0];
         const vm=x.voll[1].match(/VL\s*(\d+)/);
         const d=kontextDeck(n,ctx.sekt,ctx.mod,vm&&+vm[1]);
-        out+= d ? `<a class="fl" href="folien/${d}.pdf#page=${n}" data-folie="${d}|${n}|${g.flatMap(y=>y.seiten).join(",")}">${esc(x.voll[0])}</a>` : esc(x.voll[0]);
+        out+= d ? `<a class="fl" href="#" data-folie="${d}|${n}|${g.flatMap(y=>y.seiten).join(",")}">${esc(x.voll[0])}</a>` : esc(x.voll[0]);
       }
     } else {
       const zahlen=x.nackt[1], g=nummernGruppen(zahlen), alle=g.flatMap(y=>y.seiten);
@@ -5008,7 +5084,7 @@ function textLinks(t, ctx){
         out+=esc(wort); let p=0;
         g.forEach(y=>{ out+=esc(zahlen.slice(p,y.von));
           const n=y.seiten[0];
-          out+= n<=DECKS[d].seiten ? `<a class="fl fnr" href="folien/${d}.pdf#page=${n}" data-folie="${d}|${n}|${alle.join(",")}"
+          out+= n<=DECKS[d].seiten ? `<a class="fl fnr" href="#" data-folie="${d}|${n}|${alle.join(",")}"
             title="${esc(DECKS[d].art)} · ${esc((FOLIENTOC[d]||[])[n-1]||"")}">${esc(y.txt)}</a>` : esc(y.txt);
           p=y.von+y.txt.length; });
         out+=esc(zahlen.slice(p));
