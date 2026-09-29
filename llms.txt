@@ -6,5 +6,5 @@ Jede Aussage trägt einen Beleg im Format „VL n Titel, Folie m" bzw. „Revisi
 
 ## Inhalte
 
-- [Inhaltsübersicht](https://nojomcdybo.github.io/Trainingswissenschaften/Inhaltsuebersicht-Trainingswissenschaften.md): alle 16 Module mit Leitfrage, Kernaussagen, Verwechslungsfallen und Stolpersteinen (ca. 60 KB)
-- [Ausführliche Zusammenfassung](https://nojomcdybo.github.io/Trainingswissenschaften/Trainingswissenschaften-Zusammenfassung.md): Klausurniveau, alle Module mit Definitionen, Zahlen, Abgrenzungen und Klausurfallen (ca. 35 000 Wörter)
+- [Inhaltsübersicht](https://nojomcdybo.github.io/trainingswissenschaften/Inhaltsuebersicht-Trainingswissenschaften.md): alle 16 Module mit Leitfrage, Kernaussagen, Verwechslungsfallen und Stolpersteinen (ca. 60 KB)
+- [Ausführliche Zusammenfassung](https://nojomcdybo.github.io/trainingswissenschaften/Trainingswissenschaften-Zusammenfassung.md): Klausurniveau, alle Module mit Definitionen, Zahlen, Abgrenzungen und Klausurfallen (ca. 35 000 Wörter)
