@@ -2046,20 +2046,19 @@ svg path.dg.ia-neben{opacity:.22!important;transition:opacity .25s}
 svg.ia-kurve.ia-aktiv{touch-action:none}
 svg.ia-kurve.ia-aktiv .ia-leser .ia-p{r:6}
 
-/* Schloss-Dialog im Folien-Viewer */
-.f-schloss{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;justify-content:center;
-  gap:10px;padding:34px max(24px,calc(50% - 210px));background:color-mix(in srgb,var(--bg-2) 97%,transparent);
-  backdrop-filter:blur(10px)}
+/* Schloss-Dialog im Folien-Viewer: nur das Passwortfeld */
+.f-schloss{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;padding:24px;background:color-mix(in srgb,var(--bg-2) 97%,transparent);backdrop-filter:blur(10px)}
 .f-schloss[hidden]{display:none}
-.f-schloss .k{font-family:var(--sans);font-size:.55rem;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:var(--signal);margin:0}
-.f-schloss h3{margin:0;font-size:1.1rem}
-.f-schloss p{margin:0;font-size:.86rem;line-height:1.6;color:var(--ink-2)}
-.f-schloss input[type=password]{font:inherit;font-size:1rem;padding:11px 13px;border-radius:var(--radius);
-  border:1px solid var(--line-2);background:var(--bg);color:var(--ink);margin-top:6px}
+.f-schloss .lk{color:var(--signal)}
+.f-schloss .zeile{display:flex;gap:8px;width:min(300px,100%)}
+.f-schloss input[type=password]{flex:1;min-width:0;font:inherit;font-size:1rem;padding:10px 13px;border-radius:var(--radius);
+  border:1px solid var(--line-2);background:var(--bg);color:var(--ink);text-align:center;letter-spacing:.06em}
 .f-schloss input[type=password]:focus{outline:none;border-color:var(--signal)}
-.f-schloss .mk{font-size:.8rem;color:var(--muted);display:flex;gap:8px;align-items:center}
-.f-schloss .fehl{min-height:1.2em;color:var(--bad);font-size:.8rem}
-.f-schloss .act{display:flex;gap:8px}
+.f-schloss .btn{flex:0 0 auto;min-width:44px;font-size:1rem}
+.f-schloss .fehl{min-height:1.2em;margin:0;color:var(--bad);font-size:.8rem}
+.f-schloss.wackel .zeile{animation:wackel .35s}
+@keyframes wackel{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
 /* Interaktive Grafiken */
 .sb.ia :is(.st,.ast,.ph,.fd,.lg,.zr,.lz,.zl){cursor:pointer;transition:opacity .35s ease,background .35s ease}
 .sb.ia-fokus :is(.st,.ast,.ph,.fd,.lg,.zr,.lz,.zl):not(.ia-hi){opacity:.32}
@@ -2203,16 +2202,13 @@ figure .sc.hat-leser::after{content:"Mit Maus oder Finger über die Grafik fahre
   </div>
   <nav class="f-toc" id="f-toc" aria-label="Inhaltsverzeichnis der Folien"></nav>
   <form class="f-schloss" id="f-schloss" hidden autocomplete="on">
-    <p class="k">Geschützte Folien</p>
-    <h3>Vorlesungsfolien entsperren</h3>
-    <p>Die Folien sind urheberrechtlich geschützt und nur für Teilnehmende des Kurses freigegeben.
-      Mit dem Kurs-Passwort öffnen sie sich direkt auf der belegten Folie.</p>
+    <svg class="lk" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>
     <input type="text" name="username" value="trainwiss-folien" autocomplete="username" hidden>
-    <input type="password" id="f-pw" autocomplete="current-password" placeholder="Passwort" aria-label="Passwort" required>
-    <label class="mk"><input type="checkbox" id="f-pw-merk" checked> Auf diesem Gerät merken</label>
+    <div class="zeile"><input type="password" id="f-pw" autocomplete="current-password" placeholder="Passwort" aria-label="Passwort für die Folien" required>
+      <button type="submit" class="btn pri" aria-label="Entsperren">→</button></div>
+    <input type="checkbox" id="f-pw-merk" checked hidden>
     <p class="fehl" id="f-pw-fehl" aria-live="polite"></p>
-    <div class="act"><button type="submit" class="btn pri">Entsperren</button>
-      <button type="button" class="btn" id="f-pw-ab">Abbrechen</button></div>
+    <button type="button" id="f-pw-ab" hidden></button>
   </form>
   <div class="f-bezug" id="f-bezug" role="dialog" aria-label="Diese Folie im Lernstoff"></div>
 </aside>
@@ -4592,7 +4588,7 @@ const Folien=(()=>{
   }
   /* --- Schutz: Die Foliensätze liegen AES-verschlüsselt im Repo (folien/*.bin). Der Schlüssel entsteht
      per PBKDF2 aus dem Kurs-Passwort; ohne Passwort gibt es keine lesbaren PDFs. --- */
-  const KDF={salt:"2DgmS2AQ1ls9VZWWg6CJjA==",iter:310000};
+  const KDF={salt:"AhImh8TZQAY9QnKtimdY0A==",iter:310000};
   const b64=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
   const ROH=new Map();
   let schluesselP=null;
@@ -4623,13 +4619,13 @@ const Folien=(()=>{
     f.hidden=false; fehl.textContent=""; inp.value=""; zeigeUI(true);
     setTimeout(()=>inp.focus(),60);
     return new Promise((res,rej)=>{
-      f.onsubmit=async e=>{ e.preventDefault(); fehl.textContent="Prüfe …";
+      f.onsubmit=async e=>{ e.preventDefault(); fehl.textContent="";
         try{ const k=await ausPasswort(inp.value.trim());
           if(!(await pruefe(k))) throw 0;
           if($("#f-pw-merk").checked){ const raw=new Uint8Array(await crypto.subtle.exportKey("raw",k));
             save("tw-fkey",btoa(String.fromCharCode(...raw))); }
           f.hidden=true; res(k);
-        }catch(_){ fehl.textContent="Das Passwort stimmt nicht."; inp.select(); } };
+        }catch(_){ fehl.textContent="Falsches Passwort"; inp.select(); f.classList.remove("wackel"); void f.offsetWidth; f.classList.add("wackel"); } };
       $("#f-pw-ab").onclick=()=>{ f.hidden=true; rej(new Error("abgebrochen")); close(); };
     });
   }
